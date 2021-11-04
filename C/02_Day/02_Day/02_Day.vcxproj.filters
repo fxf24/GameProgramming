@@ -4,10 +4,16 @@
     <Filter Include="01_Control">
       <UniqueIdentifier>{ca64219c-d979-45be-a151-98d87a191dab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_Data_type">
+      <UniqueIdentifier>{8bc940f5-d9f2-4bc7-9842-dbaa13f54c90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Control.c">
+    <ClCompile Include="01_Control.c">
       <Filter>01_Control</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Data_type.c">
+      <Filter>02_Data_type</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
