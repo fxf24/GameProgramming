@@ -28,5 +28,5 @@
 * [제어문자](./C/02_Day/02_Day/01_Control.c)
 * [자료형1](./C/02_Day/02_Day/01_Data_type.c)
 
-* [자료형2](./)
+* [자료형2](./C/02_Day/02_Day/02_Data_type.c)
 
