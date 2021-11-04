@@ -15,5 +15,8 @@
     <ClCompile Include="01_Data_type.c">
       <Filter>02_Data_type</Filter>
     </ClCompile>
+    <ClCompile Include="02_Data_type.c">
+      <Filter>02_Data_type</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
