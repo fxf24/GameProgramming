@@ -18,5 +18,8 @@
     <ClCompile Include="01_Input.c">
       <Filter>02_Input</Filter>
     </ClCompile>
+    <ClCompile Include="02_Input.c">
+      <Filter>02_Input</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
