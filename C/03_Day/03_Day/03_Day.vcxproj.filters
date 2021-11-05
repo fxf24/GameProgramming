@@ -7,6 +7,9 @@
     <Filter Include="02_Input">
       <UniqueIdentifier>{714df539-1b26-4a58-8061-050f3ec8f5cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_Constant">
+      <UniqueIdentifier>{132240a7-f609-4495-b97c-bd13238fe49e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Data_type.c">
@@ -20,6 +23,9 @@
     </ClCompile>
     <ClCompile Include="02_Input.c">
       <Filter>02_Input</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Constant.c">
+      <Filter>03_Constant</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
