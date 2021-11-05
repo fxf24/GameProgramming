@@ -16,5 +16,9 @@ int main()
 	const int num2 = 20;
 	// const 키워드를 사용한 공간의 값은 변경하지 못합니다.
 	// num2 = 30;
+
+	float myf = 3.14;
+	const int myi = 10;
+
 	return 0;
 }
