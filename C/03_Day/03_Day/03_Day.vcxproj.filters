@@ -4,6 +4,9 @@
     <Filter Include="01_Data_type">
       <UniqueIdentifier>{6964f6a3-04c0-4433-b100-2722d9f2be14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_Input">
+      <UniqueIdentifier>{714df539-1b26-4a58-8061-050f3ec8f5cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Data_type.c">
@@ -11,6 +14,9 @@
     </ClCompile>
     <ClCompile Include="02_Data_type.c">
       <Filter>01_Data_type</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Input.c">
+      <Filter>02_Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
