@@ -8,7 +8,11 @@
 int main()
 {
 	int a, b;
-	scanf("%d %d", &a, &b);
+	
+	printf("a 를 입력하세요 : ");
+	scanf("%d", &a);
+	printf("b 를 입력하세요 : ");
+	scanf("%d", &b);
 
 	int result = a + b;
 	printf("%d + %d = %d\n", a, b, result);
