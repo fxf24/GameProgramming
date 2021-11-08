@@ -4,6 +4,15 @@
     <Filter Include="01_Arithmatic_Ops">
       <UniqueIdentifier>{b8df35e6-aacb-417b-8ece-73608c9830e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_Comparing_Ops">
+      <UniqueIdentifier>{c763069b-f394-46a7-9e9f-b94e3d9e875c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_Relation_Ops">
+      <UniqueIdentifier>{6b096931-d659-4049-b550-67fbf81b0fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assignment">
+      <UniqueIdentifier>{5df6cead-df11-48ef-a9ee-58e091f22a7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Arithmatic_Ops.c">
@@ -11,6 +20,15 @@
     </ClCompile>
     <ClCompile Include="02_Arithmatic_Ops.c">
       <Filter>01_Arithmatic_Ops</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Comparing_Ops.c">
+      <Filter>02_Comparing_Ops</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Relation_Ops.c">
+      <Filter>03_Relation_Ops</Filter>
+    </ClCompile>
+    <ClCompile Include="Assignment.c">
+      <Filter>Assignment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
