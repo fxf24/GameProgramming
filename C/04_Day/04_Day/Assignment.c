@@ -19,7 +19,7 @@ int main()
 	scanf("%d", &Mat);
 	printf("영어점수를 입력해주세요 : ");
 	scanf("%d", &Eng);
-	average = (Kor + Mat + Eng) / 3;
+	average = (float)(Kor + Mat + Eng) / 3;
 	printf("평균 : %.1f\n", average);
 	printf("%d", average >= Waverage);
 
