@@ -48,6 +48,8 @@
 * [산술연산자](./C/04_Day/04_Day/01_Arithmatic_Ops.c)
   * +, -, *, /, %
   * [문제](./C/04_Day/04_Day/02_Arithmatic_Ops.c)
-* [비교연산자](./)
+* [비교연산자](./C/04_Day/04_Day/01_Comparing_Ops.c)
   * ==, !=, >, <, >=, <=
-* [관계연산자](./)
+* [관계연산자](./C/04_Day/04_Day/01_Relation_Ops.c)
+  * &&, ||, !
+* [과제](./C/04_Day/04_Day/Assignment.c)
