@@ -10,6 +10,12 @@
     <Filter Include="01_Operators\01_Casting_Op">
       <UniqueIdentifier>{9c85eabe-3e56-4edc-a8d8-8b1021f33353}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01_Operators\04_Unary_Op">
+      <UniqueIdentifier>{66979e90-04b6-4bcf-91b8-8582f7dff986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_Operators\03_Compound_Ops">
+      <UniqueIdentifier>{73e5320b-f4e8-4c7e-b3de-2589ed6b8800}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Casting_Op.c">
@@ -23,6 +29,12 @@
     </ClCompile>
     <ClCompile Include="02_Ternary_Op.c">
       <Filter>01_Operators\02_Ternary_Op</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Compound_Ops.c">
+      <Filter>01_Operators\03_Compound_Ops</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Unary_Op.c">
+      <Filter>01_Operators\04_Unary_Op</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
