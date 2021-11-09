@@ -1,17 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="01_Operators">
+      <UniqueIdentifier>{d20d3699-ea51-4bcb-b1da-c7e73213363b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="01_Operators\02_Ternary_Op">
+      <UniqueIdentifier>{ea24d976-cae7-4c9d-bba6-db433de66bc4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="01_Operators\01_Casting_Op">
+      <UniqueIdentifier>{9c85eabe-3e56-4edc-a8d8-8b1021f33353}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="01_Casting_Op.c">
+      <Filter>01_Operators\01_Casting_Op</Filter>
+    </ClCompile>
+    <ClCompile Include="02_Casting_Op.c">
+      <Filter>01_Operators\01_Casting_Op</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Ternary_Op.c">
+      <Filter>01_Operators\02_Ternary_Op</Filter>
+    </ClCompile>
+    <ClCompile Include="02_Ternary_Op.c">
+      <Filter>01_Operators\02_Ternary_Op</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
