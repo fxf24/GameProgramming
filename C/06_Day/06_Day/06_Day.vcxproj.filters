@@ -4,6 +4,9 @@
     <Filter Include="01_Bit_Ops">
       <UniqueIdentifier>{2c8a1b0e-8693-474f-88b8-6af9b2917d39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{e7c8bd66-1e9b-4b94-95da-aaab759e6b3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Bit_Ops.c">
