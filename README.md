@@ -84,5 +84,5 @@
     * [문제2](./C/07_Day/07_Day/03_if.c)
   * [switch](./C/07_Day/07_Day/01_switch.c)
     * [문제1](./C/07_Day/07_Day/02_switch.c)
-* [과제](./)
+* [과제](./C/07_Day/07_Day/assignment.c)
 
