@@ -16,5 +16,6 @@ int main() {
 	if (a < b) {
 		printf("a 는 b 보다 작습니다.\n");
 	}
+
 	return 0;
 }
