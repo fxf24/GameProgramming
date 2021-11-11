@@ -12,5 +12,8 @@
     <ClCompile Include="02_if.c">
       <Filter>01_Control</Filter>
     </ClCompile>
+    <ClCompile Include="03_if.c">
+      <Filter>01_Control</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

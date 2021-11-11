@@ -12,8 +12,10 @@ int main() {
 	if (a > b) {
 		printf("a 는 b 보다 큽니다.\n");
 	}
-
-	if (a < b) {
+	else if (a == b) { // 위의 조건식이 거짓이라면 실행합니다.
+		printf("a 는 b 와 같습니다.\n");
+	}
+	else { // 모든 조건식이 거짓이라면 실행합니다.
 		printf("a 는 b 보다 작습니다.\n");
 	}
 
