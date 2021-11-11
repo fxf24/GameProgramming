@@ -27,5 +27,8 @@
     <ClCompile Include="02_switch.c">
       <Filter>01_Control\switch</Filter>
     </ClCompile>
+    <ClCompile Include="assignment.c">
+      <Filter>01_Control</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
