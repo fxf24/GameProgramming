@@ -4,16 +4,28 @@
     <Filter Include="01_Control">
       <UniqueIdentifier>{16c26300-61dd-4a00-a719-c6d983b97283}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01_Control\if">
+      <UniqueIdentifier>{a1fcccc5-bbfd-4a05-a42e-1748c58da07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_Control\switch">
+      <UniqueIdentifier>{0905755d-c9de-49d3-ad91-f6f2769bea9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="01_if.c">
-      <Filter>01_Control</Filter>
-    </ClCompile>
     <ClCompile Include="02_if.c">
-      <Filter>01_Control</Filter>
+      <Filter>01_Control\if</Filter>
+    </ClCompile>
+    <ClCompile Include="01_if.c">
+      <Filter>01_Control\if</Filter>
     </ClCompile>
     <ClCompile Include="03_if.c">
-      <Filter>01_Control</Filter>
+      <Filter>01_Control\if</Filter>
+    </ClCompile>
+    <ClCompile Include="01_switch.c">
+      <Filter>01_Control\switch</Filter>
+    </ClCompile>
+    <ClCompile Include="02_switch.c">
+      <Filter>01_Control\switch</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
