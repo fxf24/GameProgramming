@@ -82,6 +82,6 @@
   * [if ](./C/07_Day/07_Day/01_if.c)
     * [문제1](./C/07_Day/07_Day/02_if.c)
     * [문제2](./C/07_Day/07_Day/03_if.c)
-  * [switch](./)
-    * [문제1](./)
+  * [switch](./C/07_Day/07_Day/01_switch.c)
+    * [문제1](./C/07_Day/07_Day/02_switch.c)
 
