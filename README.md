@@ -94,5 +94,5 @@
     * [구구단](./C/08_Day/08_Day/03_while.c), 1~100합, 10!
   * [for](./C/08_Day/08_Day/01_for.c)
     * [별찍기](./C/08_Day/08_Day/02_for.c)
-  * [과제1](./)
-  * [과제2](./)
+  * [과제1](./C/08_Day/08_Day/assignment1.c)
+  * [과제2](./C/08_Day/08_Day/assignment2.c)
