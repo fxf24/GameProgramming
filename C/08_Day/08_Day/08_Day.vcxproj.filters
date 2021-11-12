@@ -4,6 +4,9 @@
     <Filter Include="01_while">
       <UniqueIdentifier>{5c3ec1e2-b571-43a5-972b-c452f550c88a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_for">
+      <UniqueIdentifier>{ee0722ca-5cc2-4335-a33e-1a991b6b1549}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_while.c">
@@ -14,6 +17,15 @@
     </ClCompile>
     <ClCompile Include="03_while.c">
       <Filter>01_while</Filter>
+    </ClCompile>
+    <ClCompile Include="04_while.c">
+      <Filter>01_while</Filter>
+    </ClCompile>
+    <ClCompile Include="01_for.c">
+      <Filter>02_for</Filter>
+    </ClCompile>
+    <ClCompile Include="02_for.c">
+      <Filter>02_for</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
