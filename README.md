@@ -91,4 +91,5 @@
 * 반복문
   * [while](./C/08_Day/08_Day/01_while.c)
     * [예시](./C/08_Day/08_Day/02_while.c)
-    * [구구단](./C/08_Day/08_Day/03_while.c), 1~100합
+    * [구구단](./C/08_Day/08_Day/03_while.c), 1~100합, 10!
+

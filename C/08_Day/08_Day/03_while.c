@@ -21,5 +21,13 @@ int main()
 	}
 	printf("%d\n", sum);
 
+	sum = 1;
+	i = 2;
+	while (i <= 10) {
+		sum *= i;
+		i++;
+	}
+	printf("%d\n", sum);
+
 	return 0;
 }
