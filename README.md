@@ -99,10 +99,10 @@
 
 ### 09_Day
 
-* 과제 풀이 [1](./), [2](./)
-* [콘솔 명령어](./)
+* 과제 풀이 [1](./C/09_Day/09_Day/01_while.c), [2](./C/09_Day/09_Day/02_for.c)
+* [콘솔 명령어](./C/09_Day/09_Day/01_Console_Command.c)
 * 점프문
-  * [break](./)
-  * [continue](./)
+  * [break](./C/09_Day/09_Day/01_break.c)
+  * [continue](./C/09_Day/09_Day/02_continue.c)
 * 응용 문제
-  * [숫자 입력](./)
+  * [숫자 입력](./C/09_Day/09_Day/03_Jump.c)
