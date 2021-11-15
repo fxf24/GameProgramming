@@ -10,6 +10,12 @@
     <Filter Include="03_Jump">
       <UniqueIdentifier>{0d6b770a-930d-4370-82fe-cdc78765d655}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04_Random">
+      <UniqueIdentifier>{f4ed8ba8-7e31-4d45-8f9b-afa9e2f36aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assignment">
+      <UniqueIdentifier>{e7c57734-a5c6-4bbe-a962-148662302c02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_while.c">
@@ -29,6 +35,15 @@
     </ClCompile>
     <ClCompile Include="03_Jump.c">
       <Filter>03_Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="01_random.c">
+      <Filter>04_Random</Filter>
+    </ClCompile>
+    <ClCompile Include="02_random.c">
+      <Filter>04_Random</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdownGame.c">
+      <Filter>assignment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
