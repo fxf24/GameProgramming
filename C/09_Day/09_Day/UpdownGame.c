@@ -15,7 +15,7 @@ int main()
 	int chance = 5;
 
 	while (1) {
-		printf("남은 기회 = %d\n", chance);
+		printf("남은 기회 = %d\n\n", chance);
 		int input;
 		printf("정답을 입력하세요 : ");
 		scanf("%d", &input);
@@ -29,15 +29,14 @@ int main()
 				chance--;
 			}
 			else {
-				system("cls");
 				printf("정답입니다!\n");
 				break;
 			}	
 		}
 		if (chance == 0) {
 			system("cls");
-			printf("기회를 모두 소진하셨습니다!\n");
-			printf("정답은 %d 였습니다!\n", answer);
+			printf("남은 기회를 모두 소진하여 게임에 패배하였습니다!\n");
+			printf("정답은 %d 이였습니다!\n", answer);
 			break;
 		}
 		Sleep(500);
