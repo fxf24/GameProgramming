@@ -111,3 +111,7 @@
   * [난수 구하는 법](./C/09_Day/09_Day/01_random.c)
   * [문제](./C/09_Day/09_Day/02_random.c)
 * [업다운게임](./C/09_Day/09_Day/UpdownGame.c)
+
+### 10_Day
+
+* 
