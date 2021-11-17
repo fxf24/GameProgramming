@@ -32,6 +32,7 @@ int main()
 	class_1.number = 3;
 	for (int i = 0; i < 5; i++) {
 		class_1.students[i].studentId = i+1;
+		printf("%d 번 학생 이름 : ", i + 1);
 		scanf("%s", class_1.students[i].name);
 	}
 
