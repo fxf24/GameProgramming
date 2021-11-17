@@ -126,6 +126,6 @@
 ### 11_Day
 
 * 구조체 
-  * [typedef](./)
+  * [typedef](./C/11_Day/11_Day/01_struct.c)
 
-* [문자열](./)
+* [문자열](./C/11_Day/11_Day/01_string.c)
