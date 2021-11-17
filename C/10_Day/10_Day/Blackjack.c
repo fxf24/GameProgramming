@@ -114,7 +114,7 @@ int main()
 				printf("%d  ", player[i].num);
 			}
 
-			if (dsum > 21) {
+			if (dsum > 21 || psum >= dsum) {
 				printf("당신은 승리 하였습니다.\n");
 				break;
 			}
