@@ -130,4 +130,4 @@
 
 * [문자열](./C/11_Day/11_Day/01_string.c)
 
-* [과제](./)
+* [과제](./C/11_Day/11_Day/assignment.c)
