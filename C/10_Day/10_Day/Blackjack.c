@@ -1,65 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <locale.h>
 #pragma warning (disable : 4996)
 
 struct Card
 {
-	int used;  // 0 : 사용되지 않음, 1 : 사용됨
-	int shape; // 0 : 스페이드, 1 : 클로버, 2 : 다이아, 3 : 하트
+	wchar_t shape;
 	int num;
 };
-int count_deck(struct Card deck[]) {
-	int count = 0;
-	for (int i = 0; i < 52; i++) {
-		if (!deck[i].used)
-		{
-			count += 1;
-		}
-	}
-	return count;
-}
-void card_check(struct Card deck) {
-	switch (deck.shape) {
-	case 0:
-		printf("스페이드 %d\t", deck.num);
-		break;
-	case 1:
-		printf("클로버 %d\t", deck.num);
-		break;
-	case 2:
-		printf("다이아 %d\t", deck.num);
-		break;
-	case 3:
-		printf("하트 %d\t", deck.num);
-		break;
-	}
-}
 int main()
 {
+	setlocale(LC_ALL, "KOREAN");
+
+	wchar_t shapelist[4] = { L'♡', L'♧', L'♤', L'◇' };
 	struct Card deck[52];
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 13; j++) {
-			deck[i * 13 + j].used = 0;
-			deck[i * 13 + j].shape = i;
+			deck[i * 13 + j].shape = shapelist[i];
 			deck[i * 13 + j].num = j+1;
-		}
-	}
-
-	for (int i = 0; i < 52; i++) {
-		switch (deck[i].shape) {
-		case 0:
-			printf("스페이드 %d\n", deck[i].num);
-			break;
-		case 1:
-			printf("클로버 %d\n", deck[i].num);
-			break;
-		case 2:
-			printf("다이아 %d\n", deck[i].num);
-			break;
-		case 3:
-			printf("하트 %d\n", deck[i].num);
-			break;
 		}
 	}
 
@@ -73,18 +32,8 @@ int main()
 	int turn = 0;
 	while (1) {
 		struct Card pick;
-		while (1) {
-			int pick_one = rand() % 52;
-			pick = deck[pick_one];
-			card_check(pick);
-			if (pick.used == 1) {
-				continue;
-			}
-			else {
-				deck[pick_one].used = 1;
-				break;
-			}
-		}
+		int pick_one = rand() % 52;
+		pick = deck[pick_one];
 
 		if (turn) {
 			turn = 0;
@@ -96,19 +45,88 @@ int main()
 			player[player_hand] = pick;
 			player_hand++;
 		}
+		if (dealer_hand == 2 && player_hand == 2) {
+			break;
+		}
 	}
 
-	printf("딜러의 패\n");
+	while (1){
+		system("cls");
+		printf("Dealer\n");
+		for (int i = 0; i < dealer_hand; i++) {
+			printf("■■  ");
+		}
+		printf("\n\n");
+		printf("Player\n");
+		for (int i = 0; i < player_hand; i++) {
+			wprintf(L"%c", player[i].shape);
+			printf("%d  ", player[i].num);
+		}
+		
+		int psum = 0;
+		int dsum = 0;
+		for (int i = 0; i < player_hand; i++) {
+			psum += player[i].num;
+		}
 
-	for (int i = 0; i < 2; i++) {
-		card_check(dealer[i]);
+		for (int i = 0; i < dealer_hand; i++) {
+			dsum += dealer[i].num;
+		}
+
+		if (psum > 21) {
+			printf("당신은 패배 하였습니다.\n");
+			break;
+		}
+
+		int choice;
+		printf("\n\n");
+		printf("1. 뽑기 2. 승부 : ");
+		scanf("%d", &choice);
+
+		if (choice == 1) {
+			struct Card pick;
+			int pick_one = rand() % 52;
+			pick = deck[pick_one];
+			
+			player[player_hand] = pick;
+			player_hand++;
+		}
+		else if (choice == 2) {
+			while (dsum < psum) {
+				struct Card pick;
+				int pick_one = rand() % 52;
+				pick = deck[pick_one];
+				dealer[dealer_hand] = pick;
+				dealer_hand++;
+				dsum += pick.num;
+			}
+			
+			system("cls");
+			printf("Dealer\n");
+			for (int i = 0; i < dealer_hand; i++) {
+				wprintf(L"%c", dealer[i].shape);
+				printf("%d  ", dealer[i].num);
+			}
+			printf("\n\n");
+			printf("Player\n");
+			for (int i = 0; i < player_hand; i++) {
+				wprintf(L"%c", player[i].shape);
+				printf("%d  ", player[i].num);
+			}
+
+			if (dsum > 21) {
+				printf("당신은 승리 하였습니다.\n");
+				break;
+			}
+			else if (dsum > psum) {
+				printf("당신은 패배 하였습니다.\n");
+				break;
+			}
+		}
 	}
+	
 
-	printf("플레이어의 패\n");
 
-	for (int i = 0; i < 2; i++) {
-		card_check(player[i]);
-	}
 
 	return 0;
 }
