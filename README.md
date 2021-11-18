@@ -136,6 +136,7 @@
   * [scanf 와 buffer](./C/12_Day/12_Day/01_string.c)
   * [getchar() 와 %[ ^\n]s](./C/12_Day/12_Day/02_string.c)
   * [공백이 포함된 문자열 입력받기](./C/12_Day/12_Day/03_string.c)
-  * [아스키코드](./)
-  * [string.h](./)
-  * [응용 문제](./)
+  * [아스키코드](./C/12_Day/12_Day/04_string.c)
+  * [string.h](./C/12_Day/12_Day/05_string.c)
+  * [응용 문제](./C/12_Day/12_Day/06_string.c)
+* 과제
