@@ -139,4 +139,4 @@
   * [아스키코드](./C/12_Day/12_Day/04_string.c)
   * [string.h](./C/12_Day/12_Day/05_string.c)
   * [응용 문제](./C/12_Day/12_Day/06_string.c)
-* 과제
+* [과제](./C/12_Day/12_Day/assignment.c)
