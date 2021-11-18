@@ -15,5 +15,14 @@
     <ClCompile Include="03_string.c">
       <Filter>01_string</Filter>
     </ClCompile>
+    <ClCompile Include="04_string.c">
+      <Filter>01_string</Filter>
+    </ClCompile>
+    <ClCompile Include="05_string.c">
+      <Filter>01_string</Filter>
+    </ClCompile>
+    <ClCompile Include="06_string.c">
+      <Filter>01_string</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
