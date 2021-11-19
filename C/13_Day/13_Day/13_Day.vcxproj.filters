@@ -4,10 +4,16 @@
     <Filter Include="01_string">
       <UniqueIdentifier>{7c1b2c4f-840f-4955-91f2-6a6c11de6b8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_function">
+      <UniqueIdentifier>{788a6eca-ea32-44d1-aaac-1ea74b34d120}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_string.c">
       <Filter>01_string</Filter>
+    </ClCompile>
+    <ClCompile Include="01_function.c">
+      <Filter>02_function</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
