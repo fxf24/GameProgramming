@@ -15,5 +15,8 @@
     <ClCompile Include="01_function.c">
       <Filter>02_function</Filter>
     </ClCompile>
+    <ClCompile Include="02_function.c">
+      <Filter>02_function</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
