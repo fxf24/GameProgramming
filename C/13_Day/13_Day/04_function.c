@@ -17,8 +17,18 @@ void Rem(int n1, int n2) {
 	printf("나머지 : %d \n", n1 % n2);
 }
 
+// 매개변수로 배열을 받습니다.
+void PrintArray(int arr[]) {
+	for (int i = 0; i < 5; i++) {
+		printf("Array[%d] = %d \n", i, arr[i]);
+	}
+}
 int main()
 {
+	int Array[5] = { 1, 2, 3, 4, 5 };
+	PrintArray(Array);
+
+
 	int num1 = 0;
 	int num2 = 0;
 

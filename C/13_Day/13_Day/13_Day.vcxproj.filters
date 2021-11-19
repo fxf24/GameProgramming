@@ -7,6 +7,9 @@
     <Filter Include="02_function">
       <UniqueIdentifier>{788a6eca-ea32-44d1-aaac-1ea74b34d120}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assignment">
+      <UniqueIdentifier>{81c095c8-3156-4ec9-abe6-7561ef2cdeed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_string.c">
@@ -23,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="04_function.c">
       <Filter>02_function</Filter>
+    </ClCompile>
+    <ClCompile Include="assignment.c">
+      <Filter>assignment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
