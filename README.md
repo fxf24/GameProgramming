@@ -146,11 +146,9 @@
 ### 13_Day
 
 * [과제 풀이](./C/13_Day/13_Day/01_string.c)
-
 * [함수](./C/13_Day/13_Day/01_function.c)
   * [반환값이 존재하는 함수](./C/13_Day/13_Day/02_function.c)
   * [매개 변수가 존재하는 함수](./C/13_Day/13_Day/03_function.c)
   * [응용 문제](./C/13_Day/13_Day/04_function.c)
-* [과제](./)
+* [과제](./C/13_Day/13_Day/assignment.c)
   * 전날 과제를 함수화
-  * 업다운 게임도 함수화

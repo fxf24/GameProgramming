@@ -8,8 +8,9 @@ const char upper_end = 'Z';
 const char lower_start = 'a';
 const char lower_end = 'z';
 
-int printUpperCount(char word[]) {
+void printUpperCount(char word[]) {
 	int count = 0;
+
 	for (int i = 0; i < strlen(word); i++) {
 		// 대문자 인지 검사합니다.
 		if (upper_start <= word[i] && word[i] <= upper_end) {
@@ -17,11 +18,10 @@ int printUpperCount(char word[]) {
 		}
 	}
 	printf("대문자 개수 : %d \n", count);
-	
-	return count;
 }
-int printLowerCount(char word[]) {
+void printLowerCount(char word[]) {
 	int count = 0;
+
 	for (int i = 0; i < strlen(word); i++) {
 		// 소문자 인지 검사합니다.
 		if (lower_start <= word[i] && word[i] <= lower_end) {
@@ -29,25 +29,30 @@ int printLowerCount(char word[]) {
 		}
 	}
 	printf("소문자 개수 : %d \n", count);
-	return count;
 }
 void printUpperCase(char word[]) {
-	for (int i = 0; i < strlen(word); i++) {
-		if (lower_start <= word[i] && word[i] <= lower_end) {
-			word[i] -= 32;
+	char cpy[256];
+	strcpy(cpy, word);
+
+	for (int i = 0; i < strlen(cpy); i++) {
+		if (lower_start <= cpy[i] && cpy[i] <= lower_end) {
+			cpy[i] -= 32;
 		}
 	}
 	printf("대문자로 변환합니다.\n");
-	printf("%s \n", word);
+	printf("%s \n", cpy);
 }
 void printLowerCase(char word[]) {
-	for (int i = 0; i < strlen(word); i++) {
-		if (upper_start <= word[i] && word[i] <= upper_end) {
-			word[i] += 32;
+	char cpy[256];
+	strcpy(cpy, word);
+
+	for (int i = 0; i < strlen(cpy); i++) {
+		if (upper_start <= cpy[i] && cpy[i] <= upper_end) {
+			cpy[i] += 32;
 		}
 	}
 	printf("소문자로 변환합니다.\n");
-	printf("%s \n", word);
+	printf("%s \n", cpy);
 }
 
 int main()
@@ -60,11 +65,10 @@ int main()
 	// 개행 문자 제거
 	getchar();
 
-	printUpperCount(inputString);
-	printLowerCount(inputString);
 	printUpperCase(inputString);
 	printLowerCase(inputString);
-	
+	printUpperCount(inputString);
+	printLowerCount(inputString);
 
 	return 0;
 }
