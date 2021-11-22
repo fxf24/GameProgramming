@@ -156,9 +156,9 @@
 ### 14 _Day
 
 * 포인터
-  * [기본](./)
-  * [응용 문제](./)
-  * [연습](./)
-  * [상수 포인터](./)
+  * [기본](./C/14_Day/14_Day/01_pointer.c)
+  * [응용 문제](./C/14_Day/14_Day/02_pointer.c)
+  * [연습](./C/14_Day/14_Day/03_pointer.c)
+  * [상수 포인터](./C/14_Day/14_Day/04_pointer.c)
     * const의 위치에 따라 의미가 달라진다
-  * [Call by Value, Call by Reference](./)
+  * [Call by Value, Call by Reference](./C/14_Day/14_Day/05_pointer.c)
