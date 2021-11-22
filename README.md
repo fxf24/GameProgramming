@@ -152,3 +152,7 @@
   * [응용 문제](./C/13_Day/13_Day/04_function.c)
 * [과제](./C/13_Day/13_Day/assignment.c)
   * 전날 과제를 함수화
+
+### 14 _Day
+
+* 
