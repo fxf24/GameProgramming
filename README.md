@@ -165,8 +165,9 @@
 
 ### 15_Day
 
-* [포인터와 배열](./)
-* [swap](./)
+* [포인터와 배열](./C/15_Day/15_Day/01_pointer_array.c)
+* [swap](./C/15_Day/15_Day/01_pointer_parameter.c)
+* [함수 포인터](./C/15_Day/15_Day/01_pointer_function.c)
 
-* [과제](./)
+* [과제](./C/15_Day/15_Day/assignment.c)
   * 버블정렬
