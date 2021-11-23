@@ -1,17 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="01_pointer_array">
+      <UniqueIdentifier>{89c9ceb2-afe2-445a-871a-c7aeebb7c9ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="02_pointer_parameter">
+      <UniqueIdentifier>{0c371076-f3d5-42f3-bcdd-8051f5a03a1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="03_pointer_function">
+      <UniqueIdentifier>{9e26bf27-aba9-4bea-b256-fe177c39e598}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="01_pointer_array.c">
+      <Filter>01_pointer_array</Filter>
+    </ClCompile>
+    <ClCompile Include="01_pointer_parameter.c">
+      <Filter>02_pointer_parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="01_pointer_function.c">
+      <Filter>03_pointer_function</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
