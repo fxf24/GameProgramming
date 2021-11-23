@@ -10,6 +10,9 @@
     <Filter Include="03_pointer_function">
       <UniqueIdentifier>{9e26bf27-aba9-4bea-b256-fe177c39e598}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assignment">
+      <UniqueIdentifier>{31c56a95-6613-469a-a933-962a0b21a53e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_pointer_array.c">
@@ -20,6 +23,9 @@
     </ClCompile>
     <ClCompile Include="01_pointer_function.c">
       <Filter>03_pointer_function</Filter>
+    </ClCompile>
+    <ClCompile Include="assignment.c">
+      <Filter>assignment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
