@@ -15,5 +15,8 @@
     <ClCompile Include="01_Dynamic_Alloc.c">
       <Filter>02_Dynamic_Alloc</Filter>
     </ClCompile>
+    <ClCompile Include="02_Dynamic_Alloc.c">
+      <Filter>02_Dynamic_Alloc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
