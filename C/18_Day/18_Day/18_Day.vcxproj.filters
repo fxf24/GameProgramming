@@ -1,17 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="01_2D_Array">
+      <UniqueIdentifier>{eab666ef-5d40-4816-93f2-b23913e1c1de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="02_Multi_Pointer">
+      <UniqueIdentifier>{69db33fd-17f3-429f-a3d1-cf536482cab2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="03_sizeof_op">
+      <UniqueIdentifier>{ea1966fe-b21c-404a-86c3-02024979ca89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04_Array_Pointer">
+      <UniqueIdentifier>{68493898-fc49-45c1-a99c-26115a26d401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assignment">
+      <UniqueIdentifier>{f3ca4dbe-86c2-4557-8bd5-ded6d1a2970c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="01_2D_Array.c">
+      <Filter>01_2D_Array</Filter>
+    </ClCompile>
+    <ClCompile Include="02_2D_Array.c">
+      <Filter>01_2D_Array</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Multi_Pointer.c">
+      <Filter>02_Multi_Pointer</Filter>
+    </ClCompile>
+    <ClCompile Include="01_sizeof.c">
+      <Filter>03_sizeof_op</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Array_Pointer.c">
+      <Filter>04_Array_Pointer</Filter>
+    </ClCompile>
+    <ClCompile Include="assignment.c">
+      <Filter>assignment</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
