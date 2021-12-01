@@ -1,4 +1,4 @@
-# Game Programming
+﻿# Game Programming
 
 ## Orientation
 
@@ -188,41 +188,42 @@
 
 ### 18_Day
 
-* [2차원 배열](./)
-  * [응용 문제](./)
+* [2차원 배열](./C/18_Day/18_Day/01_2D_Array.c)
+  * [응용 문제](./C/18_Day/18_Day/02_2D_Array.c)
 * 다중 포인터
-  * [이중 포인터](./)
-* [sizeof](./)
-* [배열 포인터](./)
+  * [이중 포인터](./C/18_Day/18_Day/01_Multi_Pointer.c)
+* [sizeof](./C/18_Day/18_Day/01_sizeof.c)
+* [배열 포인터](./C/18_Day/18_Day/01_Array_Pointer.c)
 * [과제](./C/18_Day/18_Day/assignment.c)
 
 ## C++
 
 ### IOstream
 
-* [입출력](./)
+* [입출력](./C%2B%2B/CppStartup/CppStartup/01_iostream.cpp)
   * cin, cout
 
 ### Variable
 
-* [auto](./)
+* [auto](./C%2B%2B/CppStartup/CppStartup/01_auto.cpp)
 
-* [bool](./)
+* [bool](./C%2B%2B/CppStartup/CppStartup/02_bool.cpp)
 
 ### Function
 
-* [FunctionOverload](./)
-* [Inline](./)
-* [OptionalParameter](./)
+* [FunctionOverload](./C%2B%2B/CppStartup/CppStartup/01_FunctionOverload.cpp)
+* [Inline](./C%2B%2B/CppStartup/CppStartup/02_Inline.cpp)
+* [OptionalParameter](./C%2B%2B/CppStartup/CppStartup/03_OptionalParameter.cpp)
 
 ### Namespace
 
-* [namespace](./)
+* [namespace](./C%2B%2B/CppStartup/CppStartup/01_namespace.cpp)
 
 ### String
 
-* [string](./)
+* [string](./C%2B%2B/CppStartup/CppStartup/01_string.cpp)
 
 ### For
 
-* [for](./)
+* [for](./C%2B%2B/CppStartup/CppStartup/01_for.cpp)
+
