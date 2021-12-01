@@ -19,6 +19,12 @@
     <Filter Include="06_for">
       <UniqueIdentifier>{eb002f76-a82c-4c96-b062-f831f5d119f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07_Dynamic_Allocation">
+      <UniqueIdentifier>{8e663bb3-742c-429f-93a6-ec26fe8acb10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08_struct">
+      <UniqueIdentifier>{863e6ff6-ed0e-4fe0-8754-96b968695ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_iostream.cpp">
@@ -47,6 +53,18 @@
     </ClCompile>
     <ClCompile Include="01_for.cpp">
       <Filter>06_for</Filter>
+    </ClCompile>
+    <ClCompile Include="01_new.cpp">
+      <Filter>07_Dynamic_Allocation</Filter>
+    </ClCompile>
+    <ClCompile Include="02_new.cpp">
+      <Filter>07_Dynamic_Allocation</Filter>
+    </ClCompile>
+    <ClCompile Include="03_new.cpp">
+      <Filter>07_Dynamic_Allocation</Filter>
+    </ClCompile>
+    <ClCompile Include="01_struct.cpp">
+      <Filter>08_struct</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
