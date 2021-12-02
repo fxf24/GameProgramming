@@ -9,8 +9,29 @@ using namespace std;
 // 선언
 // class 키워드를 이용하여 선언합니다.
 class MyClass {
+
+public :
 	string Name;
+
+private :
 	int	   MemVar;
+
+public :
+	// 설정자
+	// private 인 멤버 하나의 값을 설정하는 함수를 설정자라 합니다.
+	// Set 접두사를 사용합니다.
+	void SetMemVar(int integer) {
+		MemVar = integer;
+	}
+
+	// 접근자
+	// private 인 멤버 하나의 값을 접근하는 함수를 설정자라 합니다.
+	// Get 접두사를 사용합니다.
+	__forceinline int GetMemVar() const{
+		return MemVar;
+	}
+	// 멤버 함수 뒤의 const
+	// 해당 함수 정의에서 멤버의 값을 변경하지 못하도록 합니다.
 };
 
 struct MyStruct {
@@ -28,8 +49,14 @@ int main() {
 	// MyClass 형식의 객체를 선언합니다.
 	MyClass myClass;
 	// myClass 의 멤버에 접근합니다.
+	// 접근제한자가 public 이므로 외부에서 접근이 가능합니다.
 	myClass.Name   = "myClass";
-	myClass.MemVar = 10;
+	// 접근제한자가 private 이므로 외부에서 접근이 불가능합니다.
+	//myClass.MemVar = 10;
+	myClass.SetMemVar(10);
+
+	cout << "Class Name   : " << myClass.Name << endl;
+	cout << "Class Memvar : " << myClass.GetMemVar() << endl;
 
 	return 0;
 }
