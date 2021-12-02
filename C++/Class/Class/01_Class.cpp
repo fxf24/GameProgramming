@@ -56,7 +56,7 @@ int main() {
 	myClass.SetMemVar(10);
 
 	cout << "Class Name   : " << myClass.Name << endl;
-	cout << "Class Memvar : " << myClass.GetMemVar() << endl;
+	cout << "Class MemVar : " << myClass.GetMemVar() << endl;
 
 	return 0;
 }
