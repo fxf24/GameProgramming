@@ -227,11 +227,11 @@
 
 * [for](./C%2B%2B/CppStartup/CppStartup/01_for.cpp)
 ### Dynamic Allocation
-* [new](./)
-	* [배열 할당](./)
-	* [응용 문제](./)
+* [new](./C%2B%2B/CppStartup/CppStartup/01_new.cpp)
+	* [배열 할당](./C%2B%2B/CppStartup/CppStartup/02_new.cpp)
+	* [응용 문제](./C%2B%2B/CppStartup/CppStartup/03_new.cpp)
 		* 2차원 배열 할당
-* [구조체](./)
+* [구조체](./C%2B%2B/CppStartup/CppStartup/01_struct.cpp)
 * 과제
 	* NULL 과 nullptr의 차이
 

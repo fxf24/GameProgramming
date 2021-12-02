@@ -14,10 +14,10 @@ struct Cat {
 int main() {
 	// Cat 구조체 형식으로 객체를 선언합니다.
 	Cat cat;
-	
+
 	// 인스턴스화 합니다.
 	cat.name = "myCat";
-	cat.age  = 10;
+	cat.age = 10;
 	cat.PrintCat();
 
 	Cat* pCat = new Cat;
@@ -35,12 +35,9 @@ int main() {
 	catarr[0] = new Cat;
 	catarr[1] = new Cat;
 	catarr[2] = new Cat;
-
 	catarr[0]->age = 10;
-
 	Cat* arrcat = new Cat[3];
 	arrcat[0].age = 20;*/
 
 	return 0;
 }
-
