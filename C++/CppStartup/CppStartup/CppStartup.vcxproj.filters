@@ -25,6 +25,9 @@
     <Filter Include="08_struct">
       <UniqueIdentifier>{863e6ff6-ed0e-4fe0-8754-96b968695ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09_Reference">
+      <UniqueIdentifier>{c54c9891-258b-4357-9c21-6a127da2cbd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_iostream.cpp">
@@ -65,6 +68,12 @@
     </ClCompile>
     <ClCompile Include="01_struct.cpp">
       <Filter>08_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Reference.cpp">
+      <Filter>09_Reference</Filter>
+    </ClCompile>
+    <ClCompile Include="02_RefParameter.cpp">
+      <Filter>09_Reference</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
