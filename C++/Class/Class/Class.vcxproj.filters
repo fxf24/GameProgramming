@@ -4,10 +4,16 @@
     <Filter Include="01_Class">
       <UniqueIdentifier>{2271abea-2139-4d0c-ae71-58d34bbc325c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_Constructor">
+      <UniqueIdentifier>{612ab706-f371-42a5-9bab-002f4d21bc2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Class.cpp">
       <Filter>01_Class</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Constructor.cpp">
+      <Filter>02_Constructor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
