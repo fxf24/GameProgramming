@@ -7,12 +7,24 @@
     <Filter Include="02_Constructor">
       <UniqueIdentifier>{612ab706-f371-42a5-9bab-002f4d21bc2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_Finalizer">
+      <UniqueIdentifier>{cf983442-cab7-4e70-80e2-e760dff476ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Class.cpp">
       <Filter>01_Class</Filter>
     </ClCompile>
     <ClCompile Include="01_Constructor.cpp">
+      <Filter>02_Constructor</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Finalizer.cpp">
+      <Filter>03_Finalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="02_CopyConstructor.cpp">
+      <Filter>02_Constructor</Filter>
+    </ClCompile>
+    <ClCompile Include="03_CopyConstructor.cpp">
       <Filter>02_Constructor</Filter>
     </ClCompile>
   </ItemGroup>
