@@ -230,9 +230,13 @@
 * [for](./C%2B%2B/CppStartup/CppStartup/01_for.cpp)
 #### Dynamic Allocation
 * [new](./C%2B%2B/CppStartup/CppStartup/01_new.cpp)
-	* [배열 할당](./C%2B%2B/CppStartup/CppStartup/02_new.cpp)
-	* [응용 문제](./C%2B%2B/CppStartup/CppStartup/03_new.cpp)
-		* 2차원 배열 할당
+	* malloc과의 차이점
+		1. 자료형을 지정해줄 수 있다. (malloc : void*)
+		2.  키워드와 함수의 차이
+		3. 초기값을 지정해줄 수 있다. (생성자 이용) 
+* [배열 할당](./C%2B%2B/CppStartup/CppStartup/02_new.cpp)
+* [응용 문제](./C%2B%2B/CppStartup/CppStartup/03_new.cpp)
+	* 2차원 배열 할당
 * [구조체](./C%2B%2B/CppStartup/CppStartup/01_struct.cpp)
 * 과제
 	* NULL 과 nullptr의 차이
@@ -246,4 +250,7 @@
 	* 접근자, 설정자
 #### Constructor
 * [기초](./)
-	* 
+* [복사 생성자](./) 
+	* [얕은복사, 깊은복사](./)
+#### Finalizer
+* [기초](./)
