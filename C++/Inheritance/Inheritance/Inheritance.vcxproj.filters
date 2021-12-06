@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Inheritance">
+      <UniqueIdentifier>{084b90ed-29e8-4fc5-8d6e-1fdd893c0446}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="03_Inheritance.cpp">
+      <Filter>Inheritance</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
