@@ -3,33 +3,33 @@ using namespace std;
 
 class BaseClass
 {
-private :
+private:
 	int MyPrivate;
 
-// protected 접근 제한자
-// 상속 받은 파생 클래스에서만 접근이 가능하도록 허용해주는 제한자 입니다.
-// 해당 형식의 파생 클래스에서는 접근이 가능하지만 외부로 부터 접근하는 것은 제한합니다.
-protected :
+	// protected 접근 제한자
+	// 상속 받은 파생 클래스에서만 접근이 가능하도록 허용해주는 제한자 입니다.
+	// 해당 형식의 파생 클래스에서는 접근이 가능하지만 외부로 부터 접근하는 것은 제한합니다.
+protected:
 	int MyProtected;
 
-public :
+public:
 	int MyPublic;
 
-public :
+public:
 	BaseClass() { MyPrivate = 10; }
 
-public :
+public:
 	void PrintMember() const
 	{
-		cout << "MyPrivate   : " << MyPrivate   << endl;
+		cout << "MyPrivate   : " << MyPrivate << endl;
 		cout << "MyProtected : " << MyProtected << endl;
-		cout << "MyPublic    : " << MyPublic    << endl;
+		cout << "MyPublic    : " << MyPublic << endl;
 	}
 };
 
 class DerivedClass : public BaseClass
 {
-public :
+public:
 	DerivedClass()
 	{
 		// MyPrivate = 10;
@@ -49,7 +49,7 @@ int main()
 	//dc.MyProtected = 20; - Error -
 
 	// public 이므로 외부로 부터 모든 접근 가능
-	dc.MyPublic    = 40;
+	dc.MyPublic = 40;
 
 	dc.PrintMember();
 

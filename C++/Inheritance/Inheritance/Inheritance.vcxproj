@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="03_Inheritance.cpp" />
+    <ClCompile Include="01_UpCasting.cpp" />
+    <ClCompile Include="06_Inheritance.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
