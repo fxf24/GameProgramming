@@ -9,7 +9,7 @@ using namespace std;
 
 class Finalizer
 {
-public : 
+public:
 	~Finalizer()
 	{
 		cout << "Finalizer Call!" << endl;
@@ -19,7 +19,7 @@ public :
 int main()
 {
 	Finalizer* myClass = new Finalizer();
-	
+
 	// __LINE__ : 코드의 라인을 반환합니다.
 	cout << __LINE__ << endl;
 	delete myClass;

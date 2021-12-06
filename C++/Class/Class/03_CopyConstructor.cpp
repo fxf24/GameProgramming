@@ -59,7 +59,7 @@ int main()
 	cout << "copy1 :: " << copy1.GetPointer() << endl;*/
 	// 기본 복사 생성자는 얕은 복사입니다.
 	system("pause");
-	
+
 	// 깊은 복사
 	DeepCopy copy1 = DeepCopy();
 	copy1.SetPointer(10);

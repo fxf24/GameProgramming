@@ -8,16 +8,16 @@ using namespace std;
 
 class Default
 {
-public :
+public:
 	int Memvar;
 };
 
 class Constructor
 {
-public :
+public:
 	int Memvar;
 
-public :
+public:
 	// 생성자를 정의하고 있기 때문에
 	// C++이 제공하는 기본 생성자를 사용하실 수 없습니다.
 	Constructor()
@@ -31,10 +31,10 @@ public :
 	}
 };
 
-int main() 
+int main()
 {
 	// 생성자 호출
-	Constructor myClass = Constructor(30);	
+	Constructor myClass = Constructor(30);
 
 	cout << "myClass::Memvar : " << myClass.Memvar << endl;
 

@@ -6,11 +6,11 @@ using namespace std;
 
 class Copy
 {
-private :
+private:
 	int MyInt;
 	float MyFloat;
 
-public :
+public:
 	Copy() = default;
 	// == Copy() {};
 	Copy(int myInt, float myFloat)
@@ -18,7 +18,7 @@ public :
 		MyInt = myInt;
 		MyFloat = myFloat;
 	}
-	
+
 	// C++에서는 복사생성자를 정의하지 않는다면 
 	// 아래 형태와 같은 기본 복사 생성자를 제공합니다.
 	// 복사 생성자 형태
@@ -29,7 +29,7 @@ public :
 	//	MyFloat = copy.MyFloat;
 	//}
 
-public :
+public:
 	__forceinline void PrintMember() const
 	{
 		printf("MyInt   : %i   \n", MyInt);
