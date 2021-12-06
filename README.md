@@ -243,14 +243,25 @@
 #### Reference
 * [참조자](./C%2B%2B/CppStartup/CppStartup/01_Reference.cpp)
 	* [CallByValue, CallByAddress, CallByReference](./C%2B%2B/CppStartup/CppStartup/02_RefParameter.cpp)
+
 ### Class
 ---
 #### Class
 * [기초](./C%2B%2B/Class/Class/01_Class.cpp)
 	* 접근자, 설정자
 #### Constructor
-* [기초](./)
-* [복사 생성자](./) 
-	* [얕은복사, 깊은복사](./)
+* [기초](./C%2B%2B/Class/Class/01_Constructor.cpp)
+* [복사 생성자](./C%2B%2B/Class/Class/02_CopyConstructor.cpp) 
+	* [얕은복사, 깊은복사](./C%2B%2B/Class/Class/03_CopyConstructor.cpp)
 #### Finalizer
+* [기초](./C%2B%2B/Class/Class/01_Finalizer.cpp)
+
+### Inheritance
+---
+#### Inheritance
 * [기초](./)
+	* [재생산성, 확장성](./)
+	* [protected](./)
+	* [상속 시 접근제한자](./)
+	* [상속 시 생성자 초기화](./)
+	* [상속 봉인](./)
