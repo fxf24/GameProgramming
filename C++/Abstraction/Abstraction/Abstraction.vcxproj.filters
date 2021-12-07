@@ -7,6 +7,9 @@
     <Filter Include="02_AbstractClass">
       <UniqueIdentifier>{844e6f91-ff21-4b9a-bddc-5ade76ec1835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_Interface">
+      <UniqueIdentifier>{43db3f28-2781-4769-a87a-2c3517b4c653}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Virtual.cpp">
@@ -14,6 +17,9 @@
     </ClCompile>
     <ClCompile Include="01_AbstractClass.cpp">
       <Filter>02_AbstractClass</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Interface.cpp">
+      <Filter>03_Interface</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
