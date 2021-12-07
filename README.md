@@ -265,4 +265,24 @@
 	* [상속 시 접근제한자](./C%2B%2B/Inheritance/Inheritance/04_Inheritance.cpp)
 	* [상속 시 생성자 초기화](./C%2B%2B/Inheritance/Inheritance/05_Inheritance.cpp)
 	* [상속 봉인](./C%2B%2B/Inheritance/Inheritance/06_Inheritance.cpp)
+#### Override
+* [오버라이딩](./)
+	1. 함수 명이 같아야 한다.
+	2. 매개변수의 값이 같아야 한다.
 #### Upcasting
+* [Upcasting](./)
+	* static_cast<>()
+
+### Abstraction
+---
+#### Virtual
+* [virtual](./) 키워드
+	*  override, final 키워드
+#### AbstractClass
+* [추상클래스](./)
+	* abstract 키워드, ctrl + . 을 이용한 순수 가상함수 생성
+#### Interface
+* Interface
+	* is, has a 관계
+		* is 는 보통의 클래스 간의 상속
+		* has a 는 interface, struct로서 제공 (public 이기 때문)
