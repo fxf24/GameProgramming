@@ -7,10 +7,16 @@
     <Filter Include="02_Override">
       <UniqueIdentifier>{0873ef84-17dc-47a6-8339-e8d168dae033}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_Upcasting">
+      <UniqueIdentifier>{c25c0ab3-e4c7-4adc-8485-6a79a16d824f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_Override.cpp">
       <Filter>02_Override</Filter>
+    </ClCompile>
+    <ClCompile Include="01_Upcasting.cpp">
+      <Filter>03_Upcasting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
