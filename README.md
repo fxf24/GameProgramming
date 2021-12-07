@@ -259,9 +259,10 @@
 ### Inheritance
 ---
 #### Inheritance
-* [기초](./)
-	* [재생산성, 확장성](./)
-	* [protected](./)
-	* [상속 시 접근제한자](./)
-	* [상속 시 생성자 초기화](./)
-	* [상속 봉인](./)
+* [기초](./C%2B%2B/Inheritance/Inheritance/01_Inheritance.cpp)
+	* [재생산성, 확장성](./C%2B%2B/Inheritance/Inheritance/02_Inheritance.cpp)
+	* [protected](./C%2B%2B/Inheritance/Inheritance/03_Inheritance.cpp)
+	* [상속 시 접근제한자](./C%2B%2B/Inheritance/Inheritance/04_Inheritance.cpp)
+	* [상속 시 생성자 초기화](./C%2B%2B/Inheritance/Inheritance/05_Inheritance.cpp)
+	* [상속 봉인](./C%2B%2B/Inheritance/Inheritance/06_Inheritance.cpp)
+#### Upcasting
