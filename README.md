@@ -282,7 +282,19 @@
 * [추상클래스](./)
 	* abstract 키워드, ctrl + . 을 이용한 순수 가상함수 생성
 #### Interface
-* Interface
+* [Interface](./)
 	* is, has a 관계
 		* is 는 보통의 클래스 간의 상속
 		* has a 는 interface, struct로서 제공 (public 이기 때문)
+
+### GenericProgramming
+---
+#### FunctionTemplate
+* [함수템플릿](./)
+
+### Preprocessor
+---
+#### Preprocessor
+* [Preprocessor.h](./)
+	* [MyClass.h](./)
+	* [MyClass.cpp](./)
