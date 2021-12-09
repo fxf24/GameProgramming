@@ -55,14 +55,14 @@ public :
 	{
 		return Vector(X * value.X, Y * value.Y);
 	}
-#pragma endregion
 
-#pragma region Assignment Operator Overloading
 	FORCEINLINE Vector operator/(const Vector& value)
 	{
 		return Vector(X / value.X, Y / value.Y);
 	}
+#pragma endregion
 
+#pragma region Assignment Operator Overloading
 	FORCEINLINE void operator+=(const Vector& value)
 	{
 		X += value.X;
