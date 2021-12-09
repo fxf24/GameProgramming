@@ -7,13 +7,24 @@
     <Filter Include="ClassTemplate">
       <UniqueIdentifier>{9d9516ef-c666-4cdb-b787-5cb5d6af151e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ClassTemplate\01_TemplateClass">
+      <UniqueIdentifier>{6fd1ea66-ad6d-4b26-8a7e-7f3fd5648ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ClassTemplate\02_TemplateClass">
+      <UniqueIdentifier>{ed974728-808b-49f7-bbb0-9ac75a217150}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01_FunctionTemplate.cpp">
       <Filter>FunctionTemplate</Filter>
     </ClCompile>
-    <ClCompile Include="01_ClassTemplate.cpp">
-      <Filter>ClassTemplate</Filter>
+    <ClCompile Include="main2.cpp">
+      <Filter>ClassTemplate\02_TemplateClass</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrayClass.h">
+      <Filter>ClassTemplate\02_TemplateClass</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
