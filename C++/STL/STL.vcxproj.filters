@@ -15,10 +15,10 @@
     <ClCompile Include="01_vector.cpp">
       <Filter>01_vector</Filter>
     </ClCompile>
-    <ClCompile Include="02_list.cpp">
+    <ClCompile Include="01_list.cpp">
       <Filter>02_list</Filter>
     </ClCompile>
-    <ClCompile Include="03_map.cpp">
+    <ClCompile Include="01_map.cpp">
       <Filter>03_map</Filter>
     </ClCompile>
   </ItemGroup>
