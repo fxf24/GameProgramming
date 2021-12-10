@@ -21,5 +21,8 @@
     <ClCompile Include="01_map.cpp">
       <Filter>03_map</Filter>
     </ClCompile>
+    <ClCompile Include="02_map.cpp">
+      <Filter>03_map</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
