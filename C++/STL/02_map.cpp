@@ -3,6 +3,7 @@
 // 2. 상점 프로그램을 만들어주세요.
 #include <iostream>
 #include <map>
+#include <Windows.h>
 using namespace std;
 
 #define NEWLINE cout << endl
@@ -13,7 +14,7 @@ void market() {
 
 	while (true) {
 		system("cls");
-		int choice;
+		int choice = 0;
 		cout << "선택해주세요" << endl;
 		cout << "1_판매할 물건을 추가합니다." << endl;
 		cout << "2_판매할 물건을 모두 추가했다." << endl;
@@ -35,9 +36,20 @@ void market() {
 		{
 			while (true) {
 				system("cls");
+				int min = 1000000;
 				for (auto iter = item.begin(); iter != item.end(); iter++)
 				{
 					cout << iter->first << " : " << iter->second << endl;
+					if (iter->second <= min)
+					{
+						min = iter->second;
+					}
+				}
+
+				if (item.empty() || min > hand) {
+					system("cls");
+					cout << "프로그램이 종료됩니다..." << endl;
+					break;
 				}
 
 				NEWLINE;
@@ -50,6 +62,7 @@ void market() {
 
 				auto iter = item.find(i);
 
+
 				if (iter != item.end())
 				{
 					if (item[i] <= hand) {
@@ -60,6 +73,7 @@ void market() {
 					else {
 						cout << i << "을/를 구매할 수 없습니다!" << endl;
 					}
+					Sleep(500);
 				}
 				else if (i == "종료") {
 					system("cls");
@@ -69,16 +83,17 @@ void market() {
 				else
 				{
 					cout << i << "는 판매하지 않습니다." << endl;
+					Sleep(500);
 				}
 
-				
+
 			}
 		}
 		if (choice == 2) {
 			break;
 		}
 	}
-	
+
 }
 
 int main()
