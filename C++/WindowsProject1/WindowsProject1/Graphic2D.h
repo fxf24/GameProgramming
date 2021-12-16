@@ -1,4 +1,9 @@
 #pragma once
+// Class : 캡슐화, 정보은닉성, 다형성, 상속성, 추상화
+// 
+// class 내에 선언된 static 함수, static 변수는 C++ 에서
+// 전역으로 사용된것 처럼 이용이 된다.
+//
 class Graphic2D
 {
 public :

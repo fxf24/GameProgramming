@@ -3,7 +3,6 @@
 
 #include "framework.h"
 #include "WindowsProject1.h"
-#include "MainWindow.h"
 
 #define MAX_LOADSTRING 100
 
@@ -21,18 +20,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    MainWindow Main;
-    Main.CreateInstance(hInstance, 1200, 800);
-
+    
+    MAIN->CreateInstance(hInstance, 1200, 800);
     MSG msg;
 
-    // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    // C에서는 while()
+    // WinAPI Message Loop
+    // GetMessage  : 윈도우가 idle 상태 
+    // PeekMessage : wait없이 사용
+    // PumpMessage : List, Tree 를 사용할때 화면 갱신
+    //
+
+    while (true)
     {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-        Main.Update();
-        Main.Render();
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            if (msg.message == WM_QUIT)
+                break;
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+
+        }
+        else
+        {
+            MAIN->Update();
+            MAIN->Render();
+        }
     }
 
     return (int) msg.wParam;
