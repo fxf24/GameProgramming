@@ -12,8 +12,8 @@ class MainWindow
 public :
 	static MainWindow* GetInstance()
 	{
-		static MainWindow singleTone;
-		return &singleTone;
+		static MainWindow singleTon;
+		return &singleTon;
 	}
 
 public :

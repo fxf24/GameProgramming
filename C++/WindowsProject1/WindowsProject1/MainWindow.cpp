@@ -3,21 +3,27 @@
 #include "Resource.h"
 #include "Graphic2D.h"
 #include "S01_BasicWinAPI.h"
+#include "SceneManager.h"
 
-S01_BasicWinAPI* m_pScene = nullptr;
+
 MainWindow::MainWindow()
 {
-    m_pScene = new S01_BasicWinAPI();
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete m_pScene;
+    if (m_hBitmap)
+        DeleteObject(m_hBitmap);
+
+    if (m_hDC)
+        ReleaseDC(m_hWnd, m_hDC);
+
 }
 
 void MainWindow::Update()
 {
-    m_pScene->Update();
+    SCENEMANAGER->Update();
 }
 
 void MainWindow::Render()
@@ -30,7 +36,7 @@ void MainWindow::Render()
     
     // 바탕화면 Render
     Graphic2D::DrawRectangle(GetWindowDC(), -2, -2, GetWindowWidth() + 2, GetWindowHeight() + 4, RGB(2, 2, 27));
-    m_pScene->Render();
+    SCENEMANAGER->Render();
 
     // GetWindowDC()의 내용을 고속 복사
     BitBlt(hdc, 0, 0, m_nWidth, m_nHeight, GetWindowDC(), 0, 0, SRCCOPY);
