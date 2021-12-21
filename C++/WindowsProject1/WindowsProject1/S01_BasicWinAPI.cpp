@@ -46,7 +46,7 @@ void S01_BasicWinAPI::Update()
 
     if (m_State == eState::Move) // 움직이고 있는 상태
     {
-        if (m_Time >= 0.1f)
+        if (m_Time >= 0.05f)
         {
             m_State = eState::Idle;
             m_Time = 0.0f;
@@ -148,6 +148,13 @@ void S01_BasicWinAPI::Render()
         // Test
         wstring value = L"FPS :" + to_wstring(TIMEMANAGER->GetFPS());
         Graphic2D::DrawString(MAIN->GetWindowDC(), value, 0, 0, 50, RGB(255, 255, 255));
+
+        // Bitmap
+        //Graphic2D::DrawBitmap(MAIN->GetWindowDC(), 1, L"test.bmp", 0, 0, RGB(255, 255, 255));
+        Graphic2D::GdiPlusDrawImage(MAIN->GetWindowDC(), L"./Texture/Marco.png", POINT{ 200,60 }, POINT{ 0,0 }, POINT{ 33,40 });
+        Graphic2D::GdiPlusDrawImage(MAIN->GetWindowDC(), L"./Texture/Marco.png", POINT{ 260,60 }, POINT{ 30,0 }, POINT{ 33,40 });
+        Graphic2D::GdiPlusDrawImage(MAIN->GetWindowDC(), L"./Texture/Kyoko.png", POINT{ 300,60 }, POINT{ 0,0 }, POINT{ 36,73 });
+
     }
 
 }

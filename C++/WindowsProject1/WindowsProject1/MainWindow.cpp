@@ -19,6 +19,7 @@ MainWindow::~MainWindow()
     if (m_hDC)
         ReleaseDC(m_hWnd, m_hDC);
 
+    Graphic2D::GdiPlusShutDown();
 }
 
 void MainWindow::Update()
@@ -87,11 +88,19 @@ void MainWindow::CreateInstance(HINSTANCE hInstance, int width, int height)
     // backbuffer 생성
     CreateBuffer();
 
+    // Init
+    Init();
     RECT rect;
 
     GetClientRect(m_hWnd, &rect);
 
  
+}
+
+void MainWindow::Init()
+{
+    SceneManager::GetInstance();
+    Graphic2D::GdiPlusStartUp();
 }
 
 LRESULT MainWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

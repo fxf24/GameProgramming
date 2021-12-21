@@ -1,5 +1,29 @@
 #include "framework.h"
 #include "Graphic2D.h"
+// Gdi Plus
+// png파일을 사용하기 위해
+// Gdiplus를 사용하려면
+// 1. include
+//    #include  <ole2.h>
+//    #include  <gdiplus.h>
+// 2. library
+//    #pragma comment(lib,"Gdiplus.lib")
+// 3. Window Create된후  --> Startup
+//   static ULONG_PTR gdiplusToken = NULL;
+//	 GdiplusStartupInput gdiplusStartInput;
+//   GdiplusStartup(&gdiplusToken, &gdiplusStartInput, NULL);
+// 4. Window가 종료될때   --> Shutdown
+//   GdiplusShutdown(gdiplusToken);
+//
+
+#include <ole2.h> // Obejct Linking And Emedded : WinOD (OLE, Activex Com Object)
+#include <gdiplus.h>
+
+#pragma comment(lib, "Gdiplus.lib")
+#pragma comment(lib, "msimg32.lib")		// #pragma 컴파일 지시기
+
+using namespace Gdiplus;
+static ULONG_PTR gdiplusToken = NULL;
 
 // 생성자/ 소멸자
 Graphic2D::Graphic2D()
@@ -109,6 +133,69 @@ void Graphic2D::DrawString(HDC hdc, wstring value, int x, int y, int size, COLOR
 	// 4. OldFont로 복귀
 	SelectObject(hdc, OldFont);
 	DeleteObject(MyFont);
+}
+
+// 1. MemoryDC Create
+// 2. MyBitmap을 사용하게 하고 그전에 사용되었던 Bitmap을 OldBitmap으로 저장한다.
+
+void Graphic2D::DrawBitmap(HDC hdc, wstring fileName, int x, int y)
+{
+	// 1. MemoryDC Create
+	HDC MemDC = CreateCompatibleDC(hdc);
+
+	// 2. Bitmap Create
+	HBITMAP MyBitmap = (HBITMAP)LoadImage(NULL, // hinstance --> *.exe
+		fileName.c_str(),						// Bitmap File Name
+		IMAGE_BITMAP,							// Type IMAGE_BITMAP, IMAGE_ICON, IMAGE_CURSOR
+		0,										// cx
+		0,										// cy
+		LR_LOADFROMFILE | LR_CREATEDIBSECTION); // DIB (Device Independet Bitmap)
+
+	// 3. Bitmap정보를 얻어오기 --> 렌더링시 Bitmap Size얼마인지
+	BITMAP bitmap;
+	GetObject(MyBitmap, sizeof(BITMAP), &bitmap);
+
+	int Width = bitmap.bmWidth;
+	int Height = bitmap.bmHeight;
+	
+	// 4. MyBitmap을 사용가능하게 한다
+	HBITMAP OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	
+	// 5. Rendering
+	BitBlt(hdc, x, y, Width, Height, MemDC, 0, 0, SRCCOPY); // 고속복사
+
+	// 6. OldBitmap, MyBitmap
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
+
+}
+
+void Graphic2D::GdiPlusStartUp()
+{
+	GdiplusStartupInput gdiplusStartInput;
+	GdiplusStartup(&gdiplusToken, &gdiplusStartInput, NULL);
+
+}
+
+void Graphic2D::GdiPlusShutDown()
+{
+	GdiplusShutdown(gdiplusToken);
+}
+
+void Graphic2D::GdiPlusDrawImage(HDC hdc, wstring strFileName, POINT position, POINT offset, POINT offsetSize)
+{
+	Image* image = new Image(strFileName.c_str());
+	Graphics graphic(hdc);
+	
+	//graphic.DrawImage(image, position.x, position.y, 1300, 1300);
+	
+	RectF dest{ (float)position.x, (float)position.y, (float)(offsetSize.x * 2.0f), (float)(offsetSize.y * 2.0f) };
+
+	graphic.DrawImage(image, dest, (float)offset.x, (float)offset.y, (float)offsetSize.x, (float)offsetSize.y, UnitPixel);
+	//graphic.DrawImage(image, position.x, position.y, 0, 0, 30, 50, UnitPixel);
+	
+	delete image;
 }
 
 

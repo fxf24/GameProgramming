@@ -37,7 +37,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             Sleep(50); // To do TimeManager 로 변경
-            TIMEMANAGER->Update(60);
+            TIMEMANAGER->Update();
             MAIN->Update();
             MAIN->Render();
         }

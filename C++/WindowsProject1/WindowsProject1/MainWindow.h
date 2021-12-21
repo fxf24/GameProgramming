@@ -20,6 +20,7 @@ public :
 	void Update();			// 키보드 동작에 대한 처리
 	void Render();			// Rendering 
 	void CreateInstance(HINSTANCE hInstance, int width, int height);
+	void Init();
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 public : // Getter
