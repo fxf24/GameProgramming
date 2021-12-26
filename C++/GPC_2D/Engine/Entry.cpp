@@ -36,8 +36,8 @@ int APIENTRY WinMain
 		window.lpszClass = "Window";
 		window.lpszName  = "Game";
 		window.style     = WS_CAPTION | WS_SYSMENU;
-		window.cx        = 500;
-		window.cy        = 500;
+		window.cx        = 1280;
+		window.cy        = 720;
 		window.hInstance = hInstance;
 
 		{
