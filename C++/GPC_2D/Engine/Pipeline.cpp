@@ -1,6 +1,6 @@
 #include "Pipeline.h"
 #include <iostream>
-#include <d3d11.h> // connect to d3d11.lib to use it
+#include <d3d11.h> // connect to d3d11.lib to use it // contain windows.h
 #include <cassert>
 
 // DirectX
@@ -11,21 +11,28 @@
 // GPU is horizontal computing so that easy to handle simple computing.
 // Rendering Pipeline
 // Procedure that computer draw image for us.
+// IA -> VS -> (HS -> TS -> DS -> GS -> SO) -> RS -> PS -> OM
+// cannot set hs~so step
 // IA (Input Assemble) -> VS(Vertex Shader) -> RS(Rasterizer) 
 // -> PS(Pixel Shader) -> OM(Output Merge)
+// Shader : functions that gpu can use, hlsl 
 // IA : set vertices, set topology
 // VS : compute vertices' information, set vertices' location, set camera's location
 // RS : compute 3D to 2D (viewport), backspace culling, clipping, make vertices to pixel 
 // PS : extract color of pixel 
 // OM : merge all the stage and send it to rendertarget
 
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console") // show console
 
 #if not defined _DEBUG
 #define MUST(Expression) (      (         (Expression)))
 #else
-#define MUST(Expression) (assert(SUCCEEDED(Expression)))
+#define MUST(Expression) (assert(SUCCEEDED(Expression))) // assert break program
 #endif
+
+// HRESULT Contains error information
+// SEVERITY_ERROR;
+// SEVERITY_SUCCESS;
 
 namespace Pipeline
 {
@@ -60,7 +67,7 @@ namespace Pipeline
 		{
 		case WM_CREATE:
 		{
-//#include "Shader/Bytecode/Vertex.h"
+#include "Shader/Bytecode/Vertex.h"
 
 			{
 				// descriptor for swapchain 
@@ -138,11 +145,18 @@ namespace Pipeline
 
 				MUST(D3D11CreateDeviceAndSwapChain
 				(
-					nullptr,
-					D3D_DRIVER_TYPE_HARDWARE,
+					nullptr,						// when connecting multi gpu
+					D3D_DRIVER_TYPE_HARDWARE,		// directx driver location
+					// D3D_DRIVER_TYPE_UNKNOWN = 0,									
+					// D3D_DRIVER_TYPE_HARDWARE = (D3D_DRIVER_TYPE_UNKNOWN + 1),	use computer driver
+					// D3D_DRIVER_TYPE_REFERENCE = (D3D_DRIVER_TYPE_HARDWARE + 1),	use dx driver (software)
+					// D3D_DRIVER_TYPE_NULL = (D3D_DRIVER_TYPE_REFERENCE + 1),		
+					// use driver only for debugging, not using rendering driver
+					// D3D_DRIVER_TYPE_SOFTWARE = (D3D_DRIVER_TYPE_NULL + 1),		use other driver 
+					// D3D_DRIVER_TYPE_WARP = (D3D_DRIVER_TYPE_SOFTWARE + 1)		use warp driver (max : 10.1)
 					nullptr,
 					0,
-					nullptr,
+					nullptr, // direct X version list, nullptr : 9.1~11.0
 					0,
 					D3D11_SDK_VERSION,
 					&Descriptor,
@@ -153,51 +167,51 @@ namespace Pipeline
 				));
 			}
 			{
-				//D3D11_INPUT_ELEMENT_DESC Descriptor[2]
-				//{
-				//	D3D11_INPUT_ELEMENT_DESC(),
-				//	D3D11_INPUT_ELEMENT_DESC()
-				//}; // what vertex input gonna do
+				D3D11_INPUT_ELEMENT_DESC Descriptor[2]
+				{
+					D3D11_INPUT_ELEMENT_DESC(),
+					D3D11_INPUT_ELEMENT_DESC()
+				}; // what vertex input gonna do
 
-				//Descriptor[0].SemanticName = "POSITION"; // first position's semanticname = POSITION
-				//Descriptor[0].SemanticIndex = 0;
-				//Descriptor[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
-				//// DXGI_FORMAT_R32G32B32A32_FLOAT : read 16 byte 
-				//// mostly format uses DXGI_FORMAT tags
-				//Descriptor[0].InputSlot = 0; // what slot do you use
-				//Descriptor[0].AlignedByteOffset = 0; // starting point;
-				//Descriptor[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
-				//Descriptor[0].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
+				Descriptor[0].SemanticName = "POSITION"; // first position's semanticname = POSITION
+				Descriptor[0].SemanticIndex = 0;
+				Descriptor[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
+				// DXGI_FORMAT_R32G32B32A32_FLOAT : read 16 byte 
+				// mostly format uses DXGI_FORMAT tags
+				Descriptor[0].InputSlot = 0; // what slot do you use
+				Descriptor[0].AlignedByteOffset = 0; // starting point;
+				Descriptor[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
+				Descriptor[0].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
 
-				//// position : 0~15byte, color : 16~31byte
-				//Descriptor[1].SemanticName = "COLOR"; // first position's semanticname = POSITION
-				//Descriptor[1].SemanticIndex = 0;
-				//Descriptor[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
-				//Descriptor[1].InputSlot = 0; // what slot do you use
-				//Descriptor[1].AlignedByteOffset = 16; // starting point;
-				//Descriptor[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
-				//Descriptor[1].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
+				// position : 0~15byte, color : 16~31byte
+				Descriptor[1].SemanticName = "COLOR"; // first position's semanticname = POSITION
+				Descriptor[1].SemanticIndex = 0;
+				Descriptor[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
+				Descriptor[1].InputSlot = 0; // what slot do you use
+				Descriptor[1].AlignedByteOffset = 16; // starting point;
+				Descriptor[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
+				Descriptor[1].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
 
-				//// VS uses 
-				//// numelements : 
-				//// ppInputLayout : pointer address
-				//// IA(Input Assembler) -> VS(Vertex Shader) -> RS(Rasterizer) -> PS(Pixel Shader) -> OM(OutputMarge)
-				//// Device : Object that make resources where redering pipline
-				//// DeviceContext : connecting resources that device made and rendering pipeline
-				//// SV(System Value) 
-				//MUST(Device->CreateInputLayout(Descriptor, 2, Bytecode, sizeof(Bytecode), &InputLayout));
+				// VS uses 
+				// numelements : 
+				// ppInputLayout : pointer address
+				// IA(Input Assembler) -> VS(Vertex Shader) -> RS(Rasterizer) -> PS(Pixel Shader) -> OM(OutputMarge)
+				// Device : Object that make resources where redering pipline
+				// DeviceContext : connecting resources that device made and rendering pipeline
+				// SV(System Value) 
+				MUST(Device->CreateInputLayout(Descriptor, 2, Bytecode, sizeof(Bytecode), &InputLayout));
 
-				//DeviceContext->IASetInputLayout(InputLayout);
+				DeviceContext->IASetInputLayout(InputLayout);
 			}
 			{
-				/*MUST(Device->CreateVertexShader(Bytecode, sizeof(Bytecode), nullptr, &VertexShader));
-				DeviceContext->VSSetShader(VertexShader, nullptr, 0);*/
+				MUST(Device->CreateVertexShader(Bytecode, sizeof(Bytecode), nullptr, &VertexShader));
+				DeviceContext->VSSetShader(VertexShader, nullptr, 0);
 			}
 		}
 		{
-/*#include "Shader/Bytecode/Pixel.h"
+#include "Shader/Bytecode/Pixel.h"
 			MUST(Device->CreatePixelShader(Bytecode, sizeof(Bytecode), nullptr, &PixelShader));
-			DeviceContext->PSSetShader(PixelShader, nullptr, 0);*/
+			DeviceContext->PSSetShader(PixelShader, nullptr, 0);
 		}
 		{
 			{
