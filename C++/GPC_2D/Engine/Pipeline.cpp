@@ -1,7 +1,7 @@
 #include "Pipeline.h"
 #include <iostream>
 #include <d3d11.h> // connect to d3d11.lib to use it // contain windows.h
-#include <cassert>
+#include <cassert> // to use assert() function
 
 // DirectX
 // API that can do graphic computing procedure through GPU
@@ -43,21 +43,26 @@ namespace Pipeline
 		// DeviceContext : connect resources that device made to rendering pipeline
 		ID3D11DeviceContext*    DeviceContext;
 		// Buffer : have data that will be printed on screen
-		// SwapChain : make multiple buffers and set buffers what to do
+		// SwapChain : make multiple buffers and set buffers what to do, takes turn to use buffers
+		// DXGI : be compatible to version of direct x
 		IDXGISwapChain*         SwapChain;
-		// I : ComInterface : computer makes data automatically
+		// I : ComInterface : computer makes data automatically, dynamic allocation
 		// release() function to release data
 		// make descriptor to set what to do
 
+		// inputlayout is kind of filter
 		ID3D11InputLayout*		InputLayout; 
+		// vs, ps = pipe
 		ID3D11VertexShader*		VertexShader;	// vertexshader
 		ID3D11PixelShader*		PixelShader;	// pixelshader
 
 		namespace Buffer
 		{
+			// data resource
 			ID3D11Buffer* Vertex; 
 		}
 
+		// draw resouce on the screen
 		ID3D11RenderTargetView* RenderTargetView;
 	}
 
@@ -143,27 +148,43 @@ namespace Pipeline
 				// extra function
 				// Descriptor.Flags;
 
+				/*D3D_FEATURE_LEVEL levels[6]
+				{
+					D3D_FEATURE_LEVEL_11_0,
+					D3D_FEATURE_LEVEL_10_1,
+					D3D_FEATURE_LEVEL_10_0,
+					D3D_FEATURE_LEVEL_9_3,
+					D3D_FEATURE_LEVEL_9_2,
+					D3D_FEATURE_LEVEL_9_1
+				};*/
+
+
+				// HRESULT
+				// SERVERITY_ERROR
+				// SERVERITY_SUCCESS
+				// HRESULT have error information
+				// if function return HRESULT, use MUST() to assert program
 				MUST(D3D11CreateDeviceAndSwapChain
 				(
 					nullptr,						// when connecting multi gpu
-					D3D_DRIVER_TYPE_HARDWARE,		// directx driver location
-					// D3D_DRIVER_TYPE_UNKNOWN = 0,									
-					// D3D_DRIVER_TYPE_HARDWARE = (D3D_DRIVER_TYPE_UNKNOWN + 1),	use computer driver
-					// D3D_DRIVER_TYPE_REFERENCE = (D3D_DRIVER_TYPE_HARDWARE + 1),	use dx driver (software)
+					D3D_DRIVER_TYPE_HARDWARE,		// directx driver location, where and how you make the driver
+					// D3D_DRIVER_TYPE_UNKNOWN = 0,									don't know
+					// D3D_DRIVER_TYPE_HARDWARE = (D3D_DRIVER_TYPE_UNKNOWN + 1),	use computer driver, hardware, best performance
+					// D3D_DRIVER_TYPE_REFERENCE = (D3D_DRIVER_TYPE_HARDWARE + 1),	use dx driver (software) 
 					// D3D_DRIVER_TYPE_NULL = (D3D_DRIVER_TYPE_REFERENCE + 1),		
 					// use driver only for debugging, not using rendering driver
-					// D3D_DRIVER_TYPE_SOFTWARE = (D3D_DRIVER_TYPE_NULL + 1),		use other driver 
-					// D3D_DRIVER_TYPE_WARP = (D3D_DRIVER_TYPE_SOFTWARE + 1)		use warp driver (max : 10.1)
-					nullptr,
-					0,
-					nullptr, // direct X version list, nullptr : 9.1~11.0
-					0,
-					D3D11_SDK_VERSION,
-					&Descriptor,
-					&SwapChain,
-					&Device,
-					nullptr,
-					&DeviceContext
+					// D3D_DRIVER_TYPE_SOFTWARE = (D3D_DRIVER_TYPE_NULL + 1),		use other software driver, not accurate 
+					// D3D_DRIVER_TYPE_WARP = (D3D_DRIVER_TYPE_SOFTWARE + 1)		use warp driver (max : 10.1), software
+					nullptr,						// HMODULE where you gonna get drivers
+					0,								// Addtional functions
+					nullptr,						// direct X version list, nullptr : 9.1~11.0
+					0,								// how many versions will you use if array address is exist
+					D3D11_SDK_VERSION,				// use D3D11_SDK_VERSION
+					&Descriptor,					// DXGI_SWAP_CHAIN_DESC address
+					&SwapChain,						// swapchain pointer address
+					&Device,						// device pointer address
+					nullptr,						// direct x version list
+					&DeviceContext					// devicecontext pointer addresss
 				));
 			}
 			{
@@ -221,6 +242,7 @@ namespace Pipeline
 					float	 Color[4];
 				};
 
+				// CPU data
 				Vertex const Vertices[4]
 				{
 					{ { -0.5f, +0.5f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
@@ -228,25 +250,35 @@ namespace Pipeline
 					{ { -0.5f, -0.5f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } },
 					{ { +0.5f, -0.5f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } }
 				};
+				// GPU resource for number data is buffer
 
 				D3D11_BUFFER_DESC Descriptor = D3D11_BUFFER_DESC();
 				
+				// ByteWidth : Buffer size
 				Descriptor.ByteWidth = sizeof(Vertices);
-				Descriptor.Usage	 = D3D11_USAGE_IMMUTABLE; 
+				// Usage : usage for GPU or CPU or both;
+				Descriptor.Usage	 = D3D11_USAGE_IMMUTABLE;
+				// BindFlags : what buffer it is
 				Descriptor.BindFlags = D3D11_BIND_VERTEX_BUFFER; 
+				// 
 				Descriptor.CPUAccessFlags = 0; 
 				Descriptor.MiscFlags = 0;	// extra func
 				Descriptor.StructureByteStride = 0; // divide buffer with what size
 
+				// initialize subresource with vertices data
 				D3D11_SUBRESOURCE_DATA Subresource = D3D11_SUBRESOURCE_DATA();
 				Subresource.pSysMem = Vertices;
 
+				// create buffer with descriptor, subresource, vertex
 				MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer::Vertex));
 				//MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer::Vertex));
 				//ID3D11Buffer* array[2] = { Buffer::Vertex, Buffer::Vertex };
 				
 				UINT const Stride = sizeof(Vertex);
 				UINT const Offset = 0;
+				
+				// cut buffer with sizeof(vertex)
+				// StartSlot : where you start (max : 15)
 				
 				DeviceContext->IASetVertexBuffers(0, 1, &Buffer::Vertex, &Stride, &Offset);
 				
@@ -259,6 +291,8 @@ namespace Pipeline
 		}
 		case WM_APP:
 		{
+			// backbuffer to screen buffer
+			// screen buffer to screen
 			MUST(SwapChain->Present(0, 0));
 
 			static float a = 0;
@@ -271,15 +305,20 @@ namespace Pipeline
 
 			if (a >= 1.0f || a <= 0.0f) delta *= -1.0f;
 
+			// draw canvas to this color
 			DeviceContext->ClearRenderTargetView(RenderTargetView, Color);
-			// 2
-			// DeviceContext->Draw(4, 0); // Indexcount, startindex, startvertex
+			
+			// VertexCount : how many vertices
+			// StartVertexLocation : where to start
+			DeviceContext->Draw(4, 0); 
 			// CPU : vertical compute
 			// GPU : horizontal compute // gpu draw image for us
 			return;
 		}
 		case WM_DESTROY:
 		{
+			// Cominterface use release to delete
+			// LIFO recommended
 			SwapChain->Release();
 			DeviceContext->Release();
 			Device->Release();
@@ -288,6 +327,7 @@ namespace Pipeline
 		case WM_SIZE:
 		{
 			{
+				// area will draw rendertarget
 				D3D11_VIEWPORT Viewport = D3D11_VIEWPORT();
 				Viewport.Width  = LOWORD(lParameter);
 				Viewport.Height = HIWORD(lParameter);
@@ -299,6 +339,7 @@ namespace Pipeline
 				{
 					RenderTargetView->Release();
 
+					// resize buffer size
 					MUST(SwapChain->ResizeBuffers
 					(
 						1,
@@ -310,14 +351,26 @@ namespace Pipeline
 				}
 			}
 			{
+				// ID3D11Resource that GPU will use
 				ID3D11Texture2D* Texture2D = nullptr;
 				
+				// IID_PPV_ARGS
+				// get resources from buffer that number is same as MIDL_Interface number and put it in to Texture2D
+				// from buffer to texture2D
 				MUST(SwapChain->GetBuffer(0, IID_PPV_ARGS(&Texture2D)));
 				{
+					// resource create
+					// set Texture2D's resource to draw
+					// save texture2D to rendertargetview
+					// make rendertargetview to draw Texture2D
 					MUST(Device->CreateRenderTargetView(Texture2D, nullptr, &RenderTargetView));
 				}
 				Texture2D->Release();
 
+				// merge with rendering pipeline
+				// NumViews : how many view you use
+				// ID3D11RenderTargetView address
+				// ID3D11DepthStencilView : depth resource address
 				DeviceContext->OMSetRenderTargets(1, &RenderTargetView, nullptr);
 			}
 			return;
