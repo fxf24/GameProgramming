@@ -7,7 +7,7 @@ namespace Shader
 		Layout::Pixel Output =
 		{
 			Input.Position,
-			Input.Color
+			Input.TexCoord
 		};
 		
 		return Output;

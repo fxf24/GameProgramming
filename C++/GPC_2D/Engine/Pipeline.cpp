@@ -3,6 +3,7 @@
 #include <d3d11.h> // connect to d3d11.lib to use it // contain windows.h
 #include <cassert> // to use assert() function
 
+#include "FreeImage.h"
 // DirectX
 // API that can do graphic computing procedure through GPU
 // GPU is Graphic Card etc.
@@ -187,32 +188,38 @@ namespace Pipeline
 					&DeviceContext					// devicecontext pointer addresss
 				));
 			}
+#include "Shader/Bytecode/Vertex.h"
 			{
+				//D3D11_INPUT_ELEMENT_DESC Descriptor[2]
+				//{
+				//	D3D11_INPUT_ELEMENT_DESC(),
+				//	D3D11_INPUT_ELEMENT_DESC()
+				//}; // what vertex input gonna do
+
+				//Descriptor[0].SemanticName = "POSITION"; // first position's semanticname = POSITION
+				//Descriptor[0].SemanticIndex = 0;
+				//Descriptor[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
+				//// DXGI_FORMAT_R32G32B32A32_FLOAT : read 16 byte 
+				//// mostly format uses DXGI_FORMAT tags
+				//Descriptor[0].InputSlot = 0; // what slot do you use
+				//Descriptor[0].AlignedByteOffset = 0; // starting point;
+				//Descriptor[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
+				//Descriptor[0].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
+
+				//// position : 0~15byte, color : 16~31byte
+				//Descriptor[1].SemanticName = "COLOR"; // first position's semanticname = POSITION
+				//Descriptor[1].SemanticIndex = 0;
+				//Descriptor[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
+				//Descriptor[1].InputSlot = 0; // what slot do you use
+				//Descriptor[1].AlignedByteOffset = 16; // starting point;
+				//Descriptor[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
+				//Descriptor[1].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
+
 				D3D11_INPUT_ELEMENT_DESC Descriptor[2]
 				{
-					D3D11_INPUT_ELEMENT_DESC(),
-					D3D11_INPUT_ELEMENT_DESC()
-				}; // what vertex input gonna do
-
-				Descriptor[0].SemanticName = "POSITION"; // first position's semanticname = POSITION
-				Descriptor[0].SemanticIndex = 0;
-				Descriptor[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
-				// DXGI_FORMAT_R32G32B32A32_FLOAT : read 16 byte 
-				// mostly format uses DXGI_FORMAT tags
-				Descriptor[0].InputSlot = 0; // what slot do you use
-				Descriptor[0].AlignedByteOffset = 0; // starting point;
-				Descriptor[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
-				Descriptor[0].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
-
-				// position : 0~15byte, color : 16~31byte
-				Descriptor[1].SemanticName = "COLOR"; // first position's semanticname = POSITION
-				Descriptor[1].SemanticIndex = 0;
-				Descriptor[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // how do you divide the format
-				Descriptor[1].InputSlot = 0; // what slot do you use
-				Descriptor[1].AlignedByteOffset = 16; // starting point;
-				Descriptor[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // what input data do you use
-				Descriptor[1].InstanceDataStepRate = 0; // if inputslotclass is vertex data, 0
-
+					{"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0},
+					{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 1}
+				};
 				// VS uses 
 				// numelements : 
 				// ppInputLayout : pointer address
@@ -236,56 +243,76 @@ namespace Pipeline
 		}
 		{
 			{
-				struct Vertex final
-				{
-					float Position[4];
-					float	 Color[4];
-				};
-
+				// vertex info
+				DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); 
+			}
+			{
 				// CPU data
-				Vertex const Vertices[4]
+				float const Coordinates[4][2]
 				{
-					{ { -0.5f, +0.5f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-					{ { +0.5f, +0.5f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
-					{ { -0.5f, -0.5f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } },
-					{ { +0.5f, -0.5f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } }
+					{ -0.5f, +0.5f},
+					{ +0.5f, +0.5f},
+					{ -0.5f, -0.5f},
+					{ +0.5f, -0.5f}
 				};
 				// GPU resource for number data is buffer
 
-				D3D11_BUFFER_DESC Descriptor = D3D11_BUFFER_DESC();
+				D3D11_BUFFER_DESC Descriptor
+				{
+					sizeof(Coordinates),
+					D3D11_USAGE_IMMUTABLE,
+					D3D11_BIND_VERTEX_BUFFER,
+					0
+				};
 				
-				// ByteWidth : Buffer size
-				Descriptor.ByteWidth = sizeof(Vertices);
-				// Usage : usage for GPU or CPU or both;
-				Descriptor.Usage	 = D3D11_USAGE_IMMUTABLE;
-				// BindFlags : what buffer it is
-				Descriptor.BindFlags = D3D11_BIND_VERTEX_BUFFER; 
-				// 
-				Descriptor.CPUAccessFlags = 0; 
-				Descriptor.MiscFlags = 0;	// extra func
-				Descriptor.StructureByteStride = 0; // divide buffer with what size
+				// initialize subresource with vertices data
+				D3D11_SUBRESOURCE_DATA const Subresource{ Coordinates };
+
+				ID3D11Buffer* Buffer = nullptr;
+
+				// create buffer with descriptor, subresource, vertex
+				MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer));
+
+				UINT const Stride = sizeof(*Coordinates);
+				UINT const Offset = 0;
+
+				DeviceContext->IASetVertexBuffers(0, 1, &Buffer, &Stride, &Offset);
+				Buffer->Release();
+			}
+			{
+				float const Size[4][2]
+				{
+					{ 0.0f,		0.0f	},
+					{ 500.0f,	0.0f	},
+					{ 0.0f,		500.0f	},
+					{ 500.0f,	500.0f	}
+				};
+
+				D3D11_BUFFER_DESC Descriptor
+				{
+					sizeof(Size),
+					D3D11_USAGE_IMMUTABLE,
+					D3D11_BIND_VERTEX_BUFFER,
+					0
+				};
 
 				// initialize subresource with vertices data
-				D3D11_SUBRESOURCE_DATA Subresource = D3D11_SUBRESOURCE_DATA();
-				Subresource.pSysMem = Vertices;
+				D3D11_SUBRESOURCE_DATA const Subresource{ Size };
 
 				// create buffer with descriptor, subresource, vertex
 				MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer::Vertex));
-				//MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer::Vertex));
-				//ID3D11Buffer* array[2] = { Buffer::Vertex, Buffer::Vertex };
-				
-				UINT const Stride = sizeof(Vertex);
+
+				UINT const Stride = sizeof(*Size);
 				UINT const Offset = 0;
-				
-				// cut buffer with sizeof(vertex)
-				// StartSlot : where you start (max : 15)
-				
+
 				DeviceContext->IASetVertexBuffers(0, 1, &Buffer::Vertex, &Stride, &Offset);
-				
 			}
 			{
-				// vertex info
-				DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); 
+				FreeImage_Initialise();
+				{
+
+				}
+				FreeImage_DeInitialise();
 			}
 			return;
 		}

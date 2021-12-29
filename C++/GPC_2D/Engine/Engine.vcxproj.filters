@@ -44,6 +44,9 @@
     <ClInclude Include="Shader\Bytecode\Vertex.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="FreeImage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\HLSL\Layout.hlsli" />
@@ -51,5 +54,10 @@
   <ItemGroup>
     <FxCompile Include="Shader\HLSL\Vertex.hlsl" />
     <FxCompile Include="Shader\HLSL\Pixel.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Free.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
