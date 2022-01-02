@@ -305,12 +305,61 @@ namespace Pipeline
 				UINT const Stride = sizeof(*Size);
 				UINT const Offset = 0;
 
-				DeviceContext->IASetVertexBuffers(0, 1, &Buffer::Vertex, &Stride, &Offset);
+				DeviceContext->IASetVertexBuffers(1, 1, &Buffer::Vertex, &Stride, &Offset);
 			}
 			{
+				char const* const File = "Free.png";
+
 				FreeImage_Initialise();
 				{
+					// Image load
+					// FIBITMAP : to contain image file
+					FIBITMAP* Bitmap = FreeImage_Load(FreeImage_GetFileType(File), File);
+					{
+						// flip the image 
+						FreeImage_FlipVertical(Bitmap);
 
+						D3D11_TEXTURE2D_DESC Descriptor = D3D11_TEXTURE2D_DESC();
+						// Width;
+						// Height;
+						// MipLevels;		// divede size by 2^(level-1)
+						// ArraySize;		// texture's number
+						// Format;			// we only neee color so use DXGI_FORMAT_B8G8R8A8_UNORM
+						// SampleDesc;		// 1, 0
+						// Usage;			// immutable
+						// BindFlags;		// resource's type
+						// CPUAccessFlags;	// 0 
+						// MiscFlags;		// etc 
+						Descriptor.Width				= FreeImage_GetWidth(Bitmap);
+						Descriptor.Height				= FreeImage_GetHeight(Bitmap);
+						Descriptor.MipLevels			= 1;
+						Descriptor.ArraySize			= 1;
+						Descriptor.Format				= DXGI_FORMAT_B8G8R8A8_UNORM;
+						Descriptor.SampleDesc.Count		= 1;
+						Descriptor.SampleDesc.Quality	= 0;
+						Descriptor.Usage				= D3D11_USAGE_IMMUTABLE;
+						Descriptor.BindFlags			= D3D11_BIND_SHADER_RESOURCE;
+						Descriptor.CPUAccessFlags		= 0;
+						Descriptor.MiscFlags			= 0;
+
+						D3D11_SUBRESOURCE_DATA Subresource = D3D11_SUBRESOURCE_DATA();
+						Subresource.pSysMem = FreeImage_GetBits(Bitmap);
+						Subresource.SysMemPitch = FreeImage_GetPitch(Bitmap); // size, length
+
+						ID3D11Texture2D* Texture2D = nullptr;
+
+						MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
+						{
+							ID3D11ShaderResourceView* ShaderREsourceView = nullptr;
+							MUST(Device->CreateShaderResourceView(Texture2D, nullptr, &ShaderREsourceView));
+							{
+								DeviceContext->PSSetShaderResources(0, 1, &ShaderREsourceView);
+							}
+							ShaderREsourceView->Release();
+						}
+						Texture2D->Release();
+					}
+					FreeImage_Unload(Bitmap);
 				}
 				FreeImage_DeInitialise();
 			}

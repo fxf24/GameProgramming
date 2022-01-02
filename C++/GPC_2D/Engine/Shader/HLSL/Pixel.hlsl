@@ -2,12 +2,14 @@
 
 namespace Shader
 {
+    const Texture2D Resource : register(T0);
+	
 	Layout::Color Pixel(const Layout::Pixel Input) : SV_Target
 	{
 		Layout::Color Output =
 		{
-			Input.Color	
-		};
+            Resource.Load(int3(Input.TexCoord.x, Input.TexCoord.y, 0))
+        };
 
 		return Output;
 	}
