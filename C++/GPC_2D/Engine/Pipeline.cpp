@@ -73,8 +73,6 @@ namespace Pipeline
 		{
 		case WM_CREATE:
 		{
-#include "Shader/Bytecode/Vertex.h"
-
 			{
 				// descriptor for swapchain 
 				DXGI_SWAP_CHAIN_DESC Descriptor = DXGI_SWAP_CHAIN_DESC( );
@@ -323,7 +321,7 @@ namespace Pipeline
 						// Width;
 						// Height;
 						// MipLevels;		// divede size by 2^(level-1)
-						// ArraySize;		// texture's number
+						// ArraySize;		// textures' count
 						// Format;			// we only neee color so use DXGI_FORMAT_B8G8R8A8_UNORM
 						// SampleDesc;		// 1, 0
 						// Usage;			// immutable
@@ -350,6 +348,7 @@ namespace Pipeline
 
 						MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
 						{
+							// Read image data
 							ID3D11ShaderResourceView* ShaderREsourceView = nullptr;
 							MUST(Device->CreateShaderResourceView(Texture2D, nullptr, &ShaderREsourceView));
 							{
