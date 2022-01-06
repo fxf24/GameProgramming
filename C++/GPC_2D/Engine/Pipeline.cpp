@@ -478,3 +478,10 @@ namespace Pipeline
 		}
 	}
 }
+
+// ()				: usually don't use, too strong
+// static_cast		: good cast
+// dynamic_cast		: Use it when it is in extends relationship
+// const_cast		: temporarily remove const 
+// reinterpret_cast	: pointer casting, usually don't use
+//
