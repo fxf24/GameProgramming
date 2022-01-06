@@ -2,7 +2,7 @@
 #include <iostream>
 #include <d3d11.h> // connect to d3d11.lib to use it // contain windows.h
 #include <cassert> // to use assert() function
-
+#include "matrix.h"
 #include "FreeImage.h"
 // DirectX
 // API that can do graphic computing procedure through GPU
@@ -185,6 +185,8 @@ namespace Pipeline
 					nullptr,						// direct x version list
 					&DeviceContext					// devicecontext pointer addresss
 				));
+
+				matrix<1, 1> m;
 			}
 #include "Shader/Bytecode/Vertex.h"
 			{
@@ -278,35 +280,25 @@ namespace Pipeline
 				Buffer->Release();
 			}
 			{
-				float const Size[4][2]
-				{
-					{ 0.0f,		0.0f	},
-					{ 500.0f,	0.0f	},
-					{ 0.0f,		500.0f	},
-					{ 500.0f,	500.0f	}
-				};
-
+				// Buffer for animation
 				D3D11_BUFFER_DESC Descriptor
 				{
-					sizeof(Size),
-					D3D11_USAGE_IMMUTABLE,
+					sizeof(float[4][2]),
+					D3D11_USAGE_DYNAMIC,
 					D3D11_BIND_VERTEX_BUFFER,
-					0
+					D3D11_CPU_ACCESS_WRITE,
 				};
 
-				// initialize subresource with vertices data
-				D3D11_SUBRESOURCE_DATA const Subresource{ Size };
-
 				// create buffer with descriptor, subresource, vertex
-				MUST(Device->CreateBuffer(&Descriptor, &Subresource, &Buffer::Vertex));
+				MUST(Device->CreateBuffer(&Descriptor, nullptr, &Buffer::Vertex));
 
-				UINT const Stride = sizeof(*Size);
+				UINT const Stride = sizeof(float[2]);
 				UINT const Offset = 0;
 
 				DeviceContext->IASetVertexBuffers(1, 1, &Buffer::Vertex, &Stride, &Offset);
 			}
 			{
-				char const* const File = "Free.png";
+				char const* const File = "Player.png";
 
 				FreeImage_Initialise();
 				{
@@ -366,28 +358,61 @@ namespace Pipeline
 		}
 		case WM_APP:
 		{
-			// backbuffer to screen buffer
-			// screen buffer to screen
-			MUST(SwapChain->Present(0, 0));
+			{
+				D3D11_MAPPED_SUBRESOURCE Subresource = D3D11_MAPPED_SUBRESOURCE();
 
-			static float a = 0;
+				// Buffer::Vertex
+				// order a pipeline to get cpu data to gpu
+				MUST(DeviceContext->Map(Buffer::Vertex, 0,
+					D3D11_MAP_WRITE_DISCARD, // delete data when it is written
+					0, &Subresource));
+				{
+					static struct
+					{
+						float const Width  = 84;
+						float const Height = 120;
+					}Frame;
 
-			static float delta = 0.0001f;
+					static unsigned Count  = 0;
+					static unsigned Motion = 12;
+					static unsigned FPM	   = 128;
 
-			a += delta;
+					float const Coordinates[4][2]
+					{
+						{ Frame.Width * (Count / FPM),		0},
+						{ Frame.Width * (Count / FPM + 1),	0},
+						{ Frame.Width * (Count / FPM),		Frame.Height},
+						{ Frame.Width * (Count / FPM + 1),	Frame.Height},
+					};
 
-			float Color[4] = { a, 1.0f, 1.0f, 1.0f };
+					Count += 1;
 
-			if (a >= 1.0f || a <= 0.0f) delta *= -1.0f;
+					if (FPM * Motion - 1 < Count)
+						Count = 0;
+					// pData : what data
+					// RowPitch : How big is the data
+					memcpy_s(Subresource.pData, Subresource.RowPitch, Coordinates, sizeof(Coordinates));
 
-			// draw canvas to this color
-			DeviceContext->ClearRenderTargetView(RenderTargetView, Color);
-			
-			// VertexCount : how many vertices
-			// StartVertexLocation : where to start
-			DeviceContext->Draw(4, 0); 
-			// CPU : vertical compute
-			// GPU : horizontal compute // gpu draw image for us
+
+				}
+				DeviceContext->Unmap(Buffer::Vertex, 0);
+			}
+			{
+				float Color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+				// draw canvas to this color
+				DeviceContext->ClearRenderTargetView(RenderTargetView, Color);
+				
+				// VertexCount : how many vertices
+				// StartVertexLocation : where to start
+				DeviceContext->Draw(4, 0); 
+				// CPU : vertical compute
+				// GPU : horizontal compute // gpu draw image for us
+				
+				// backbuffer to screen buffer
+				// screen buffer to screen
+				MUST(SwapChain->Present(0, 0));
+			}
 			return;
 		}
 		case WM_DESTROY:
