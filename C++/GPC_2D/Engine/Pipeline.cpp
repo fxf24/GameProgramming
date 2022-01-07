@@ -61,6 +61,19 @@ namespace Pipeline
 		{
 			// data resource
 			ID3D11Buffer* Vertex; 
+			ID3D11Buffer* Constant[3];
+
+			template<typename Data>
+			void Update(ID3D11Buffer* const buffer, Data const& data)
+			{
+				D3D11_MAPPED_SUBRESOURCE Subresource = D3D11_MAPPED_SUBRESOURCE();
+
+				MUST(DeviceContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &Subresource));
+				{
+					memcpy_s(Subresource.pData, Subresource.RowPitch, data, sizeof(data));
+				}
+				DeviceContext->Unmap(buffer, 0);
+			}
 		}
 
 		// draw resouce on the screen
@@ -185,8 +198,6 @@ namespace Pipeline
 					nullptr,						// direct x version list
 					&DeviceContext					// devicecontext pointer addresss
 				));
-
-				matrix<1, 1> m;
 			}
 #include "Shader/Bytecode/Vertex.h"
 			{
@@ -286,7 +297,7 @@ namespace Pipeline
 					sizeof(float[4][2]),
 					D3D11_USAGE_DYNAMIC,
 					D3D11_BIND_VERTEX_BUFFER,
-					D3D11_CPU_ACCESS_WRITE,
+					D3D11_CPU_ACCESS_WRITE
 				};
 
 				// create buffer with descriptor, subresource, vertex
@@ -296,6 +307,21 @@ namespace Pipeline
 				UINT const Offset = 0;
 
 				DeviceContext->IASetVertexBuffers(1, 1, &Buffer::Vertex, &Stride, &Offset);
+			}
+			{
+				D3D11_BUFFER_DESC const Descriptor
+				{
+					sizeof(float[4][4]),
+					D3D11_USAGE_DYNAMIC,
+					D3D11_BIND_CONSTANT_BUFFER,
+					D3D11_CPU_ACCESS_WRITE
+				};
+
+				for (int i = 0; i < 3; i++) {
+					MUST(Device->CreateBuffer(&Descriptor, nullptr, &Buffer::Constant[i]));
+				}
+				
+				DeviceContext->VSSetConstantBuffers(0, 3, Buffer::Constant);
 			}
 			{
 				char const* const File = "Player.png";
@@ -375,7 +401,7 @@ namespace Pipeline
 
 					static unsigned Count  = 0;
 					static unsigned Motion = 12;
-					static unsigned FPM	   = 128;
+					static unsigned FPM	   = 256;
 
 					float const Coordinates[4][2]
 					{
@@ -392,10 +418,41 @@ namespace Pipeline
 					// pData : what data
 					// RowPitch : How big is the data
 					memcpy_s(Subresource.pData, Subresource.RowPitch, Coordinates, sizeof(Coordinates));
-
-
 				}
 				DeviceContext->Unmap(Buffer::Vertex, 0);
+			}
+			{
+				float const Transform[4][4]
+				{
+					84, 0, 0, 0,
+					0, 120, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1
+				};
+
+				Buffer::Update(Buffer::Constant[0], Transform);
+			}
+			{
+				float const Camera[4][4]
+				{
+					1, 0, 0, 0,
+					0, 1, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1
+				};
+
+				Buffer::Update(Buffer::Constant[1], Camera);
+			}
+			{
+				float const Projection[4][4]
+				{
+					2.0f / 500.0f, 0, 0, 0,
+					0, 2.0f /500.0f, 0, 0,
+					0, 0, 1.0f, 0,
+					0, 0, 0, 1
+				};
+
+				Buffer::Update(Buffer::Constant[2], Projection);
 			}
 			{
 				float Color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
