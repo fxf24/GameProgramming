@@ -422,17 +422,22 @@ namespace Pipeline
 				DeviceContext->Unmap(Buffer::Vertex, 0);
 			}
 			{
+				float const W = 84;
+				float const H = 120;
+
 				float const Transform[4][4]
 				{
-					84, 0, 0, 0,
-					0, 120, 0, 0,
+					W, 0, 0, 0,
+					0, H, 0, 0,
 					0, 0, 1, 0,
 					0, 0, 0, 1
 				};
 
+				// 1. wasd to move player
+				// 2. ↑, ↓ key to size up, down
+
 				Buffer::Update(Buffer::Constant[0], Transform);
-			}
-			{
+		
 				float const Camera[4][4]
 				{
 					1, 0, 0, 0,
@@ -442,13 +447,17 @@ namespace Pipeline
 				};
 
 				Buffer::Update(Buffer::Constant[1], Camera);
-			}
-			{
+			
+				// when rectangle size is 1
+				// 1 = 250
+				float const X = 2.0f / 500.0f;
+				float const Y = 2.0f / 500.0f;
+
 				float const Projection[4][4]
 				{
-					2.0f / 500.0f, 0, 0, 0,
-					0, 2.0f /500.0f, 0, 0,
-					0, 0, 1.0f, 0,
+					X, 0, 0, 0,
+					0, Y, 0, 0,
+					0, 0, 1, 0,
 					0, 0, 0, 1
 				};
 
