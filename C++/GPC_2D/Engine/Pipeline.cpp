@@ -35,6 +35,12 @@
 // SEVERITY_ERROR;
 // SEVERITY_SUCCESS;
 
+namespace Input
+{
+	bool CALLBACK isPressed(WPARAM const code);
+}
+using namespace Input;
+
 namespace Pipeline
 {
 	namespace
@@ -238,6 +244,8 @@ namespace Pipeline
 				// Device : Object that make resources where redering pipline
 				// DeviceContext : connecting resources that device made and rendering pipeline
 				// SV(System Value) 
+
+				// shader : function set that can do gpu calculation
 				MUST(Device->CreateInputLayout(Descriptor, 2, Bytecode, sizeof(Bytecode), &InputLayout));
 
 				DeviceContext->IASetInputLayout(InputLayout);
@@ -246,13 +254,11 @@ namespace Pipeline
 				MUST(Device->CreateVertexShader(Bytecode, sizeof(Bytecode), nullptr, &VertexShader));
 				DeviceContext->VSSetShader(VertexShader, nullptr, 0);
 			}
-		}
-		{
+			{
 #include "Shader/Bytecode/Pixel.h"
-			MUST(Device->CreatePixelShader(Bytecode, sizeof(Bytecode), nullptr, &PixelShader));
-			DeviceContext->PSSetShader(PixelShader, nullptr, 0);
-		}
-		{
+				MUST(Device->CreatePixelShader(Bytecode, sizeof(Bytecode), nullptr, &PixelShader));
+				DeviceContext->PSSetShader(PixelShader, nullptr, 0);
+			}
 			{
 				// vertex info
 				DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); 
@@ -300,7 +306,7 @@ namespace Pipeline
 					D3D11_CPU_ACCESS_WRITE
 				};
 
-				// create buffer with descriptor, subresource, vertex
+				// create buffer with descriptor, vertex
 				MUST(Device->CreateBuffer(&Descriptor, nullptr, &Buffer::Vertex));
 
 				UINT const Stride = sizeof(float[2]);
@@ -384,9 +390,10 @@ namespace Pipeline
 		}
 		case WM_APP:
 		{
+			static bool flip = true;
 			{
 				D3D11_MAPPED_SUBRESOURCE Subresource = D3D11_MAPPED_SUBRESOURCE();
-
+				
 				// Buffer::Vertex
 				// order a pipeline to get cpu data to gpu
 				MUST(DeviceContext->Map(Buffer::Vertex, 0,
@@ -403,6 +410,7 @@ namespace Pipeline
 					static unsigned Motion = 12;
 					static unsigned FPM	   = 256;
 
+
 					float const Coordinates[4][2]
 					{
 						{ Frame.Width * (Count / FPM),		0},
@@ -411,13 +419,25 @@ namespace Pipeline
 						{ Frame.Width * (Count / FPM + 1),	Frame.Height},
 					};
 
+					float const LeftCoordinates[4][2]
+					{
+						{ Frame.Width * (Count / FPM + 1),		0},
+						{ Frame.Width * (Count / FPM ),	0},
+						{ Frame.Width * (Count / FPM + 1),		Frame.Height},
+						{ Frame.Width * (Count / FPM ),	Frame.Height},
+					};
 					Count += 1;
 
 					if (FPM * Motion - 1 < Count)
 						Count = 0;
 					// pData : what data
 					// RowPitch : How big is the data
-					memcpy_s(Subresource.pData, Subresource.RowPitch, Coordinates, sizeof(Coordinates));
+					if (flip) {
+						memcpy_s(Subresource.pData, Subresource.RowPitch, Coordinates, sizeof(Coordinates));	
+					}
+					else {
+						memcpy_s(Subresource.pData, Subresource.RowPitch, LeftCoordinates, sizeof(LeftCoordinates));
+					}
 				}
 				DeviceContext->Unmap(Buffer::Vertex, 0);
 			}
@@ -425,23 +445,51 @@ namespace Pipeline
 				float const W = 84;
 				float const H = 120;
 
+				static float X = 0.0f;
+				static float Y = 0.0f;
+				static float size = 1.0f;
+
+				
+				if (isPressed('W')  && Y < 250 - (H * size / 2)) {
+					Y += 0.1f;
+				}
+				if (isPressed('S') && Y > -250 + (H * size / 2)) {
+					Y -= 0.1f;
+				}
+				if (isPressed('A') && X > -250 + (W * size / 2)) {
+					X -= 0.1f;
+					flip = false;
+				}
+				if (isPressed('D')  && X < 250 - (W * size / 2)) {
+					X += 0.1f;
+					flip = true;
+				}
+				if (isPressed(VK_UP) && size <= 2)
+				{
+					size += 0.001f;
+				}
+				if (isPressed(VK_DOWN) && size >= 0.1)
+				{
+					size -= 0.001f;
+				}
+
 				float const Transform[4][4]
 				{
-					W, 0, 0, 0,
-					0, H, 0, 0,
+					W * size, 0, 0, X,
+					0, H * size, 0, Y,
 					0, 0, 1, 0,
 					0, 0, 0, 1
 				};
 
 				// 1. wasd to move player
-				// 2. ↑, ↓ key to size up, down
+				// 2. Up, down key to size up, down
 
 				Buffer::Update(Buffer::Constant[0], Transform);
 		
 				float const Camera[4][4]
 				{
-					1, 0, 0, 0,
-					0, 1, 0, 0,
+					1, 0, 0, -X,
+					0, 1, 0, -Y,
 					0, 0, 1, 0,
 					0, 0, 0, 1
 				};
@@ -450,13 +498,13 @@ namespace Pipeline
 			
 				// when rectangle size is 1
 				// 1 = 250
-				float const X = 2.0f / 500.0f;
-				float const Y = 2.0f / 500.0f;
+				float const XS = 2.0f / 500.0f;
+				float const YS = 2.0f / 500.0f;
 
 				float const Projection[4][4]
 				{
-					X, 0, 0, 0,
-					0, Y, 0, 0,
+					XS, 0, 0, 0,
+					0, YS, 0, 0,
 					0, 0, 1, 0,
 					0, 0, 0, 1
 				};
@@ -490,10 +538,12 @@ namespace Pipeline
 			Device->Release();
 			return;
 		}
+		
 		case WM_SIZE:
 		{
 			{
 				// area will draw rendertarget
+				// 3d to 2d
 				D3D11_VIEWPORT Viewport = D3D11_VIEWPORT();
 				Viewport.Width  = LOWORD(lParameter);
 				Viewport.Height = HIWORD(lParameter);
