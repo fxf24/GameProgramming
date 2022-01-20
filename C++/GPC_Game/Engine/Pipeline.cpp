@@ -16,14 +16,26 @@ namespace Rendering::Pipeline
 		ID3D11Device*			Device;
 		ID3D11DeviceContext*	DeviceContext;
 
+		IDXGISwapChain*			SwapChain;
+
 		namespace Buffer
 		{
 			ID3D11Buffer* Vertex;
-			ID3D11Buffer* Constant[3];
+			ID3D11Buffer* Constant[2];
+
+			template<typename Data>
+			void Update(ID3D11Buffer const* buffer, Data const& data)
+			{
+				D3D11_MAPPED_SUBRESOURCE Subresource = D3D11_MAPPED_SUBRESOURCE();
+
+				MUST(DeviceContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &Subresource));
+				{
+					memcpy_s(Subresource.pData, Subresource.RowPitch, data, sizeof(data));
+				}
+				DeviceContext->Unmap(buffer, 0);
+			}
 		}
 
-		IDXGISwapChain*			SwapChain;
-		ID3D11InputLayout*		InputLayout;
 		ID3D11RenderTargetView* RenderTargetView;
 	}
 
@@ -36,8 +48,6 @@ namespace Rendering::Pipeline
 				{
 					DXGI_SWAP_CHAIN_DESC Descriptor = DXGI_SWAP_CHAIN_DESC();
 					Descriptor.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-					// DXGI_FORMAT_B8G8R8A8_UNORM explain
-					// unorm = information transportation of lightweight
 					Descriptor.SampleDesc.Count = 1;
 					Descriptor.BufferCount = 1;
 					Descriptor.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -60,11 +70,29 @@ namespace Rendering::Pipeline
 					));
 				}
 				{
+#include "Shader/Bytecode/Vertex.h"
+					{
+						D3D11_INPUT_ELEMENT_DESC const Descriptor[2]
+						{
+							{"POSITION",0, DXGI_FORMAT_R32G32_FLOAT, 0},
+							{"TEXCOORD",0, DXGI_FORMAT_R32G32_FLOAT, 1}
+						};
+						
+						ID3D11InputLayout* InputLayout = nullptr;
+
+						MUST(Device->CreateInputLayout(Descriptor, 2, Bytecode, sizeof(Bytecode), &InputLayout));
+						
+						DeviceContext->IASetInputLayout(InputLayout);
+
+						InputLayout->Release();
+					}
 					{
 						ID3D11VertexShader* VertexShader = nullptr;
 						
-						//MUST(Device->CreateVertexShader(, , , ));
+						MUST(Device->CreateVertexShader(Bytecode, sizeof(Bytecode), nullptr, &VertexShader));
+
 						DeviceContext->VSSetShader(VertexShader, nullptr, 0);
+
 						VertexShader->Release();
 					}
 				}
@@ -118,7 +146,19 @@ namespace Rendering::Pipeline
 					DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 				}
 				{
-					
+					D3D11_BUFFER_DESC Descriptor
+					{
+						sizeof(float[4][4]),
+						D3D11_USAGE_DYNAMIC,
+						D3D11_BIND_CONSTANT_BUFFER,
+						D3D11_CPU_ACCESS_WRITE
+					};
+
+					for (int i = 0; i < 2; i++) {
+						MUST(Device->CreateBuffer(&Descriptor, nullptr, &Buffer::Constant[i]));
+					}
+
+					DeviceContext->VSSetConstantBuffers(0, 2, Buffer::Constant);
 				}
 				return;
 			}
@@ -128,6 +168,13 @@ namespace Rendering::Pipeline
 			}
 			case WM_DESTROY:
 			{
+				for (int i = 0; i < 2; i++) {
+					Buffer::Constant[i]->Release();
+				}
+				Buffer::Vertex->Release();
+				SwapChain->Release();
+				DeviceContext->Release();
+				Device->Release();
 				return;
 			}
 			case WM_SIZE:
