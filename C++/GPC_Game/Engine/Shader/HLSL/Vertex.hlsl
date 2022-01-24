@@ -5,7 +5,7 @@ namespace Shader
     namespace Resource
     {
         cbuffer Transform : register(B0) { matrix Former; }
-        cbuffer Transform : register(B1) { matrix Later; }
+        cbuffer Transform : register(B1) { matrix Latter; }
     }
     
     Layout::Pixel Vertex(const Layout::Vertex Input)
@@ -17,7 +17,7 @@ namespace Shader
         };
 
         Output.Position = mul(Output.Position, Resource::Former);
-        Output.Position = mul(Output.Position, Resource::Later);
+        Output.Position = mul(Output.Position, Resource::Latter);
         
         return Output;
     }

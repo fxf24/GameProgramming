@@ -24,7 +24,7 @@ namespace Rendering::Pipeline
 			ID3D11Buffer* Constant[2];
 
 			template<typename Data>
-			void Update(ID3D11Buffer const* buffer, Data const& data)
+			void Update(ID3D11Buffer* buffer, Data const& data)
 			{
 				D3D11_MAPPED_SUBRESOURCE Subresource = D3D11_MAPPED_SUBRESOURCE();
 
@@ -38,6 +38,76 @@ namespace Rendering::Pipeline
 
 		ID3D11RenderTargetView* RenderTargetView;
 	}
+
+	namespace Texture
+	{
+		struct Handle final
+		{
+			ID3D11ShaderResourceView* ShaderResourceView = nullptr;
+		};
+
+		void Create(Handle*& handle, SIZE const size, BYTE const* const data)
+		{
+			D3D11_TEXTURE2D_DESC const Descriptor
+			{
+				static_cast<UINT>(size.cx),
+				static_cast<UINT>(size.cy),
+				1,
+				1,
+				DXGI_FORMAT_B8G8R8A8_UNORM,
+				1,
+				0,
+				D3D11_USAGE_IMMUTABLE,
+				D3D11_BIND_SHADER_RESOURCE
+			};
+
+			UINT constexpr BPP = 32;
+
+			D3D11_SUBRESOURCE_DATA const Subresource
+			{
+				data,
+				size.cx * BPP / 8
+			};
+
+			ID3D11Texture2D* Texture2D = nullptr;
+
+			MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
+			{ MUST(Device->CreateShaderResourceView(Texture2D, nullptr, &(handle = new Handle())->ShaderResourceView)); }
+
+			Texture2D->Release();
+		}
+
+		void Render(Handle const* const& handle, RECT const area)
+		{
+			DeviceContext->PSSetShaderResources(0, 1, &handle->ShaderResourceView);
+			{
+				float const Coordinates[4][2]
+				{
+					{ static_cast<float>(area.left ), static_cast<float>(area.top	)},
+					{ static_cast<float>(area.right), static_cast<float>(area.top	)},
+					{ static_cast<float>(area.left ), static_cast<float>(area.bottom)},
+					{ static_cast<float>(area.right), static_cast<float>(area.bottom)}
+				};
+
+				Buffer::Update(Buffer::Vertex, Coordinates);
+			}
+			DeviceContext->Draw(4, 0);
+		}
+	}
+
+	namespace Transform
+	{
+		template<Type type>
+		void Update(matrix const& matrix)
+		{
+			Buffer::Update(Buffer::Constant[static_cast<UINT>(type)], matrix);
+		}
+
+		template void Update<Type::Former>(matrix const& matrix);
+		template void Update<Type::Latter>(matrix const& matrix);
+	}
+
+	
 
 	void Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
@@ -168,9 +238,8 @@ namespace Rendering::Pipeline
 			}
 			case WM_DESTROY:
 			{
-				for (int i = 0; i < 2; i++) {
+				for (int i = 0; i < 2; i++)
 					Buffer::Constant[i]->Release();
-				}
 				Buffer::Vertex->Release();
 				SwapChain->Release();
 				DeviceContext->Release();
@@ -179,6 +248,14 @@ namespace Rendering::Pipeline
 			}
 			case WM_SIZE:
 			{
+				{
+					D3D11_VIEWPORT Viewport = D3D11_VIEWPORT();
+
+					Viewport.Width = LOWORD(lParameter);
+					Viewport.Height = HIWORD(lParameter);
+
+					DeviceContext->RSSetViewports(1, &Viewport);
+				}
 				return;
 			}
 		}
