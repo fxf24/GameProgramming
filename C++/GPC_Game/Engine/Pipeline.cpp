@@ -107,8 +107,6 @@ namespace Rendering::Pipeline
 		template void Update<Type::Latter>(matrix const& matrix);
 	}
 
-	
-
 	void Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
 		switch (uMessage)
@@ -165,6 +163,15 @@ namespace Rendering::Pipeline
 
 						VertexShader->Release();
 					}
+				}
+				{
+#include "Shader/Bytecode/Pixel.h"
+					ID3D11PixelShader* PixelShader = nullptr;
+					MUST(Device->CreatePixelShader(Bytecode, sizeof(Bytecode), nullptr, &PixelShader));
+
+					DeviceContext->PSSetShader(PixelShader, nullptr, 0);
+
+					PixelShader->Release();
 				}
 				{
 					float const Coordinate[4][2]
@@ -234,6 +241,12 @@ namespace Rendering::Pipeline
 			}
 			case WM_APP:
 			{
+				MUST(SwapChain->Present(0, 0));
+				
+				float const Color[4]{ 0.0f, 0.0f, 0.0f, 1.0f };
+
+				DeviceContext->ClearRenderTargetView(RenderTargetView, Color);
+
 				return;
 			}
 			case WM_DESTROY:
@@ -255,6 +268,25 @@ namespace Rendering::Pipeline
 					Viewport.Height = HIWORD(lParameter);
 
 					DeviceContext->RSSetViewports(1, &Viewport);
+				}
+				{
+					if (RenderTargetView != nullptr)
+					{
+						RenderTargetView->Release();
+
+						MUST(SwapChain->ResizeBuffers(1, LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+					}
+					{
+						ID3D11Texture2D* Texture2D;
+						
+						MUST(SwapChain->GetBuffer(0, IID_PPV_ARGS(&Texture2D)));
+						{
+							MUST(Device->CreateRenderTargetView(Texture2D, nullptr, &RenderTargetView));
+						}
+						Texture2D->Release();
+
+						DeviceContext->OMSetRenderTargets(1, &RenderTargetView, nullptr);
+					}
 				}
 				return;
 			}
