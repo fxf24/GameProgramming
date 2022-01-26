@@ -274,7 +274,8 @@ namespace Rendering::Pipeline
 					{
 						RenderTargetView->Release();
 
-						MUST(SwapChain->ResizeBuffers(1, LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+						MUST(SwapChain->ResizeBuffers(1, 
+							LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 					}
 					{
 						ID3D11Texture2D* Texture2D;
