@@ -5,6 +5,7 @@ namespace Rendering::Pipeline
 	{
 		void Create(struct Handle*& handle, SIZE const size, BYTE const* const data);
 		void Render(struct Handle const* const& handle, RECT const area);
+		void Delete(struct Handle const* const& handle);
 	}
 
 	namespace Transform

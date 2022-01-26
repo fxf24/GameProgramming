@@ -84,10 +84,12 @@ namespace Rendering
 					Pipeline::Texture::Create(descriptor.handle, descriptor.size, FreeImage_GetBits(bitmap));
 				}
 				{
-					size_t const x = file.find_first_of('/') + sizeof(char);
+					size_t const x = file.find_first_of('/') + 1;
 					size_t const y = file.find_last_of('.');
 
-					Image::Storage.try_emplace(file.substr(x, y - x), descriptor);
+					std::string str = file.substr(x, y - x);
+
+					Image::Storage.try_emplace(str, descriptor);
 				}
 				FreeImage_Unload(bitmap);
 			}
@@ -99,7 +101,6 @@ namespace Rendering
 			{
 				matrix<4, 4> const world = Translation(Location) * Rotation(Angle) * Scale(Length);
 				Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(world));
-
 			}
 			{
 				Descriptor const& image = Storage.at(Content);
@@ -114,6 +115,8 @@ namespace Rendering
 		void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
 	}
 
+	Image::Component Player;
+
 	void Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
 		switch (uMessage)
@@ -121,11 +124,30 @@ namespace Rendering
 			case WM_CREATE:
 			{
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
+
+				FreeImage_Initialise();
+				Image::Import("Image/Cookie.png");
+				FreeImage_DeInitialise();
+
+				Player.Content = "Cookie";
+				Player.Length = { 553.0f / 2.0f, 397.0f / 2.0f };
+				Player.Location = { 0, 0 };
+
+				//matrix<4, 4> const projection = Scale(vector<2>(2 / 1280, 2 / 720));
+				//matrix<4, 4> const view = Rotation(0) * Translation(0);
+				//matrix<4, 4> const latter = projection * view;
+
+				//{
+				//	using namespace Pipeline;
+				//	Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(latter));
+				//}
+
 				return;
 			}
 			case WM_APP:
 			{
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
+				Player.Draw();
 				return;
 			}
 			case WM_DESTROY:

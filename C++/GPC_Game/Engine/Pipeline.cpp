@@ -93,6 +93,13 @@ namespace Rendering::Pipeline
 			}
 			DeviceContext->Draw(4, 0);
 		}
+
+		void Delete(Handle const* const& handle)
+		{
+			handle->ShaderResourceView->Release();
+
+			delete handle;
+		}
 	}
 
 	namespace Transform
@@ -251,6 +258,8 @@ namespace Rendering::Pipeline
 			}
 			case WM_DESTROY:
 			{
+				RenderTargetView->Release();
+
 				for (int i = 0; i < 2; i++)
 					Buffer::Constant[i]->Release();
 				Buffer::Vertex->Release();
@@ -278,7 +287,7 @@ namespace Rendering::Pipeline
 							LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 					}
 					{
-						ID3D11Texture2D* Texture2D;
+						ID3D11Texture2D* Texture2D = nullptr;
 						
 						MUST(SwapChain->GetBuffer(0, IID_PPV_ARGS(&Texture2D)));
 						{

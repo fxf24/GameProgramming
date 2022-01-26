@@ -4,7 +4,7 @@ namespace Shader
 {
     const Texture2D Resource : register(T0);
     
-    Layout::Color Pixel(const Layout::Pixel Input) : SV_Target
+    Layout::Color Pixel(const Layout::Pixel Input) : SV_TARGET
     {
         Layout::Color Output =
         {

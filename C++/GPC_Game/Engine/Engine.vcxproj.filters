@@ -64,4 +64,12 @@
   <ItemGroup>
     <None Include="Shader\HLSL\Layout.hlsli" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image\Cookie.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Image\background.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
