@@ -8,6 +8,7 @@
 #include "FreeImage.h"
 #include "Pipeline.h"
 #include "Rendering.h"
+#include "Resource.h"
 
 namespace Rendering
 {
@@ -101,6 +102,11 @@ namespace Rendering
 			{
 				matrix<4, 4> const world = Translation(Location) * Rotation(Angle) * Scale(Length);
 				Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(world));
+
+				matrix<4, 4> const projection = Scale(vector<2>(2.0f / 1280.0f, 2.0f / 720.0f));
+				matrix<4, 4> const view = Rotation(0) * Translation(vector<2>(0, 0));
+				matrix<4, 4> const latter = projection * view;		 
+				Transform::Update<Transform::Type::Latter>(reinterpret_cast<Transform::matrix const&>(latter));
 			}
 			{
 				Descriptor const& image = Storage.at(Content);
@@ -126,28 +132,13 @@ namespace Rendering
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
 
 				FreeImage_Initialise();
-				Image::Import("Image/Cookie.png");
+				Resource::Import("Image", Image::Import);
 				FreeImage_DeInitialise();
-
-				Player.Content = "Cookie";
-				Player.Length = { 553.0f / 2.0f, 397.0f / 2.0f };
-				Player.Location = { 0, 0 };
-
-				//matrix<4, 4> const projection = Scale(vector<2>(2 / 1280, 2 / 720));
-				//matrix<4, 4> const view = Rotation(0) * Translation(0);
-				//matrix<4, 4> const latter = projection * view;
-
-				//{
-				//	using namespace Pipeline;
-				//	Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(latter));
-				//}
-
 				return;
 			}
 			case WM_APP:
 			{
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
-				Player.Draw();
 				return;
 			}
 			case WM_DESTROY:

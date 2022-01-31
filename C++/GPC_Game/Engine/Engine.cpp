@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include "Game.h"
 
 namespace Rendering
 {
@@ -17,6 +18,8 @@ namespace Sound
 	void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
 }
 
+Game* game;
+
 namespace Engine
 {
 	LRESULT CALLBACK Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
@@ -25,12 +28,17 @@ namespace Engine
 		{
 			case WM_CREATE:
 			{
+				game = new Game();
+				
+				game->BeginPlay();
+
 				//Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				return 0;
 			}
 			case WM_APP:
 			{
+				game->Tick();
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				//Time::Procedure(hWindow, uMessage, wParameter, lParameter);
