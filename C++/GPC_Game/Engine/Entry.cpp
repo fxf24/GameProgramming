@@ -21,7 +21,7 @@ int APIENTRY WinMain
 		WNDCLASSEX wndClass		= WNDCLASSEX();
 
 		wndClass.cbSize			= sizeof(WNDCLASSEX);
-		// massege function
+		// window massege handle function
 		wndClass.lpfnWndProc	= Engine::Procedure;
 		// who help
 		wndClass.hInstance		= hInstance;
@@ -96,6 +96,7 @@ int APIENTRY WinMain
 
 		// GetMessage  : call cycle is fixed, while wait
 		// PeekMessage : return  
+		// get message and send message
 		while (true)
 		{
 			if (PeekMessage(&msg, HWND(), WM_NULL, WM_NULL, PM_REMOVE))

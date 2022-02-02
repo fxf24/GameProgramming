@@ -160,15 +160,19 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="Rendering.cpp" />
+    <ClCompile Include="Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeImage.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="Rendering.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader\Bytecode\Pixel.h" />
     <ClInclude Include="Shader\Bytecode\Vertex.h" />
     <ClInclude Include="vector.h" />

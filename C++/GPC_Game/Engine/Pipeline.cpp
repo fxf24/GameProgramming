@@ -66,7 +66,7 @@ namespace Rendering::Pipeline
 			D3D11_SUBRESOURCE_DATA const Subresource
 			{
 				data,
-				size.cx * BPP / 8
+				static_cast<UINT>((size.cx * BPP) / 8)
 			};
 
 			ID3D11Texture2D* Texture2D = nullptr;
