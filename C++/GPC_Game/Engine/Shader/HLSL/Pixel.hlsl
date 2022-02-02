@@ -13,7 +13,7 @@ namespace Shader
         
         if (Output.a == 0.0f)
             discard;
-        
+
         return Output;
     }
 }

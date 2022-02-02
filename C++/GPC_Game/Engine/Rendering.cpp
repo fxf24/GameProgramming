@@ -8,6 +8,7 @@
 #include "FreeImage.h"
 #include "Pipeline.h"
 #include "Rendering.h"
+#include "Resource.h"
 
 namespace Rendering
 {
@@ -103,6 +104,7 @@ namespace Rendering
 
 				matrix<4, 4> const projection = Scale(vector<2>(2.0f / 1280.0f, 2.0f / 720.0f));
 				matrix<4, 4> const view = Rotation(0) * Translation(vector<2>(0, 0));
+
 				matrix<4, 4> const camera = projection * view;
 				Transform::Update<Transform::Type::Latter>(reinterpret_cast<Transform::matrix const&>(camera));
 			}
@@ -128,8 +130,7 @@ namespace Rendering
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
 
 				FreeImage_Initialise();
-				Image::Import("Image/Background.png");
-				Image::Import("Image/Cookie.png");
+				Resource::Import("Image", Image::Import);
 				FreeImage_DeInitialise();
 				return;
 			}

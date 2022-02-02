@@ -2,7 +2,7 @@
 
 #include "Resource.h"
 
-void Resource::Import(std::string const directory, void(* const function)(std::string const& file))
+void Resource::Import(std::string const directory, void (* const function)(std::string const& file))
 {
 	if (std::filesystem::exists(directory))
 	{
