@@ -39,6 +39,12 @@
     <ClCompile Include="Resource.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Time\Time.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeImage.h">
@@ -68,6 +74,12 @@
     <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Time\Time.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\HLSL\Vertex.hlsl" />
@@ -83,5 +95,13 @@
     <Image Include="Image\background.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Animation\Amongus[12].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\BGM.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>

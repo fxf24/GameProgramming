@@ -8,8 +8,11 @@ public :
 	void Tick();
 
 private :
+	Rendering::Camera Camera;
+
 	Rendering::Image::Component Player;
 	Rendering::Image::Component Background;
 
+	Rendering::Animation::Component Amongus;
 };
 

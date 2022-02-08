@@ -31,9 +31,8 @@ namespace Engine
 			{
 				game = new Game();
 
+				Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 				game->BeginPlay();
-
-				//Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				return 0;
 			}
@@ -43,7 +42,7 @@ namespace Engine
 
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
-				//Time::Procedure(hWindow, uMessage, wParameter, lParameter);
+				Time::Procedure(hWindow, uMessage, wParameter, lParameter);
 				return 0;
 			}
 			case WM_DESTROY:

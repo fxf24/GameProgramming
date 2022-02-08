@@ -38,11 +38,6 @@ int APIENTRY WinMain
 	}
 
 	{
-		// create window with registered class
-		// size of window is 1280, 720 size
-		// should be created in center
-
-
 		CREATESTRUCT window = CREATESTRUCT();
 
 		// get registered class name
@@ -55,7 +50,7 @@ int APIENTRY WinMain
 		window.cx = 1280;
 		window.cy = 720;
 		// who is gonna help to make window
-		window.hInstance = hInstance;
+		//window.hInstance = hInstance;
 
 		{
 			// left right top bottom

@@ -165,6 +165,8 @@
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Time\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeImage.h" />
@@ -175,6 +177,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader\Bytecode\Pixel.h" />
     <ClInclude Include="Shader\Bytecode\Vertex.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="Time\Time.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -211,12 +215,20 @@
     <None Include="Shader\HLSL\Layout.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Animation\Amongus[12].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
     <Image Include="Image\background.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
     <Image Include="Image\Cookie.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\BGM.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Media>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
