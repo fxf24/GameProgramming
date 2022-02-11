@@ -39,6 +39,41 @@ namespace Rendering::Pipeline
 		ID3D11RenderTargetView* RenderTargetView;
 	}
 
+	namespace String
+	{
+		void Render(HFONT const hFont, LPCSTR const string, COLORREF const color, SIZE const size, POINT const center)
+		{
+			IDXGISurface1* Surface = nullptr;
+			
+			MUST(SwapChain->GetBuffer(0, IID_PPV_ARGS(&Surface)));
+			{
+				HDC hdc = HDC();
+
+				MUST(Surface->GetDC(false, &hdc));
+				{
+					if (hFont != HFONT())
+					{
+						SelectObject(hdc, hFont);
+					}
+
+					SetTextColor(hdc, color);
+
+					RECT area
+					{
+						center.x - size.cx / 2, center.y - size.cy / 2,
+						center.x + size.cx / 2, center.y + size.cy / 2,
+					};
+
+					DrawText(hdc, string, ~'\0', &area, 0);
+				}
+				MUST(Surface->ReleaseDC(nullptr));
+			}
+			Surface->Release();
+
+			DeviceContext->OMSetRenderTargets(1, &RenderTargetView, nullptr);
+		}
+	}
+
 	namespace Texture
 	{
 		struct Handle final
@@ -71,7 +106,8 @@ namespace Rendering::Pipeline
 
 			ID3D11Texture2D* Texture2D = nullptr;
 
-			MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
+			// MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
+			auto hr = Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D);
 			{ MUST(Device->CreateShaderResourceView(Texture2D, nullptr, &(handle = new Handle())->ShaderResourceView)); }
 
 			Texture2D->Release();
@@ -128,6 +164,7 @@ namespace Rendering::Pipeline
 					Descriptor.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 					Descriptor.OutputWindow = hWindow;
 					Descriptor.Windowed = true;
+					Descriptor.Flags = DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE;
 
 					MUST(D3D11CreateDeviceAndSwapChain(
 						nullptr,
@@ -244,6 +281,24 @@ namespace Rendering::Pipeline
 
 					DeviceContext->VSSetConstantBuffers(0, 2, Buffer::Constant);
 				}
+				{
+					D3D11_BLEND_DESC Descriptor = D3D11_BLEND_DESC();
+
+					Descriptor.RenderTarget->BlendEnable	= true;
+					Descriptor.RenderTarget->SrcBlend		= D3D11_BLEND_SRC_ALPHA;
+					Descriptor.RenderTarget->DestBlend		= D3D11_BLEND_INV_SRC_ALPHA;
+					Descriptor.RenderTarget->BlendOp		= D3D11_BLEND_OP_ADD;
+					Descriptor.RenderTarget->SrcBlendAlpha	= D3D11_BLEND_ZERO;
+					Descriptor.RenderTarget->DestBlendAlpha = D3D11_BLEND_ONE;
+					Descriptor.RenderTarget->BlendOpAlpha	= D3D11_BLEND_OP_ADD;
+					Descriptor.RenderTarget->RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+					ID3D11BlendState* BlendState = nullptr;
+					MUST(Device->CreateBlendState(&Descriptor, &BlendState));
+
+					DeviceContext->OMSetBlendState(BlendState, nullptr, D3D11_DEFAULT_SAMPLE_MASK);
+					BlendState->Release();
+				}
 				return;
 			}
 			case WM_APP:
@@ -284,12 +339,28 @@ namespace Rendering::Pipeline
 						RenderTargetView->Release();
 
 						MUST(SwapChain->ResizeBuffers(1, 
-							LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+							LOWORD(lParameter), HIWORD(lParameter), DXGI_FORMAT_R8G8B8A8_UNORM, 
+							DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE
+						));
 					}
 					{
 						ID3D11Texture2D* Texture2D = nullptr;
 						
 						MUST(SwapChain->GetBuffer(0, IID_PPV_ARGS(&Texture2D)));
+						{
+							IDXGISurface1* Surface = nullptr;
+							MUST(Texture2D->QueryInterface(IID_PPV_ARGS(&Surface)));
+							{
+								HDC hdc = HDC();
+								MUST(Surface->GetDC(false, &hdc));
+								{
+									// OPAQUE : not transparent
+									SetBkMode(hdc, TRANSPARENT);
+								}
+								MUST(Surface->ReleaseDC(nullptr));
+							}
+							Surface->Release();
+						}
 						{
 							MUST(Device->CreateRenderTargetView(Texture2D, nullptr, &RenderTargetView));
 						}

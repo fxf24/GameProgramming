@@ -11,9 +11,6 @@ namespace Shader
             Resource.Load(int3(Input.TexCoord.x, Input.TexCoord.y, 0))
         };
         
-        if (Output.a == 0.0f)
-            discard;
-
         return Output;
     }
 }

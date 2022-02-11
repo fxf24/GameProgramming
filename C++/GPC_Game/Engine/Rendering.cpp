@@ -63,6 +63,38 @@ namespace Rendering
 		Transform::Update<Transform::Type::Latter>(reinterpret_cast<Transform::matrix const&>(camera));
 	}
 
+	namespace Text
+	{
+		void Import(std::string const& file)
+		{
+			AddFontResourceEx(file.data(), FR_PRIVATE | FR_NOT_ENUM, nullptr);
+		}
+
+		void Component::Draw()
+		{
+			LOGFONT descriptor = LOGFONT();
+
+			descriptor.lfHeight    = Font.Size;
+			descriptor.lfWeight    = Font.Bold ? FW_BOLD : FW_NORMAL;
+			descriptor.lfItalic    = Font.Italic;
+			descriptor.lfUnderline = Font.Underline;
+			descriptor.lfStrikeOut = Font.StrikeThrough;
+			descriptor.lfCharSet   = DEFAULT_CHARSET;
+			// DEFAULT CHARSET : auto language
+
+			strcpy_s(descriptor.lfFaceName, LF_FACESIZE, Font.Name);
+
+			HFONT const font = CreateFontIndirect(&descriptor);
+
+			SIZE  const area   = { static_cast<LONG>(  Length[0]), static_cast<LONG>(  Length[1]) };
+			POINT const center = { static_cast<LONG>(Location[0]), static_cast<LONG>(Location[1]) };
+
+			Pipeline::String::Render(font, str, RGB(Color.Red, Color.Green, Color.Blue), area, center);
+
+			DeleteObject(font);
+		}
+	}
+
 	namespace Image
 	{
 		struct Descriptor final
@@ -180,15 +212,26 @@ namespace Rendering
 				Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(world));
 			}
 			{
-				Descriptor const& image = Storage.at(Content);
+				Descriptor & image = Storage.at(Content);
 
 				LONG const progress = static_cast<LONG>((Playback / Duration) * image.Motion);
 
-				RECT const area
+				RECT area;
+
+				if (GetDirection())
 				{
-					image.Frame.cx * (progress + 0), image.Frame.cy * 0,
-					image.Frame.cx * (progress + 1), image.Frame.cy * 1
-				};
+					area = {
+						image.Frame.cx * (progress + 1), image.Frame.cy * 0,
+						image.Frame.cx * (progress + 0), image.Frame.cy * 1
+					};
+				}
+				else
+				{
+					area = {
+						image.Frame.cx * (progress + 0), image.Frame.cy * 0,
+						image.Frame.cx * (progress + 1), image.Frame.cy * 1
+					};
+				}
 
 				Texture::Render(image.handle, area);
 				
@@ -209,6 +252,10 @@ namespace Rendering
 				}
 
 			}
+		}
+		bool Component::GetDirection()
+		{
+			return direction;
 		}
 	}
 
@@ -231,6 +278,8 @@ namespace Rendering
 					Resource::Import("Animation", Animation::Import);
 				}
 				FreeImage_DeInitialise();
+
+				Resource::Import("Font", Text::Import);
 				return;
 			}
 			case WM_APP:
@@ -240,6 +289,16 @@ namespace Rendering
 			}
 			case WM_DESTROY:
 			{
+				for (auto const& pair : Image::Storage)
+				{
+					Pipeline::Texture::Delete(pair.second.handle);
+				}
+
+				for (auto const& pair : Animation::Storage)
+				{
+					Pipeline::Texture::Delete(pair.second.handle);
+				}
+
 				Pipeline::Procedure(hWindow, uMessage, wParameter, lParameter);
 				return;
 			}

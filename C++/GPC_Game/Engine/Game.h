@@ -1,5 +1,7 @@
 #pragma once
 #include "Rendering.h"
+#include "Sound.h"
+#include "Input.h"
 
 class Game
 {
@@ -14,5 +16,9 @@ private :
 	Rendering::Image::Component Background;
 
 	Rendering::Animation::Component Amongus;
+
+	Rendering::Text::Component KangFont;
+
+	Sound::Sound Sound;
 };
 

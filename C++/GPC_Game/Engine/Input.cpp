@@ -1,4 +1,5 @@
 #include<windows.h>
+#include "Input.h"
 
 namespace Input
 {
@@ -10,21 +11,34 @@ namespace Input
 			if (!Pressed(code))
 			{
 				State.Pressed[code >> 0x4] ^= (0x8000 >> (code & 0xf));
+				State.Changed[code >> 0x4] ^= (0x8000 >> (code & 0xf));
 			}
 		}
 		
 		void Up(WPARAM const code)
 		{
 			State.Pressed[code >> 0x4] ^= (0x8000 >> (code & 0xf));
+			State.Changed[code >> 0x4] ^= (0x8000 >> (code & 0xf));
 		}
 
 		bool Pressed(WPARAM const code)
 		{ return State.Pressed[code >> 0x4] & (0x8000 >> (code & 0xf)); }
 
+		bool Changed(WPARAM const code)
+		{
+			return State.Changed[code >> 0x4] & (0x8000 >> (code & 0xf));
+		}
+
+		void Update()
+		{
+			ZeroMemory(State.Changed, sizeof(State.Changed));
+		}
+
 	private :
 		struct 
 		{
 			USHORT Pressed[16];
+			USHORT Changed[16];
 		}State;
 		
 	
@@ -38,12 +52,36 @@ namespace Input
 	POINT Cursor;
 	POINT Wheel;
 
+	namespace Get
+	{
+		namespace Key
+		{
+			bool Down(size_t const code)	{ return	 Input::Key.Pressed(code) and Input::Key.Changed(code); }
+			bool Press(size_t const code)	{ return	 Input::Key.Pressed(code); }
+			bool Up(size_t const code)		{ return not Input::Key.Pressed(code) and Input::Key.Changed(code); }
+		}
+
+		namespace Cursor
+		{
+			long X() { return Input::Cursor.x; }
+			long Y() { return Input::Cursor.y; }
+		}
+
+		namespace Wheel
+		{
+			long H() { return Input::Wheel.x; }
+			long V() { return Input::Wheel.x; }
+		}
+	}
+
 	void CALLBACK Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
 		switch (uMessage)
 		{
 		case WM_APP :
 		{
+			Key.Update();
+
 			Wheel = POINT();
 			return;
 		}

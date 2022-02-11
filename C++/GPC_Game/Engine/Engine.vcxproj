@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="Rendering.h" />
@@ -229,6 +230,11 @@
     <Media Include="Sound\BGM.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Font\KangWonAll_Bold.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Font>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

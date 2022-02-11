@@ -1,6 +1,11 @@
 #pragma once
 namespace Rendering::Pipeline
 {
+	namespace String
+	{
+		void Render(HFONT const hFont, LPCSTR const string, COLORREF const color, SIZE const size, POINT const center);
+	}
+
 	namespace Texture
 	{
 		void Create(struct Handle*& handle, SIZE const size, BYTE const* const data);

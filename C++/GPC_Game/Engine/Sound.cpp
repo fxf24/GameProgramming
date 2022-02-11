@@ -179,17 +179,18 @@ namespace Sound
             MUST(sound->SourceVoice->Start());
             return;
         }
+        else 
+        {
+            MUST(sound->SourceVoice->SubmitSourceBuffer(&sound->buffer));
 
-        MUST(sound->SourceVoice->Stop());
-        MUST(sound->SourceVoice->FlushSourceBuffers());
-        MUST(sound->SourceVoice->SubmitSourceBuffer(&sound->buffer));
-
-        MUST(sound->SourceVoice->SetVolume(volume));
-        MUST(sound->SourceVoice->Start());
+            MUST(sound->SourceVoice->SetVolume(volume));
+            MUST(sound->SourceVoice->Start());
+        }
     }
 
     void Sound::Stop()
     {
+        
         Handle* & sound = Storage.at(Content);
         MUST(sound->SourceVoice->Stop());
         MUST(sound->SourceVoice->FlushSourceBuffers());
