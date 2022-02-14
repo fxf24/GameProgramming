@@ -1,26 +1,10 @@
 #define _USE_MATH_DEFINES
 
-#include "vector.h"
+#include "Collision.h"
 
 namespace Collision
 {
-	struct Point final
-	{
-		vector<2> Location;
-	};
 
-	struct Circle final
-	{
-		float     Diameter; 
-		vector<2> Location;
-	};
-
-	struct RectAngle final
-	{
-		vector<2> Length;
-		float Angle;
-		vector<2> Location;
-	};
 
 	inline matrix<2, 2> Rotation(float const& angle)
 	{
@@ -117,12 +101,34 @@ namespace Collision
 	{
 		if (LHS.Angle == 0.0f and RHS.Angle == 0.0f)
 		{
+			vector<2> const min[2]
+			{
+				LHS.Location - LHS.Length / 2,
+				RHS.Location - RHS.Length / 2,
+			};
+
+			vector<2> const max[2]
+			{
+				LHS.Location + LHS.Length / 2,
+				RHS.Location + RHS.Length / 2,
+			};
+
+			return (
+					min[0][0] <= max[1][0] and min[1][0] <= max[0][0] and
+					min[0][1] <= max[1][1] and min[1][1] <= max[0][1]
+				);
 		}
 		else if (abs(LHS.Angle - RHS.Angle) < 0.1f)
 		{
+			return Collide
+			(
+				RectAngle {LHS.Length, 0, LHS.Location * Rotation(-RHS.Angle)},
+				RectAngle {RHS.Length, 0, RHS.Location * Rotation(-RHS.Angle)}
+			);
 		}
 		else 
 		{
+			return false;
 		}
 	}
 }

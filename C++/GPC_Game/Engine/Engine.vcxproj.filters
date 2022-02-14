@@ -33,13 +33,10 @@
     <ClCompile Include="Pipeline.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Time\Time.cpp">
+    <ClCompile Include="Time.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp">
@@ -68,19 +65,19 @@
     <ClInclude Include="Shader\Bytecode\Pixel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Time\Time.h">
+    <ClInclude Include="Time.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

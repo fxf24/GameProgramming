@@ -160,17 +160,16 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entry.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Time\Time.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="FreeImage.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="Pipeline.h" />
@@ -179,7 +178,7 @@
     <ClInclude Include="Shader\Bytecode\Pixel.h" />
     <ClInclude Include="Shader\Bytecode\Vertex.h" />
     <ClInclude Include="Sound.h" />
-    <ClInclude Include="Time\Time.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>

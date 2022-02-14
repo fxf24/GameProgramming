@@ -1,5 +1,4 @@
 #include <Windows.h>
-#include "Game.h"
 
 // notifying that functions are exist
 namespace Rendering
@@ -19,7 +18,6 @@ namespace Sound
 	void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
 }
 
-Game* game;
 
 namespace Engine
 {
@@ -29,17 +27,12 @@ namespace Engine
 		{
 			case WM_CREATE:
 			{
-				game = new Game();
-
 				Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
-				game->BeginPlay();
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				return 0;
 			}
 			case WM_APP:
 			{
-				game->Tick();
-
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Time::Procedure(hWindow, uMessage, wParameter, lParameter);
@@ -48,9 +41,6 @@ namespace Engine
 			case WM_DESTROY:
 			{
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
-
-				delete game;
-
 				PostQuitMessage(0);
 				return 0;
 			}

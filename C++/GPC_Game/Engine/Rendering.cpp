@@ -10,7 +10,7 @@
 #include "Rendering.h"
 
 #include "Resource.h"
-#include "Time/Time.h"
+#include "Time.h"
 
 namespace Rendering
 {
