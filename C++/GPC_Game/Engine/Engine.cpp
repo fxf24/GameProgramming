@@ -1,4 +1,5 @@
-#include <Windows.h>
+#include <d3d11.h>
+#include "Game.h"
 
 // notifying that functions are exist
 namespace Rendering
@@ -21,6 +22,7 @@ namespace Sound
 
 namespace Engine
 {
+	namespace { Game* Portfolio; }
 	LRESULT CALLBACK Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
 		switch (uMessage)
@@ -29,10 +31,14 @@ namespace Engine
 			{
 				Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
+				(Portfolio = Initialize())->Start();
 				return 0;
 			}
 			case WM_APP:
 			{
+				if (Portfolio->Update())
+					CloseWindow(hWindow);
+
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Time::Procedure(hWindow, uMessage, wParameter, lParameter);
@@ -40,6 +46,9 @@ namespace Engine
 			}
 			case WM_DESTROY:
 			{
+				Portfolio->End();
+				delete Portfolio;
+
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				PostQuitMessage(0);
 				return 0;

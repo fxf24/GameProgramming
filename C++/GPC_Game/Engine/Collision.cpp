@@ -24,7 +24,7 @@ namespace Collision
 	{ return length(LHS.Location - RHS.Location) <= RHS.Diameter / 2; }
 	
 	bool Collide(Circle const& LHS, Point const& RHS)
-	{ Collide(RHS, LHS); }
+	{ return Collide(RHS, LHS); }
 	
 	bool Collide(Point const& LHS, RectAngle const& RHS)
 	{
