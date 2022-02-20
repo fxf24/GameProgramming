@@ -51,6 +51,9 @@
     <ClInclude Include="Scene\BGScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Game.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -65,5 +68,34 @@
     <ClCompile Include="Scene\BGScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Animation\rogue_dodge_back[9].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_dodge_front[9].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_dodge_right[9].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_idle[4].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_idle_back[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_idle_front[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_run_back[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_run_forward[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\rogue_run_front[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

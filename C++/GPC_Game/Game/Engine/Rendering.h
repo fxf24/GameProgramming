@@ -68,6 +68,12 @@ namespace Rendering
 
 	namespace Animation
 	{
+		enum class View {
+			idle,
+			front,
+			back,
+		};
+
 		class Component final
 		{
 		public:
@@ -86,6 +92,9 @@ namespace Rendering
 			vector<2> Length = { 0, 0 };
 			float	  Angle = { 0 };
 			vector<2> Location = { 0, 0 };
+
+			View view = View::idle;
+			View GetView() { return view; }
 		};
 	}
 };
