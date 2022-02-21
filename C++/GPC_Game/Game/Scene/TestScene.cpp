@@ -77,6 +77,42 @@ bool TestScene::Update()
 		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
 	}
 
+	char buf[256];
+	int sum = atoi(Damage.str);
+	if (Input::Get::Key::Press(VK_SHIFT))
+	{
+		switch (Player.view)
+		{
+		case View::idle:
+			Player.Content = "rogue_dodge_right";
+			break;
+		case View::front:
+			Player.Content = "rogue_dodge_front";
+			break;
+		case View::back:
+			Player.Content = "rogue_dodge_back";
+			break;
+		}
+
+		float elapsed = Time::Get::Elapsed();
+		Player.Duration = 0.3f;
+		for(float t = 0; t < Time::Get::Delta()*9; t += Time::Get::Delta())
+		{
+			Player.Location += normalize(direction) * 500 * Time::Get::Delta();
+			Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
+		}
+		elapsed = Time::Get::Elapsed();
+		sprintf_s(buf, "%f", elapsed);
+		Damage.str = buf;
+	}
+	else {
+		Player.Duration = 1.0f;
+
+		char buf[256];
+		sprintf_s(buf, "%d", sum);
+		Damage.str = buf;
+	}
+
 	BG.Draw();
 	Cam.Set();
 	Player.Draw();
