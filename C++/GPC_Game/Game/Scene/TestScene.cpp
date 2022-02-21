@@ -17,6 +17,13 @@ void TestScene::Start()
 	Damage.Font.Size = 50;
 	Damage.Color = { 255, 255, 255 };
 	Damage.str = "0";
+
+	BG.Content = "background";
+	BG.Length = { 1280 * 3, 720 * 3};
+
+	BGmusic.Content = "BGM";
+	BGmusic.volume = 0.5f;
+	BGmusic.Play();
 }
 
 bool TestScene::Update()
@@ -67,9 +74,10 @@ bool TestScene::Update()
 	if (length(direction) != 0)
 	{
 		Player.Location += normalize(direction) * 500 * Time::Get::Delta();
+		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
 	}
 
-
+	BG.Draw();
 	Cam.Set();
 	Player.Draw();
 	Damage.Draw();

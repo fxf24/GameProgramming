@@ -9,10 +9,13 @@ class TestScene : public Scene
 
 public :
 	Rendering::Animation::Component Player;
-	Rendering::Animation::Component monster;
+	
+	Rendering::Image::Component		BG;
 
 	Rendering::Text::Component		Damage;
 	
-	Rendering::Camera Cam;
+	Rendering::Camera				Cam;
+
+	Sound::Sound					BGmusic;
 };
 

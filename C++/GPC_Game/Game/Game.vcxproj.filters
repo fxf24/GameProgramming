@@ -48,9 +48,6 @@
     <ClInclude Include="Scene\TestScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\BGScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -63,9 +60,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TestScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\BGScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

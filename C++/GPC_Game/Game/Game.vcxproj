@@ -151,7 +151,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Game.h" />
-    <ClInclude Include="Scene\BGScene.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\matrix.h" />
@@ -165,7 +164,6 @@
     <ClInclude Include="Scene\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scene\BGScene.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
