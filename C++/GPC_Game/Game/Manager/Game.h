@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine\Game.h"
+#include "Character/Player.h"
 
 class Game final : public Engine::Game
 {
@@ -10,6 +11,7 @@ public :
 
 public :
 	std::vector<class Scene*> Scenes;
+	Player* player = Player::GetInstance();
 
 	size_t Now = 0;
 };

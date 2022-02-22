@@ -1,14 +1,15 @@
 #pragma once
 #include "Manager\Scene.h"
+#include "Character/Player.h"
 
-class TestScene : public Scene
+class FirstScene : public Scene
 {
 	virtual void Start() override;
 	virtual bool Update() override;
 	virtual void End() override;
 
 public :
-	Rendering::Animation::Component Player;
+	Player* player = Player::GetInstance();
 	
 	Rendering::Image::Component		BG;
 

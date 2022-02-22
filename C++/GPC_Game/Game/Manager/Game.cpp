@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Game.h"
-#include "Scene/TestScene.h"
-
+#include "Scene/FirstScene.h"
 
 void Game::Start()
 {
-	Scenes.push_back(new TestScene);
+	Scenes.push_back(new FirstScene);
 
 	Scenes.at(Now)->Start();
 }
@@ -30,6 +29,7 @@ bool Game::Update()
 void Game::End()
 {
 	for (auto scene : Scenes) delete scene;
+	player->End();
 }
 
 Engine::Game* Engine::Initialize()

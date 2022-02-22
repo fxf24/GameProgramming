@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Input.h" />
@@ -160,15 +161,17 @@
     <ClInclude Include="Engine\vector.h" />
     <ClInclude Include="Manager\Game.h" />
     <ClInclude Include="Manager\Scene.h" />
+    <ClInclude Include="Character\Player.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Scene\TestScene.h" />
+    <ClInclude Include="Scene\FirstScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
+    <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Scene\TestScene.cpp" />
+    <ClCompile Include="Scene\FirstScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Animation\rogue_dodge_back[9].png">
