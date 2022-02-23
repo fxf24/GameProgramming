@@ -71,6 +71,10 @@ bool TestScene::Update()
 		Damage.str = buf;
 	}
 
+	if (Input::Get::Key::Down(VK_ESCAPE)) 
+		
+		return true;
+	
 
 	Cam.Set();
 	Player.Draw();

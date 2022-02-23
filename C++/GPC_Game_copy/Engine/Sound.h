@@ -17,4 +17,6 @@ namespace Sound
 		bool  loop   = false;
 		bool  pause  = false;
 	};
+
+	void EndPlay();
 }

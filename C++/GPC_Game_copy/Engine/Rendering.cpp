@@ -200,8 +200,8 @@ namespace Rendering
 					LONG i = stoi(file.substr(a + 1, b - a - 1));
 					LONG j = stoi(file.substr(y + 1, z - y - 1));
 
-					descriptor.Frame.cx /= x;
-					descriptor.Frame.cy /= y;
+					descriptor.Frame.cx /= i;
+					descriptor.Frame.cy /= j;
 
 					Tile::Storage.try_emplace(file.substr(x, a - x), descriptor);
 				}

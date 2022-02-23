@@ -17,10 +17,12 @@ bool BGScene::Update()
     BG.Draw();
 
     if (Input::Get::Key::Down(VK_ESCAPE)) return true;
+    
 
     return false;
 }
 
 void BGScene::End()
 {
+    Sound::EndPlay();
 }

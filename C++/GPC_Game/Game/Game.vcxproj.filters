@@ -57,6 +57,9 @@
     <ClInclude Include="Character\Character.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Character\Enemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +72,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Character\Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,6 +104,21 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Animation\rogue_run_front[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\bulletman_idle_back[2].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\bulletman_death_front[4].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\bulletman_idle[2].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\bulletman_run_back[6].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\bulletman_run_left[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

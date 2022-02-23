@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Character\Character.h" />
+    <ClInclude Include="Character\Enemy.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Input.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Scene\FirstScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Character\Enemy.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -174,6 +176,21 @@
     <ClCompile Include="Scene\FirstScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Animation\bulletman_death_front[4].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Animation\bulletman_idle[2].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Animation\bulletman_run_back[6].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Animation\bulletman_run_left[6].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Animation\bulletman_idle_back[2].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
     <Image Include="Animation\rogue_dodge_back[9].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>

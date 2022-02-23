@@ -75,6 +75,7 @@ namespace Rendering
 
 		public:
 			char const* Content = nullptr;
+
 		};
 	}
 

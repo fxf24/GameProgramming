@@ -19,6 +19,8 @@ void FirstScene::Start()
 	BGmusic.Content = "BGM";
 	BGmusic.volume = 0.5f;
 	BGmusic.Play();
+
+	enemies.push_back(new Enemy);
 }
 
 bool FirstScene::Update()
@@ -26,6 +28,10 @@ bool FirstScene::Update()
 	BG.Draw();
 
 	player->Update();
+	for (auto e : enemies)
+	{
+		e->Update();
+	}
 
 	Damage.Draw();
     return false;
@@ -33,4 +39,8 @@ bool FirstScene::Update()
 
 void FirstScene::End()
 {
+	for (auto e : enemies)
+	{
+		delete e;
+	}
 }

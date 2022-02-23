@@ -169,12 +169,19 @@
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h" />
     <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Imgui\imconfig.h" />
+    <ClInclude Include="Imgui\imgui.h" />
+    <ClInclude Include="Imgui\imgui_internal.h" />
+    <ClInclude Include="Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Imgui\imstb_textedit.h" />
+    <ClInclude Include="Imgui\imstb_truetype.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="Pipeline.h" />
@@ -183,6 +190,7 @@
     <ClInclude Include="Shader\Bytecode\Pixel.h" />
     <ClInclude Include="Shader\Bytecode\Vertex.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>

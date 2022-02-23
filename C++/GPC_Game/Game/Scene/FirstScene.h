@@ -1,6 +1,7 @@
 #pragma once
 #include "Manager\Scene.h"
 #include "Character/Player.h"
+#include "Character/Enemy.h"
 
 class FirstScene : public Scene
 {
@@ -10,7 +11,7 @@ class FirstScene : public Scene
 
 public :
 	Player* player = Player::GetInstance();
-	
+	std::vector<Enemy*> enemies;
 	Rendering::Image::Component		BG;
 
 	Rendering::Text::Component		Damage;

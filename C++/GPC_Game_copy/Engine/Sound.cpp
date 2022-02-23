@@ -164,7 +164,13 @@ namespace Sound
 
 				return;
 			}
-			case WM_DESTROY: { return; }
+			case WM_DESTROY: { 
+                for (std::pair<std::string, Handle*> elem : Storage)
+                    delete elem.second;
+
+                XAudio2->Release();
+
+                return; }
 		}
 	}
     void Sound::Play()
@@ -203,5 +209,14 @@ namespace Sound
         Handle* & sound = Storage.at(Content);
         pause = true;
         MUST(sound->SourceVoice->Stop());
+    }
+
+    void EndPlay()
+    {
+        for (std::pair<std::string, Handle*> elem : Storage)
+        {
+            elem.second->SourceVoice->Stop();
+            elem.second->SourceVoice->FlushSourceBuffers();
+        }
     }
 }

@@ -1,13 +1,13 @@
 #pragma once
 #include "Character.h"
+#include <random>
 using namespace Rendering::Animation;
 
-class Player : public Character
+class Enemy : public Character
 {
 private :
-	static Player* Instance;
 	Component character;
-	Rendering::Camera Cam;
+	UINT hp;
 
 public :
 	virtual void Start() override;
@@ -15,20 +15,9 @@ public :
 	virtual void End() override;
 
 public :
-	static Player* GetInstance()
-	{
-		if (Instance == nullptr) {
-			Instance = new Player();
-		}
-		return Instance;
-	}
 	Component GetCharacter()
 	{
 		return character;
-	}
-	Rendering::Camera GetCam()
-	{
-		return Cam;
 	}
 };
 

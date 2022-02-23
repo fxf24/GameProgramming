@@ -50,6 +50,7 @@ namespace Engine
 				delete Portfolio;
 
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
+				Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 				PostQuitMessage(0);
 				return 0;
 			}
