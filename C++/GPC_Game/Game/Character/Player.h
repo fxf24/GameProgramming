@@ -17,10 +17,7 @@ public :
 public :
 	static Player* GetInstance()
 	{
-		if (Instance == nullptr) {
-			Instance = new Player();
-		}
-		return Instance;
+		return new Player();
 	}
 	Component GetCharacter()
 	{

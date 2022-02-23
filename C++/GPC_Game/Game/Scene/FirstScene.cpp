@@ -21,6 +21,7 @@ void FirstScene::Start()
 	BGmusic.Play();
 
 	enemies.push_back(new Enemy);
+	enemies.at(0)->Start();
 }
 
 bool FirstScene::Update()

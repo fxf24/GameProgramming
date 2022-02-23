@@ -96,5 +96,5 @@ bool Player::Update()
 
 void Player::End()
 {
-	delete Instance;
+	//delete Instance;
 }
