@@ -16,49 +16,101 @@ bool Player::Update()
 {
 	vector<2> direction;
 
-	switch (character.view)
+	if (!isRoll) 
 	{
-	case View::idle:
-		character.Content = "rogue_idle";
-		break;
-	case View::front:
-		character.Content = "rogue_idle_front";
-		break;
-	case View::back:
-		character.Content = "rogue_idle_back";
-		break;
-	}
+		switch (character.view)
+		{
+		case View::idle:
+			character.Content = "rogue_idle";
+			break;
+		case View::front:
+			character.Content = "rogue_idle_front";
+			break;
+		case View::back:
+			character.Content = "rogue_idle_back";
+			break;
+		}	
 
-	if (Input::Get::Key::Press('a') || Input::Get::Key::Press('A'))
-	{
-		character.view = View::idle;
-		character.Content = "rogue_run_forward";
-		direction[0] -= 1;
-		character.direction = true;
+		if (Input::Get::Key::Press('a') || Input::Get::Key::Press('A'))
+		{
+			character.view = View::idle;
+			character.Content = "rogue_run_forward";
+			direction[0] -= 1;
+			character.direction = true;
+		}
+		if (Input::Get::Key::Press('d') || Input::Get::Key::Press('D'))
+		{
+			character.view = View::idle;
+			character.Content = "rogue_run_forward";
+			direction[0] += 1;
+			character.direction = false;
+		}
+		if (Input::Get::Key::Press('w') || Input::Get::Key::Press('W'))
+		{
+			character.view = View::back;
+			character.Content = "rogue_run_back";
+			direction[1] += 1;
+		}
+		if (Input::Get::Key::Press('s') || Input::Get::Key::Press('S'))
+		{
+			character.view = View::front;
+			character.Content = "rogue_run_front";
+			direction[1] -= 1;
+		}
 	}
-	if (Input::Get::Key::Press('d') || Input::Get::Key::Press('D'))
+	
+	if (isRoll)
 	{
-		character.view = View::idle;
-		character.Content = "rogue_run_forward";
-		direction[0] += 1;
-		character.direction = false;
+		if (Input::Get::Key::Press('a') || Input::Get::Key::Press('A'))
+		{
+			character.view = View::idle;
+			character.Content = "rogue_dodge_right";
+			direction[0] -= 1;
+			character.direction = true;
+		}
+		if (Input::Get::Key::Press('d') || Input::Get::Key::Press('D'))
+		{
+			character.view = View::idle;
+			character.Content = "rogue_dodge_right";
+			direction[0] += 1;
+			character.direction = false;
+		}
+		if (Input::Get::Key::Press('w') || Input::Get::Key::Press('W'))
+		{
+			character.view = View::back;
+			character.Content = "rogue_dodge_back";
+			direction[1] += 1;
+		}
+		if (Input::Get::Key::Press('s') || Input::Get::Key::Press('S'))
+		{
+			character.view = View::front;
+			character.Content = "rogue_dodge_front";
+			direction[1] -= 1;
+		}
 	}
-	if (Input::Get::Key::Press('w') || Input::Get::Key::Press('W'))
+	
+
+	if (isRoll && length(direction) != 0)
 	{
-		character.view = View::back;
-		character.Content = "rogue_run_back";
-		direction[1] += 1;
+		character.Location += normalize(direction) * 1000 * Time::Get::Delta();
+		Cam.Location += normalize(direction) * 1000 * Time::Get::Delta();
+		
+		if (character.Playback >= character.Duration)
+		{
+			isRoll = false;
+		}
 	}
-	if (Input::Get::Key::Press('s') || Input::Get::Key::Press('S'))
+	
+	if (length(direction) != 0 && !isRoll) 
 	{
-		character.view = View::front;
-		character.Content = "rogue_run_front";
-		direction[1] -= 1;
+		character.Location += normalize(direction) * 500 * Time::Get::Delta();
+		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
 	}
 
 	
-	if (Input::Get::Key::Down(VK_SHIFT))
+	if (Input::Get::Key::Down(VK_SHIFT) && length(direction) != 0)
 	{
+		isRoll = true;
 		switch (character.view)
 		{
 		case View::idle:
@@ -71,26 +123,11 @@ bool Player::Update()
 			character.Content = "rogue_dodge_back";
 			break;
 		}
-
-		character.Duration = 1.0f;
-		for (float t = 0; t < 1; t += Time::Get::Delta())
-		{
-			character.Location += normalize(direction) * 100 * Time::Get::Delta();
-			Cam.Location += normalize(direction) * 100 * Time::Get::Delta();
-			character.Draw();
-		}
-		character.Duration = 1.0f;
-	}
-
-	if (length(direction) != 0)
-	{
-		character.Location += normalize(direction) * 500 * Time::Get::Delta();
-		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
+		//character.Repeatable = false;
 	}
 
 	Cam.Set();
 	character.Draw();
-
 	return false;
 }
 

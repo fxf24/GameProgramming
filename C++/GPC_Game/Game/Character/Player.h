@@ -8,6 +8,7 @@ private :
 	static Player* Instance;
 	Component character;
 	Rendering::Camera Cam;
+	bool isRoll = false;
 
 public :
 	virtual void Start() override;
