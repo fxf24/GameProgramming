@@ -1,13 +1,15 @@
 #pragma once
-#include <vector>
-#include <string>
 #include "Rendering.h"
+
 #include "Imgui/imgui.h"
 #include "Imgui/imconfig.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imstb_rectpack.h"
 #include "Imgui/imstb_textedit.h"
 #include "Imgui/imstb_truetype.h"
+
+#include <vector>
+#include <string>
 
 class TileMap
 {
@@ -28,6 +30,7 @@ private :
 
 public :
 	std::vector<Rendering::Tile::Component> Images;
+	vector<2> TileSize;
 	vector<2> Scale;
 
 	TileMap();

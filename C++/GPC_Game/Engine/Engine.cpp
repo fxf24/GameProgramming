@@ -1,5 +1,6 @@
 #include <d3d11.h>
 #include "Game.h"
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 // notifying that functions are exist
 namespace Rendering

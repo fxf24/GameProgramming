@@ -70,7 +70,7 @@ namespace Input
 		namespace Wheel
 		{
 			long H() { return Input::Wheel.x; }
-			long V() { return Input::Wheel.x; }
+			long V() { return Input::Wheel.y; }
 		}
 	}
 

@@ -163,6 +163,7 @@
     <ClInclude Include="Manager\Game.h" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Character\Player.h" />
+    <ClInclude Include="Object\Object.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\FirstScene.h" />
   </ItemGroup>

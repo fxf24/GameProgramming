@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include <random>
+#include <map>
 using namespace Rendering::Animation;
 
 class Enemy : public Character
@@ -8,6 +9,7 @@ class Enemy : public Character
 private :
 	Component character;
 	UINT hp;
+	std::map<int, int> rand;
 
 public :
 	virtual void Start() override;

@@ -21,7 +21,10 @@ void FirstScene::Start()
 	BGmusic.Play();
 
 	enemies.push_back(new Enemy);
-	enemies.at(0)->Start();
+	for (auto e : enemies)
+	{
+		e->Start();
+	}
 }
 
 bool FirstScene::Update()
@@ -33,6 +36,8 @@ bool FirstScene::Update()
 	{
 		e->Update();
 	}
+	
+	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
 
 	Damage.Draw();
     return false;

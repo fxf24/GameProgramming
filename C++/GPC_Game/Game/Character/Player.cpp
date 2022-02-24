@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-
+#include <iostream>
 
 void Player::Start()
 {
@@ -56,13 +56,8 @@ bool Player::Update()
 		direction[1] -= 1;
 	}
 
-	if (length(direction) != 0)
-	{
-		character.Location += normalize(direction) * 500 * Time::Get::Delta();
-		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
-	}
-
-	if (Input::Get::Key::Press(VK_SHIFT))
+	
+	if (Input::Get::Key::Down(VK_SHIFT))
 	{
 		switch (character.view)
 		{
@@ -77,15 +72,20 @@ bool Player::Update()
 			break;
 		}
 
-		character.Duration = 0.3f;
-		for (float t = 0; t < Time::Get::Delta() * 9; t += Time::Get::Delta())
-		{
-			character.Location += normalize(direction) * 500 * Time::Get::Delta();
-			Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
-		}
-	}
-	else {
 		character.Duration = 1.0f;
+		for (float t = 0; t < 1; t += Time::Get::Delta())
+		{
+			character.Location += normalize(direction) * 100 * Time::Get::Delta();
+			Cam.Location += normalize(direction) * 100 * Time::Get::Delta();
+			character.Draw();
+		}
+		character.Duration = 1.0f;
+	}
+
+	if (length(direction) != 0)
+	{
+		character.Location += normalize(direction) * 500 * Time::Get::Delta();
+		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
 	}
 
 	Cam.Set();
