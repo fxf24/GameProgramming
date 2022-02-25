@@ -9,6 +9,10 @@ class FirstScene : public Scene
 	virtual bool Update() override;
 	virtual void End() override;
 
+private :
+	std::vector<Bullet*> bullet;
+	std::queue<Bullet*> pool;
+
 public :
 	Player* player = Player::GetInstance();
 	std::vector<Enemy*> enemies;

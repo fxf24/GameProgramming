@@ -25,6 +25,8 @@ void FirstScene::Start()
 	{
 		e->Start();
 	}
+
+
 }
 
 bool FirstScene::Update()
@@ -36,6 +38,7 @@ bool FirstScene::Update()
 	{
 		e->Update();
 	}
+	
 	
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
 

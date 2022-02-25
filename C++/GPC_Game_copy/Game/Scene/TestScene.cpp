@@ -21,6 +21,8 @@ void TestScene::Start()
 	Damage.Font.Size = 50;
 	Damage.Color = { 255, 255, 255 };
 	Damage.str = "0";
+
+	BulletPooling = new ObjectPool();
 }
 
 bool TestScene::Update()
@@ -44,6 +46,26 @@ bool TestScene::Update()
 	if (length(direction) != 0)
 	{
 		Player.Location += normalize(direction) * 500 * Time::Get::Delta();
+		Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
+	}
+
+	if (Input::Get::Key::Down('a') || Input::Get::Key::Down('A') && length(direction) != 0)
+	{
+		auto bullet = static_cast<Bullet*>(BulletPooling->GetRecycledObject());
+
+		if (!bullet)
+		{
+			BulletPooling->RegisterObject(bullet = new Bullet);
+			Bullets.push_back(bullet);
+		}
+
+		bullet->Shoot(Player.Location, direction);
+	}
+
+	for (auto bullet : Bullets)
+	{
+		if (!bullet->GetCanRecycle())
+			bullet->Update();
 	}
 
 	Collision::RectAngle p = {
@@ -71,16 +93,15 @@ bool TestScene::Update()
 		Damage.str = buf;
 	}
 
+	if (Input::Get::Key::Down('W')) GetSceneManger->ChangeScene("BGScene");
 	if (Input::Get::Key::Down(VK_ESCAPE)) 
-		
-		return true;
-	
+		return false;
 
 	Cam.Set();
 	Player.Draw();
 	monster.Draw();
 	Damage.Draw();
-    return false;
+    return true;
 }
 
 void TestScene::End()

@@ -1,14 +1,20 @@
 #pragma once
 #include "Character.h"
-using namespace Rendering::Animation;
+
+#include "Object/Bullet.h"
+
+#include <queue>
 
 class Player : public Character
 {
 private :
 	static Player* Instance;
-	Component character;
+	Rendering::Animation::Component character;
 	Rendering::Camera Cam;
 	bool isRoll = false;
+	vector<2> roll_direction;
+	std::vector<Bullet*> bullet;
+	std::queue<Bullet*> pool;
 
 public :
 	virtual void Start() override;
@@ -20,7 +26,7 @@ public :
 	{
 		return new Player();
 	}
-	Component GetCharacter()
+	Rendering::Animation::Component GetCharacter()
 	{
 		return character;
 	}

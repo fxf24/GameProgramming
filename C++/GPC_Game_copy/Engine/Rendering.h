@@ -66,19 +66,6 @@ namespace Rendering
 		};
 	}
 
-	namespace Tile
-	{
-		class Component final
-		{
-		public:
-			void Draw(SIZE Index);
-
-		public:
-			char const* Content = nullptr;
-
-		};
-	}
-
 	namespace Animation
 	{
 		enum class View {

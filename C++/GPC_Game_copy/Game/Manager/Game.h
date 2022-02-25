@@ -9,8 +9,5 @@ public :
 	void End() override;
 
 public :
-	std::vector<class Scene*> Scenes;
-
-	size_t Now = 0;
 };
 

@@ -154,78 +154,6 @@ namespace Rendering
 		}
 	}
 
-	namespace Tile
-	{
-		struct Descriptor final
-		{
-		public:
-			Pipeline::Texture::Handle* handle = nullptr;
-
-		public:
-			SIZE size = SIZE();
-			SIZE Frame = SIZE();
-		};
-
-		std::map<std::string, Descriptor> Storage;
-
-		void Import(std::string const& file)
-		{
-			{
-				FIBITMAP* bitmap = FreeImage_Load(FreeImage_GetFileType(file.data()), file.data());
-				FreeImage_FlipVertical(bitmap);
-
-				if (FreeImage_GetBPP(bitmap) != 32)
-				{
-					FIBITMAP* const previous = bitmap;
-					// FreeImage_ConverTo32Bits : do not delete previous bitmap
-					bitmap = FreeImage_ConvertTo32Bits(bitmap);
-					FreeImage_Unload(previous);
-				}
-
-				Tile::Descriptor descriptor = Tile::Descriptor();
-				{
-					descriptor.size.cx = FreeImage_GetWidth(bitmap);
-					descriptor.size.cy = FreeImage_GetHeight(bitmap);
-
-					Pipeline::Texture::Create(descriptor.handle, descriptor.size, FreeImage_GetBits(bitmap));
-				}
-				{
-					// Tile1[4][6]
-					size_t const x = file.find_first_of('/') + sizeof(char);
-					size_t const a = file.find_first_of('[');
-					size_t const b = file.find_first_of(']');
-					size_t const y = file.find_last_of('[');
-					size_t const z = file.find_last_of(']');
-
-					LONG i = stoi(file.substr(a + 1, b - a - 1));
-					LONG j = stoi(file.substr(y + 1, z - y - 1));
-
-					descriptor.Frame.cx /= i;
-					descriptor.Frame.cy /= j;
-
-					Tile::Storage.try_emplace(file.substr(x, a - x), descriptor);
-				}
-				FreeImage_Unload(bitmap);
-			}
-		}
-
-		void Component::Draw(SIZE Index)
-		{
-			using namespace Rendering::Pipeline;
-			{
-				Descriptor const& descriptor = Storage.at(Content);
-
-				RECT const area
-				{
-						descriptor.Frame.cx * (Index.cx + 0), descriptor.Frame.cy * (Index.cy + 0),
-						descriptor.Frame.cx * (Index.cx + 1), descriptor.Frame.cy * (Index.cy + 1)
-				};
-
-				Texture::Render(descriptor.handle, { 0, 0, descriptor.size.cx, descriptor.size.cy });
-			}
-		}
-	}
-
 	namespace Animation
 	{
 		struct Descriptor final
@@ -348,7 +276,6 @@ namespace Rendering
 				{
 					Resource::Import("Image", Image::Import);
 					Resource::Import("Animation", Animation::Import);
-					Resource::Import("Tile", Tile::Import);
 				}
 				FreeImage_DeInitialise();
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "Manager\Scene.h"
+#include "Util/ObjectPool.h"
+#include "Poolablevector/Bullet.h"
 
 class TestScene : public Scene
 {
@@ -14,5 +16,8 @@ public :
 	Rendering::Text::Component		Damage;
 	
 	Rendering::Camera Cam;
+
+	ObjectPool* BulletPooling;
+	std::vector<Bullet*> Bullets;
 };
 

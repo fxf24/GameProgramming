@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Bullet.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Enemy.h" />
     <ClInclude Include="Engine\Game.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Scene\FirstScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Bullet.cpp" />
     <ClCompile Include="Character\Enemy.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="Character\Player.cpp" />
@@ -217,6 +219,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
     <Image Include="Animation\rogue_run_front[6].png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Image\bullet.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
   </ItemGroup>

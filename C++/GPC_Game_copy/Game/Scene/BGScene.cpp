@@ -16,10 +16,11 @@ bool BGScene::Update()
     Camera.Set();
     BG.Draw();
 
-    if (Input::Get::Key::Down(VK_ESCAPE)) return true;
-    
+    if (Input::Get::Key::Down(VK_ESCAPE)) return false;
+    if (Input::Get::Key::Down('W')) GetSceneManger->ChangeScene("TestScene");
 
-    return false;
+
+    return true;
 }
 
 void BGScene::End()

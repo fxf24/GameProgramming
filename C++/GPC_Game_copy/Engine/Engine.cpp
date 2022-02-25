@@ -36,7 +36,7 @@ namespace Engine
 			}
 			case WM_APP:
 			{
-				if (Portfolio->Update())
+				if (!Portfolio->Update())
 					CloseWindow(hWindow);
 
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);

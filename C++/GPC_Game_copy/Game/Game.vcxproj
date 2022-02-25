@@ -130,7 +130,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <AdditionalLibraryDirectories>$(SolutionDir).lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>example_win32_directx11.lib;d3d11.lib;FreeImage.lib;Engine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;FreeImage.lib;Engine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,7 +150,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Poolablevector\Bullet.h" />
     <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Util\ObjectPool.h" />
+    <ClInclude Include="Util\IObjectPoolable.h" />
+    <ClInclude Include="Manager\SceneManager.h" />
+    <ClInclude Include="Manager\Singleton.h" />
     <ClInclude Include="Scene\BGScene.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Input.h" />
@@ -165,12 +170,20 @@
     <ClInclude Include="Scene\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Poolablevector\Bullet.cpp" />
+    <ClCompile Include="Manager\SceneManager.cpp" />
+    <ClCompile Include="Util\ObjectPool.cpp" />
     <ClCompile Include="Scene\BGScene.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Scene\TestScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image\bullet.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
