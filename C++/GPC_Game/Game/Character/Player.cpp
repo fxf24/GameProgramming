@@ -92,12 +92,17 @@ bool Player::Update()
 
 	if (isRoll && length(direction) != 0)
 	{
+		character.Duration = 0.5f;
 		character.Location += normalize(direction) * 1000 * Time::Get::Delta();
 		Cam.Location += normalize(direction) * 1000 * Time::Get::Delta();
 		
-		if (character.Playback >= character.Duration)
+		character.rollTime += Time::Get::Delta();
+
+		if (character.rollTime >= character.Duration)
 		{
+			character.rollTime = 0;
 			isRoll = false;
+			character.Duration = 1.0f;
 		}
 	}
 	
@@ -123,7 +128,6 @@ bool Player::Update()
 			character.Content = "rogue_dodge_back";
 			break;
 		}
-		//character.Repeatable = false;
 	}
 
 	Cam.Set();

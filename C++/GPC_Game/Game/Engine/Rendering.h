@@ -82,7 +82,7 @@ namespace Rendering
 
 		public:
 			char const* Content = nullptr;
-
+			float rollTime = 0;
 			float Playback = 0;
 			float Duration = 0;
 			bool Repeatable = false;
