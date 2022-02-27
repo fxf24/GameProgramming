@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "FirstScene.h"
-using namespace Rendering::Animation;
 
 void FirstScene::Start()
 {
