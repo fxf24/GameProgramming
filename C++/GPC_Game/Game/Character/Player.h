@@ -1,10 +1,6 @@
 #pragma once
 #include "Character.h"
 
-#include "Object/Bullet.h"
-
-#include <queue>
-
 class Player : public Character
 {
 private :
@@ -13,8 +9,6 @@ private :
 	Rendering::Camera Cam;
 	bool isRoll = false;
 	vector<2> roll_direction;
-	std::vector<Bullet*> bullet;
-	std::queue<Bullet*> pool;
 
 public :
 	virtual void Start() override;
@@ -33,6 +27,10 @@ public :
 	Rendering::Camera GetCam()
 	{
 		return Cam;
+	}
+	bool IsRoll()
+	{
+		return isRoll;
 	}
 };
 

@@ -60,10 +60,13 @@
     <ClInclude Include="Character\Enemy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Object.h">
+    <ClInclude Include="PoolableActor\Bullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Bullet.h">
+    <ClInclude Include="Util\IObjectPoolable.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\ObjectPool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +86,7 @@
     <ClCompile Include="Character\Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Bullet.cpp">
+    <ClCompile Include="PoolableActor\Bullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

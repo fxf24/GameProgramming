@@ -150,7 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Object\Bullet.h" />
+    <ClInclude Include="PoolableActor\Bullet.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Enemy.h" />
     <ClInclude Include="Engine\Game.h" />
@@ -164,12 +164,13 @@
     <ClInclude Include="Manager\Game.h" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Character\Player.h" />
-    <ClInclude Include="Object\Object.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\FirstScene.h" />
+    <ClInclude Include="Util\IObjectPoolable.h" />
+    <ClInclude Include="Util\ObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Object\Bullet.cpp" />
+    <ClCompile Include="PoolableActor\Bullet.cpp" />
     <ClCompile Include="Character\Enemy.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="Character\Player.cpp" />

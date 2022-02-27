@@ -9,12 +9,16 @@ namespace Sound
 		void Stop();
 		void Pause();
 
+	private : 
+		bool  pause = false;
+
 	public:
 		char const* Content = nullptr;
 
 	public:
 		float volume = 0.0f;
 		bool  loop   = false;
-		bool  pause  = false;
 	};
+
+	void EndPlay();
 }

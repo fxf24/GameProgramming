@@ -154,38 +154,46 @@ namespace Sound
 	{
 		switch (uMessage)
 		{
-			case WM_CREATE:
-			{
-				MUST(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED));     
-				MUST(XAudio2Create(&XAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR)); 
-				MUST(XAudio2->CreateMasteringVoice(&MasterVoice));			 
+            case WM_CREATE:
+            {
+                MUST(CoInitializeEx(nullptr, COINITBASE_MULTITHREADED));
+                MUST(XAudio2Create(&XAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR));
+                MUST(XAudio2->CreateMasteringVoice(&MasterVoice));
 
                 Resource::Import("Sound", Import);
 
-				return;
-			}
-			case WM_DESTROY: { return; }
+                return;
+            }
+            case WM_DESTROY:
+            {
+                for (std::pair<std::string, Handle*> elem : Storage)
+                    delete elem.second;
+
+                XAudio2->Release();
+
+                return;
+            }
 		}
 	}
     void Sound::Play()
     {
-        Handle* & sound = Storage.at(Content);
-        
+        Handle*& sound = Storage.at(Content);
+
         if (loop) sound->buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
-        
+
         if (pause)
         {
             pause = false;
             MUST(sound->SourceVoice->Start());
             return;
         }
-        else 
-        {
-            MUST(sound->SourceVoice->SubmitSourceBuffer(&sound->buffer));
 
-            MUST(sound->SourceVoice->SetVolume(volume));
-            MUST(sound->SourceVoice->Start());
-        }
+        MUST(sound->SourceVoice->Stop());
+        MUST(sound->SourceVoice->FlushSourceBuffers());
+        MUST(sound->SourceVoice->SubmitSourceBuffer(&sound->buffer));
+
+        MUST(sound->SourceVoice->SetVolume(volume));
+        MUST(sound->SourceVoice->Start());
     }
 
     void Sound::Stop()
@@ -203,5 +211,14 @@ namespace Sound
         Handle* & sound = Storage.at(Content);
         pause = true;
         MUST(sound->SourceVoice->Stop());
+    }
+
+    void EndPlay()
+    {
+        for (std::pair<std::string, Handle*> elem : Storage)
+        {
+            elem.second->SourceVoice->Stop();
+            elem.second->SourceVoice->FlushSourceBuffers();
+        }
     }
 }

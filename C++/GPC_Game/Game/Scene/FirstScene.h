@@ -2,6 +2,8 @@
 #include "Manager\Scene.h"
 #include "Character/Player.h"
 #include "Character/Enemy.h"
+#include "Util/ObjectPool.h"
+#include "PoolableActor/Bullet.h"
 
 class FirstScene : public Scene
 {
@@ -10,10 +12,7 @@ class FirstScene : public Scene
 	virtual void End() override;
 
 private :
-	std::vector<Bullet*> bullet;
-	std::queue<Bullet*> pool;
-
-public :
+	ObjectPool* BulletPooling;
 	Player* player = Player::GetInstance();
 	std::vector<Enemy*> enemies;
 	Rendering::Image::Component		BG;

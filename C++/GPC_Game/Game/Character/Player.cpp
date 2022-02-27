@@ -11,12 +11,6 @@ void Player::Start()
 	character.Repeatable = true;
 	character.Duration = 1.0f;
 	character.view = View::idle;
-
-
-	for (int i = 0; i < 10; i++)
-	{
-		pool.push(new Bullet);
-	}
 }
 
 bool Player::Update()
@@ -104,28 +98,6 @@ bool Player::Update()
 			break;
 		}
 		roll_direction = direction;
-	}
-
-	if (Input::Get::Key::Down(VK_LBUTTON) && !isRoll)
-	{
-		float x = static_cast<float>(Input::Get::Cursor::X());
-		float y = static_cast<float>(Input::Get::Cursor::Y());
-
-		/*x -= character.Location[0];
-		y -= character.Location[1];*/
-
-		vector<2> dir = { x, y };
-		Bullet* b = pool.front();
-		b->SetLocation(character.Location);
-		b->SetBulletDirection(normalize(dir));
-		bullet.push_back(b);
-		bullet.back()->Start();
-		pool.pop();
-	}
-	
-	for (auto b : bullet)
-	{
-		b->Update();
 	}
 
 	Cam.Set();

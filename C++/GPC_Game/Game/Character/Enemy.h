@@ -1,7 +1,6 @@
 #pragma once
 #include "Character.h"
-#include <random>
-#include <map>
+
 using namespace Rendering::Animation;
 
 class Enemy : public Character

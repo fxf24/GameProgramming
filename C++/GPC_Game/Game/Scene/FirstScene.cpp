@@ -17,7 +17,7 @@ void FirstScene::Start()
 	BG.Length = { 1280 * 3, 720 * 3};
 
 	BGmusic.Content = "BGM";
-	BGmusic.volume = 0.5f;
+	BGmusic.volume = 0.1f;
 	BGmusic.Play();
 
 	enemies.push_back(new Enemy);
@@ -26,7 +26,7 @@ void FirstScene::Start()
 		e->Start();
 	}
 
-
+	BulletPooling = new ObjectPool();
 }
 
 bool FirstScene::Update()
@@ -41,6 +41,27 @@ bool FirstScene::Update()
 	
 	
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
+
+	if (Input::Get::Key::Down(VK_LBUTTON) && !player->IsRoll())
+	{
+		float x = static_cast<float>(Input::Get::Cursor::X());
+		float y = static_cast<float>(Input::Get::Cursor::Y());
+
+		x = x - 1280 / 2;
+		y = -(y - 720 / 2);
+
+		vector<2> dir = { x, y };
+
+		auto bullet =
+			BulletPooling->GetRecycledObject<Bullet>();
+
+		bullet->Shoot(player->GetCharacter().Location, dir);
+	}
+
+	for (auto bullet : BulletPooling->PoolObjects)
+	{
+		bullet->Update();
+	}
 
 	Damage.Draw();
     return false;
