@@ -4,7 +4,7 @@ using namespace Rendering::Animation;
 
 void FirstScene::Start()
 {
-	player->Start();
+	GetPlayer->Start();
 
 	Damage.Length = { 500, 200 };
 	Damage.Location = { 250 , 100 };
@@ -20,7 +20,16 @@ void FirstScene::Start()
 	BGmusic.volume = 0.1f;
 	BGmusic.Play();
 
-	enemies.push_back(new Enemy);
+	std::random_device rd;
+
+	std::mt19937 gen(rd());
+
+	std::uniform_int_distribution<int> dis(4, 10);
+
+	for (int i = 0; i < dis(gen); i++) {
+		enemies.push_back(new Enemy);
+	}
+
 	for (auto e : enemies)
 	{
 		e->Start();
@@ -33,16 +42,15 @@ bool FirstScene::Update()
 {
 	BG.Draw();
 
-	player->Update();
+	GetPlayer->Update();
 	for (auto e : enemies)
 	{
 		e->Update();
 	}
 	
-	
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
 
-	if (Input::Get::Key::Down(VK_LBUTTON) && !player->IsRoll())
+	if (Input::Get::Key::Down(VK_LBUTTON) && !GetPlayer->IsRoll())
 	{
 		float x = static_cast<float>(Input::Get::Cursor::X());
 		float y = static_cast<float>(Input::Get::Cursor::Y());
@@ -55,7 +63,7 @@ bool FirstScene::Update()
 		auto bullet =
 			BulletPooling->GetRecycledObject<Bullet>();
 
-		bullet->Shoot(player->GetCharacter().Location, dir);
+		bullet->Shoot(GetPlayer->GetCharacter().Location, dir);
 	}
 
 	for (auto bullet : BulletPooling->PoolObjects)
@@ -73,4 +81,6 @@ void FirstScene::End()
 	{
 		delete e;
 	}
+
+	Sound::EndPlay();
 }

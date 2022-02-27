@@ -3,9 +3,15 @@
 
 void Enemy::Start()
 {
+	std::random_device rd;
+
+	std::mt19937 gen(rd());
+
+	std::uniform_int_distribution<int> dis(-200, 200);
+
 	character.Content = "bulletman_idle";
 	character.Length = { (144 / 6) * 2, 33 * 2 };
-	character.Location = { 0, 0 };
+	character.Location = { dis(gen), dis(gen)};
 	character.Repeatable = true;
 	character.Duration = 1.0f;
 	character.view = View::idle;

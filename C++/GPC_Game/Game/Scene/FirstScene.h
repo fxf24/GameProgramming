@@ -13,7 +13,6 @@ class FirstScene : public Scene
 
 private :
 	ObjectPool* BulletPooling;
-	Player* player = Player::GetInstance();
 	std::vector<Enemy*> enemies;
 	Rendering::Image::Component		BG;
 

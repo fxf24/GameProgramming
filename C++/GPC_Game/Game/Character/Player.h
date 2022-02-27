@@ -1,14 +1,17 @@
 #pragma once
 #include "Character.h"
+#include "Manager/Singleton.h"
 
-class Player : public Character
+#define GetPlayer Player::GetInstance()
+
+class Player : public Character, public Singleton<Player>
 {
 private :
-	static Player* Instance;
 	Rendering::Animation::Component character;
 	Rendering::Camera Cam;
 	bool isRoll = false;
 	vector<2> roll_direction;
+	int hp;
 
 public :
 	virtual void Start() override;
@@ -16,10 +19,6 @@ public :
 	virtual void End() override;
 
 public :
-	static Player* GetInstance()
-	{
-		return new Player();
-	}
 	Rendering::Animation::Component GetCharacter()
 	{
 		return character;

@@ -8,11 +8,5 @@ public :
 	void Start() override;
 	bool Update() override;
 	void End() override;
-
-public :
-	std::vector<class Scene*> Scenes;
-	Player* player = Player::GetInstance();
-
-	size_t Now = 0;
 };
 
