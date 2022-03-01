@@ -81,6 +81,7 @@ bool FirstScene::Update()
 	{
 		if (enemies[i]->GetEnemyHP() == 0)
 		{
+			delete enemies[i];
 			enemies.erase(enemies.begin() + i);
 		}
 	}
