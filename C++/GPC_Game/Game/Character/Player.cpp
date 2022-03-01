@@ -3,6 +3,13 @@
 #include <iostream>
 using namespace Rendering::Animation;
 
+Player::Player()
+{
+	
+
+	
+}
+
 void Player::Start()
 {
 	character.Content = "rogue_idle";
@@ -63,8 +70,8 @@ bool Player::Update()
 	if (isRoll)
 	{
 		character.Duration = 0.5f;
-		character.Location += normalize(roll_direction) * 1000 * Time::Get::Delta();
-		Cam.Location += normalize(roll_direction) * 1000 * Time::Get::Delta();
+		character.Location += normalize(roll_direction) * 700 * Time::Get::Delta();
+		Cam.Location += normalize(roll_direction) * 700 * Time::Get::Delta();
 		
 		character.rollTime += Time::Get::Delta();
 
@@ -109,4 +116,14 @@ bool Player::Update()
 void Player::End()
 {
 
+}
+
+Collision::RectAngle Player::GetCharacterHitbox()
+{
+	Hitbox = Collision::RectAngle{
+		character.Length,
+		0,
+		character.Location
+	};
+	return Hitbox;
 }

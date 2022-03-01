@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Enemy.h"
 
+Enemy::Enemy()
+{
+
+}
+
 void Enemy::Start()
 {
 	std::random_device rd;
@@ -11,7 +16,7 @@ void Enemy::Start()
 
 	character.Content = "bulletman_idle";
 	character.Length = { (144 / 6) * 2, 33 * 2 };
-	character.Location = { dis(gen), dis(gen)};
+	character.Location = { dis(gen), dis(gen) };
 	character.Repeatable = true;
 	character.Duration = 1.0f;
 	character.view = View::idle;
@@ -109,4 +114,14 @@ bool Enemy::Update()
 
 void Enemy::End()
 {
+}
+
+Collision::RectAngle Enemy::GetCharacterHitbox()
+{
+	Hitbox = Collision::RectAngle{
+		character.Length,
+		0,
+		character.Location
+	};
+	return Hitbox;
 }

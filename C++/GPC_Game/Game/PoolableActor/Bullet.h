@@ -3,20 +3,31 @@
 
 class Bullet : public IObjectPoolable
 {
-public:
+private :
+	UINT damage = 1;
+
+public :
 	Bullet();
 
 	void Update();
 
-public:
+public :
 	void Shoot(vector<2> location, vector<2> direction);
+	Collision::Circle GetBulletHitbox();
 
-public:
+public :
 	vector<2> Direction;
 	vector<2> FireLocation;
 
-public:
+public :
 	Rendering::Image::Component Image;
+	Collision::Circle Hitbox;
+
+public :
+	UINT GetBulletDamage()
+	{
+		return damage;
+	}
 };
 
 

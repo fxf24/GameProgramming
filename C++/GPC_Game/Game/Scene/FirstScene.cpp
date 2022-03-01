@@ -42,10 +42,6 @@ bool FirstScene::Update()
 	BG.Draw();
 
 	GetPlayer->Update();
-	for (auto e : enemies)
-	{
-		e->Update();
-	}
 	
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
 
@@ -67,7 +63,31 @@ bool FirstScene::Update()
 
 	for (auto bullet : BulletPooling->PoolObjects)
 	{
-		bullet->Update();
+		for (auto e : enemies) {
+			if (Collision::Collide(e->GetCharacterHitbox(), static_cast<Bullet*>(bullet)->GetBulletHitbox()))
+			{
+				static_cast<Bullet*>(bullet)->Shoot(GetPlayer->GetCharacter().Location, 0);
+				bullet->SetRecycle();
+				e->DealEnemyHP(static_cast<Bullet*>(bullet)->GetBulletDamage());
+				std::cout << "hit" << std::endl;
+			}
+		}
+
+		if (!static_cast<Bullet*>(bullet)->CanRecylcable)
+			bullet->Update();
+	}
+
+	for (int i = 0; i<enemies.size(); i++)
+	{
+		if (enemies[i]->GetEnemyHP() == 0)
+		{
+			enemies.erase(enemies.begin() + i);
+		}
+	}
+
+	for (auto e : enemies)
+	{
+		e->Update();
 	}
 
 	Damage.Draw();
