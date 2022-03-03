@@ -50,10 +50,13 @@ bool FirstScene::Update()
 		float x = static_cast<float>(Input::Get::Cursor::X());
 		float y = static_cast<float>(Input::Get::Cursor::Y());
 
+		/*std::cout << x << " : " << y << std::endl;*/
 		x = x - 1280 / 2;
 		y = -(y - 720 / 2);
 
 		vector<2> dir = { x, y };
+
+		dir -= (GetPlayer->GetCharacter().Location - GetPlayer->GetCam().Location);
 
 		auto bullet =
 			BulletPooling->GetRecycledObject<Bullet>();

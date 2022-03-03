@@ -12,7 +12,7 @@ void Bullet::Update()
 	IObjectPoolable::Update();
 	Image.Location += normalize(Direction) * 1000 * Time::Get::Delta();
 
-	std::cout << length(FireLocation - Image.Location) << std::endl;
+	//std::cout << length(FireLocation - Image.Location) << std::endl;
 	if (length(FireLocation - Image.Location) > 1000.0f)
 		SetRecycle();
 
