@@ -12,6 +12,9 @@ private :
 
 public :
 	void Init(Rendering::Image::Component Background, Rendering::Animation::Component* Player, Rendering::Camera* Camera);
-	void CamearaRange();
+
+	void DeInit();
+
+	void CameraRange();
 };
 

@@ -7,7 +7,7 @@
 class Player : public Character, public Singleton<Player>
 {
 private :
-	Rendering::Animation::Component character;
+	Rendering::Animation::Component* character;
 	Rendering::Camera Cam;
 	bool isRoll = false;
 	vector<2> roll_direction;
@@ -24,7 +24,7 @@ public :
 	Collision::RectAngle GetCharacterHitbox();
 
 public :
-	Rendering::Animation::Component GetCharacter()
+	Rendering::Animation::Component* GetCharacter()
 	{
 		return character;
 	}

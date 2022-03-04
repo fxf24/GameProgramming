@@ -9,14 +9,14 @@ void Game::Start()
 		GetTileMap()->tileMap.push_back(std::vector< Rendering::Tilemap::Tile>(400));
 	}
 
-	for (int i = 0; i < 400; i++)
+	/*for (int i = 0; i < 400; i++)
 	{
 		for (int j = 0; j < 400; j++)
 		{
 			std::cout << ((GetTileMap()->tileMap[i][j] == Rendering::Tilemap::Tile::Empty)?"Empty":"No")<< " ";
 		}
 		std::cout << std::endl;
-	}
+	}*/
 }
 
 bool Game::Update()

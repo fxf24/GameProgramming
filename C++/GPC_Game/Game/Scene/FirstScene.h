@@ -18,7 +18,7 @@ private :
 
 	Rendering::Text::Component		Damage;
 	
-	Rendering::Camera				Cam;
+	Rendering::Camera*				Camera;
 
 	Sound::Sound					BGmusic;
 };

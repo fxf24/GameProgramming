@@ -13,3 +13,4 @@
 #include "Engine/Time.h"
 #include "Engine/Sound.h"
 #include "Manager/SceneManager.h"
+#include "Manager/CameraManager.h"

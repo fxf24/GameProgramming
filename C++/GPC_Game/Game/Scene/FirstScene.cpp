@@ -35,12 +35,15 @@ void FirstScene::Start()
 	}
 
 	BulletPooling = new ObjectPool();
+
+	Camera = new Rendering::Camera();
+	GetCameraManager->Init(BG, GetPlayer->GetCharacter(), Camera);
 }
 
 bool FirstScene::Update()
 {
 	BG.Draw();
-
+	Camera->Set();
 	GetPlayer->Update();
 	
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
@@ -49,19 +52,18 @@ bool FirstScene::Update()
 	{
 		float x = static_cast<float>(Input::Get::Cursor::X());
 		float y = static_cast<float>(Input::Get::Cursor::Y());
-
-		/*std::cout << x << " : " << y << std::endl;*/
+		
 		x = x - 1280 / 2;
 		y = -(y - 720 / 2);
 
 		vector<2> dir = { x, y };
 
-		dir -= (GetPlayer->GetCharacter().Location - GetPlayer->GetCam().Location);
+		dir -= (GetPlayer->GetCharacter()->Location - Camera->Location);
 
 		auto bullet =
 			BulletPooling->GetRecycledObject<Bullet>();
 
-		bullet->Shoot(GetPlayer->GetCharacter().Location, dir);
+		bullet->Shoot(GetPlayer->GetCharacter()->Location, dir);
 	}
 
 	for (auto bullet : BulletPooling->PoolObjects)
@@ -69,7 +71,7 @@ bool FirstScene::Update()
 		for (auto e : enemies) {
 			if (Collision::Collide(e->GetCharacterHitbox(), static_cast<Bullet*>(bullet)->GetBulletHitbox()))
 			{
-				static_cast<Bullet*>(bullet)->Shoot(GetPlayer->GetCharacter().Location, 0);
+				static_cast<Bullet*>(bullet)->Shoot(GetPlayer->GetCharacter()->Location, 0);
 				bullet->SetRecycle();
 				e->DealEnemyHP(static_cast<Bullet*>(bullet)->GetBulletDamage());
 				std::cout << "hit" << std::endl;
@@ -94,6 +96,31 @@ bool FirstScene::Update()
 		e->Update();
 	}
 
+	float x = static_cast<float>(Input::Get::Cursor::X());
+	float y = static_cast<float>(Input::Get::Cursor::Y());
+	if (x < 150 || x > 1130 || y < 150 || y > 570)
+	{
+		x = x - 1280 / 2;
+		y = -(y - 720 / 2);
+
+		vector<2> dir = { x, y };
+		if ((Camera->Location[0] <= GetPlayer->GetCharacter()->Location[0] + 150 && Camera->Location[0] >= GetPlayer->GetCharacter()->Location[0] - 150)
+			&& (Camera->Location[1] >= GetPlayer->GetCharacter()->Location[1] - 150 && Camera->Location[1] <= GetPlayer->GetCharacter()->Location[1] + 150))
+		{
+			Camera->Location += normalize(dir) * 700 * Time::Get::Delta();
+			std::cout << "Cam Location :" << Camera->Location[0] << " : " << Camera->Location[1] << std::endl;
+		}
+	}
+	else {
+		if (!(Camera->Location[0] <= GetPlayer->GetCharacter()->Location[0] + 1 && Camera->Location[0] >= GetPlayer->GetCharacter()->Location[0] - 1)
+			|| !(Camera->Location[1] <= GetPlayer->GetCharacter()->Location[1] + 1 && Camera->Location[1] >= GetPlayer->GetCharacter()->Location[1] - 1))
+		{
+			vector<2> dir = GetPlayer->GetCharacter()->Location - Camera->Location;
+			Camera->Location += normalize(dir) * 1000 * Time::Get::Delta();
+		}
+	}
+
+	GetCameraManager->CameraRange();
 	Damage.Draw();
     return false;
 }
@@ -104,6 +131,6 @@ void FirstScene::End()
 	{
 		delete e;
 	}
-
+	GetCameraManager->DeInit();
 	Sound::EndPlay();
 }
