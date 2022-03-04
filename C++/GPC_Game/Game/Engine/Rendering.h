@@ -66,6 +66,33 @@ namespace Rendering
 		};
 	}
 
+	namespace Tilemap
+	{
+		enum class Tile
+		{
+			Empty,
+			Ground,
+			Wall,
+			Door,
+			Portal
+		};
+
+		class Component final
+		{
+		public:
+			void Draw();
+
+		public:
+			char const* Content = nullptr;
+
+		public:
+			vector<2> Length = { 0, 0 };
+			float	  Angle = { 0 };
+			vector<2> Location = { 0, 0 };
+			std::vector< std::vector<Tile> > tileMap;
+		};
+	}
+
 	namespace Animation
 	{
 		enum class View {

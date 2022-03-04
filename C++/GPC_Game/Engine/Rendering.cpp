@@ -130,7 +130,7 @@ namespace Rendering
 					Pipeline::Texture::Create(descriptor.handle, descriptor.size, FreeImage_GetBits(bitmap));
 				}
 				{
-					size_t const x = file.find_first_of('/') + sizeof(char);
+					size_t const x = file.find_last_of('/') + sizeof(char);
 					size_t const y = file.find_last_of('.');
 
 					Image::Storage.try_emplace(file.substr(x, y - x), descriptor);
@@ -150,6 +150,104 @@ namespace Rendering
 				Descriptor const& image = Storage.at(Content);
 
 				Texture::Render(image.handle, {0, 0, image.size.cx, image.size.cy });
+			}
+		}
+	}
+
+	namespace Tilemap
+	{
+		struct Descriptor final
+		{
+		public:
+			Pipeline::Texture::Handle* handle = nullptr;
+
+		public:
+			SIZE size = SIZE();
+			SIZE Index = SIZE();
+			SIZE Frame = SIZE();
+			UINT Category = UINT();
+		};
+
+		std::map<std::string, Descriptor> Storage;
+
+		void Import(std::string const& file)
+		{
+			{
+				FIBITMAP* bitmap = FreeImage_Load(FreeImage_GetFileType(file.data()), file.data());
+				FreeImage_FlipVertical(bitmap);
+
+				if (FreeImage_GetBPP(bitmap) != 32)
+				{
+					FIBITMAP* const previous = bitmap;
+					// FreeImage_ConverTo32Bits : do not delete previous bitmap
+					bitmap = FreeImage_ConvertTo32Bits(bitmap);
+					FreeImage_Unload(previous);
+				}
+
+				Tilemap::Descriptor descriptor = Tilemap::Descriptor();
+				{
+					descriptor.size.cx = FreeImage_GetWidth(bitmap);
+					descriptor.size.cy = FreeImage_GetHeight(bitmap);
+
+					Pipeline::Texture::Create(descriptor.handle, descriptor.size, FreeImage_GetBits(bitmap));
+				}
+				{
+					size_t const x = file.find_last_of('/') + sizeof(char);
+					size_t const y = file.find_last_of('.');
+					size_t const i1 = file.find_first_of('[');
+					size_t const i2 = file.find_first_of(']');
+					size_t const j1 = file.find_last_of('[');
+					size_t const j2 = file.find_last_of(']');
+
+					descriptor.Index.cx = stoi(file.substr(i1 + 1, i2 - i1));
+					descriptor.Index.cy = stoi(file.substr(j1 + 1, j2 - j1));
+
+					descriptor.Frame.cx = descriptor.size.cx / descriptor.Index.cx;
+					descriptor.Frame.cy = descriptor.size.cy / descriptor.Index.cy;
+
+					descriptor.Category = descriptor.Index.cx * descriptor.Index.cy;
+
+					Tilemap::Storage.try_emplace(file.substr(x, i1 - x), descriptor);
+				}
+				FreeImage_Unload(bitmap);
+			}
+		}
+
+		void Component::Draw()
+		{
+			using namespace Pipeline;
+			{
+				matrix<4, 4> const world = Translation(Location) * Rotation(Angle) * Scale(Length);
+				Transform::Update<Transform::Type::Former>(reinterpret_cast<Transform::matrix const&>(world));
+			}
+			{
+				Descriptor const& image = Storage.at(Content);
+
+				RECT area = {0,0,0,0};
+
+				for (auto i : tileMap)
+				{
+					for (auto j : i)
+					{
+						switch (j)
+						{
+						case Tile::Ground:
+							area = {
+								image.Frame.cx, image.Frame.cy,
+								image.Frame.cx, image.Frame.cy
+							};
+							break;
+						case Tile::Wall:
+							break;
+						case Tile::Portal:
+							break;
+						case Tile::Door:
+							break;
+						}
+					}
+				}
+
+				Texture::Render(image.handle, area);
 			}
 		}
 	}
@@ -190,11 +288,10 @@ namespace Rendering
 					Pipeline::Texture::Create(descriptor.handle, descriptor.Frame, FreeImage_GetBits(bitmap));
 				}
 				{
-					size_t const x = file.find_first_of('/') + sizeof(char);
+					size_t const x = file.find_last_of('/') + sizeof(char);
 					size_t const y = file.find_last_of('[');
 					size_t const z = file.find_last_of(']');
 					
-
 					descriptor.Motion = stoi(file.substr(y + sizeof(char), z - (y + sizeof(char))));
 					descriptor.Frame.cx /= descriptor.Motion;
 
@@ -276,6 +373,7 @@ namespace Rendering
 				{
 					Resource::Import("Image", Image::Import);
 					Resource::Import("Animation", Animation::Import);
+					Resource::Import("Tileset", Tilemap::Import);
 				}
 				FreeImage_DeInitialise();
 

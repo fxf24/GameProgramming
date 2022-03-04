@@ -106,8 +106,7 @@ namespace Rendering::Pipeline
 
 			ID3D11Texture2D* Texture2D = nullptr;
 
-			// MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
-			auto hr = Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D);
+			MUST(Device->CreateTexture2D(&Descriptor, &Subresource, &Texture2D));
 			{ MUST(Device->CreateShaderResourceView(Texture2D, nullptr, &(handle = new Handle())->ShaderResourceView)); }
 
 			Texture2D->Release();

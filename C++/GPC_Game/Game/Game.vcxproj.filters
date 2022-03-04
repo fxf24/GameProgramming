@@ -75,6 +75,9 @@
     <ClInclude Include="Manager\SceneManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Manager\CameraManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -98,51 +101,57 @@
     <ClCompile Include="Manager\SceneManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\CameraManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Animation\rogue_dodge_back[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_back[9].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_dodge_front[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_front[9].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_dodge_right[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_right[9].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_idle[4].png">
+    <Image Include="Animation\Rogue\rogue_idle[4].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_idle_back[6].png">
+    <Image Include="Animation\Rogue\rogue_idle_back[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_idle_front[6].png">
+    <Image Include="Animation\Rogue\rogue_idle_front[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_run_back[6].png">
+    <Image Include="Animation\Rogue\rogue_run_back[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_run_forward[6].png">
+    <Image Include="Animation\Rogue\rogue_run_forward[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\rogue_run_front[6].png">
+    <Image Include="Animation\Rogue\rogue_run_front[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\bulletman_idle_back[2].png">
+    <Image Include="Animation\Bulletman\bulletman_idle_back[2].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\bulletman_death_front[4].png">
+    <Image Include="Animation\Bulletman\bulletman_death_front[4].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\bulletman_idle[2].png">
+    <Image Include="Animation\Bulletman\bulletman_idle[2].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\bulletman_run_back[6].png">
+    <Image Include="Animation\Bulletman\bulletman_run_back[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Animation\bulletman_run_left[6].png">
+    <Image Include="Animation\Bulletman\bulletman_run_left[6].png">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Image\bullet.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Tileset\Dungeon_Tileset[10][10].png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

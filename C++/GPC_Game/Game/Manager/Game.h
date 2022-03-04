@@ -8,5 +8,12 @@ public :
 	void Start() override;
 	bool Update() override;
 	void End() override;
+
+public :
+	static Rendering::Tilemap::Component* GetTileMap()
+	{
+		Rendering::Tilemap::Component* map = new Rendering::Tilemap::Component();
+		return map;
+	}
 };
 

@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Manager\CameraManager.h" />
     <ClInclude Include="Manager\Singleton.h" />
     <ClInclude Include="PoolableActor\Bullet.h" />
     <ClInclude Include="Character\Character.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Util\ObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Manager\CameraManager.cpp" />
     <ClCompile Include="PoolableActor\Bullet.cpp" />
     <ClCompile Include="Character\Enemy.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
@@ -183,49 +185,52 @@
     <ClCompile Include="Scene\FirstScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Animation\bulletman_death_front[4].png">
+    <Image Include="Animation\Bulletman\bulletman_death_front[4].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\bulletman_idle[2].png">
+    <Image Include="Animation\Bulletman\bulletman_idle[2].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\bulletman_run_back[6].png">
+    <Image Include="Animation\Bulletman\bulletman_run_back[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\bulletman_run_left[6].png">
+    <Image Include="Animation\Bulletman\bulletman_run_left[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\bulletman_idle_back[2].png">
+    <Image Include="Animation\Bulletman\bulletman_idle_back[2].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_dodge_back[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_back[9].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_dodge_front[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_front[9].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_dodge_right[9].png">
+    <Image Include="Animation\Rogue\rogue_dodge_right[9].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_idle[4].png">
+    <Image Include="Animation\Rogue\rogue_idle[4].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_idle_back[6].png">
+    <Image Include="Animation\Rogue\rogue_idle_back[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_idle_front[6].png">
+    <Image Include="Animation\Rogue\rogue_idle_front[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_run_back[6].png">
+    <Image Include="Animation\Rogue\rogue_run_back[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_run_forward[6].png">
+    <Image Include="Animation\Rogue\rogue_run_forward[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="Animation\rogue_run_front[6].png">
+    <Image Include="Animation\Rogue\rogue_run_front[6].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
     <Image Include="Image\bullet.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Tileset\Dungeon_Tileset[10][10].png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
   </ItemGroup>
