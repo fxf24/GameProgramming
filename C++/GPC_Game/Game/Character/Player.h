@@ -8,7 +8,6 @@ class Player : public Character, public Singleton<Player>
 {
 private :
 	Rendering::Animation::Component* character;
-	Rendering::Camera Cam;
 	bool isRoll = false;
 	vector<2> roll_direction;
 	int hp;
@@ -27,10 +26,6 @@ public :
 	Rendering::Animation::Component* GetCharacter()
 	{
 		return character;
-	}
-	Rendering::Camera GetCam()
-	{
-		return Cam;
 	}
 	bool IsRoll()
 	{

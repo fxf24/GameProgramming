@@ -72,8 +72,6 @@ bool Player::Update()
 	{
 		character->Duration = 0.5f;
 		character->Location += normalize(roll_direction) * 700 * Time::Get::Delta();
-		//Cam.Location += normalize(roll_direction) * 700 * Time::Get::Delta();
-		
 		character->rollTime += Time::Get::Delta();
 
 		if (character->rollTime >= character->Duration)
@@ -87,32 +85,7 @@ bool Player::Update()
 	if (length(direction) != 0 && !isRoll) 
 	{
 		character->Location += normalize(direction) * 500 * Time::Get::Delta();
-		//Cam.Location += normalize(direction) * 500 * Time::Get::Delta();
 	}
-
-	//float x = static_cast<float>(Input::Get::Cursor::X());
-	//float y = static_cast<float>(Input::Get::Cursor::Y());
-	//if (x < 150 || x > 1130 || y < 150 || y > 570)
-	//{
-	//	x = x - 1280 / 2;
-	//	y = -(y - 720 / 2);
-
-	//	vector<2> dir = { x, y };
-	//	if ((Cam.Location[0] <= character->Location[0] + 150 && Cam.Location[0] >= character->Location[0] - 150)
-	//		&& (Cam.Location[1] >= character->Location[1] - 150 && Cam.Location[1] <= character->Location[1] + 150))
-	//	{
-	//		Cam.Location += normalize(dir) * 700 * Time::Get::Delta();
-	//		//std::cout << "Cam Location :" << Cam.Location[0] << " : " << Cam.Location[1] << std::endl;
-	//	}
-	//}
-	//else {
-	//	if (!(Cam.Location[0] <= character->Location[0] + 1 && Cam.Location[0] >= character->Location[0] - 1)
-	//		&& !(Cam.Location[1] <= character->Location[1] + 1 && Cam.Location[1] >= character->Location[1] - 1))
-	//	{
-	//		vector<2> dir = character->Location - Cam.Location;
-	//		Cam.Location += normalize(dir) * 1000 * Time::Get::Delta();
-	//	}
-	//}
 
 	if (Input::Get::Key::Down(VK_SHIFT) && length(direction) != 0)
 	{
@@ -132,7 +105,6 @@ bool Player::Update()
 		roll_direction = direction;
 	}
 
-	//Cam.Set();
 	character->Draw();
 
 	return false;
