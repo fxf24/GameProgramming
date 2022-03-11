@@ -81,7 +81,17 @@ namespace Rendering
 		class Component final
 		{
 		public:
-			void Draw(Tile t);
+			Component() = default;
+			Component(char const* c, vector<2> len, vector<2> loc, Tile t)
+			{
+				Content = c;
+				Length = len;
+				Location = loc;
+				tile = t;
+			}
+
+		public:
+			void Draw();
 
 		public:
 			char const* Content = nullptr;
@@ -90,6 +100,7 @@ namespace Rendering
 			vector<2> Length = { 0, 0 };
 			float	  Angle = { 0 };
 			vector<2> Location = { 0, 0 };
+			Tile tile = Tile::Empty;
 		};
 	}
 

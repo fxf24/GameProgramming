@@ -22,7 +22,6 @@ private :
 
 	Sound::Sound					BGmusic;
 
-	Rendering::Tilemap::Component Tileset;
-	std::vector< std::vector<Rendering::Tilemap::Tile>> map;
+	std::vector< std::vector< Rendering::Tilemap::Component>> map;
 };
 

@@ -213,7 +213,7 @@ namespace Rendering
 			}
 		}
 
-		void Component::Draw(Tile t)
+		void Component::Draw()
 		{
 			using namespace Pipeline;
 			{
@@ -227,7 +227,7 @@ namespace Rendering
 
 				LONG cat_i = 0;
 				LONG cat_j = 0;
-				switch (t)
+				switch (tile)
 				{
 					case Tile::Empty:
 						break;

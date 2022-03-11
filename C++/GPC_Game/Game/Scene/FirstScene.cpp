@@ -42,22 +42,25 @@ void FirstScene::Start()
 	
 	for (int i = 0; i < 400; i++)
 	{
-		map.push_back(std::vector<Rendering::Tilemap::Tile>(400, Rendering::Tilemap::Tile::Ground));
+		std::vector< Rendering::Tilemap::Component> floor;
+		for (int j = 0; j < 400; j++) {
+			floor.push_back( Rendering::Tilemap::Component("Dungeon_Tileset", 
+				{32, 32}, 
+				{-(1280 * 5)+ (j * 32), (1280 * 5) - (i * 32)},
+				Rendering::Tilemap::Tile::Ground));
+		}
+		map.push_back(floor);
 	}
-	Tileset.Content = "Dungeon_Tileset";
-	Tileset.Length = { 16*2, 16*2 };
-	Tileset.Location = { 0, 0 };
 
-	map[199][199] = Rendering::Tilemap::Tile::Wall;
-	map[199][200] = Rendering::Tilemap::Tile::Wall;
-	map[200][199] = Rendering::Tilemap::Tile::Wall;
-	map[200][200] = Rendering::Tilemap::Tile::Wall;
-
-
-	map[209][209] = Rendering::Tilemap::Tile::Wall;
-	map[209][210] = Rendering::Tilemap::Tile::Wall;
-	map[210][209] = Rendering::Tilemap::Tile::Wall;
-	map[210][210] = Rendering::Tilemap::Tile::Wall;
+	map[199][199].tile = Rendering::Tilemap::Tile::Wall;
+	map[199][200].tile = Rendering::Tilemap::Tile::Wall;
+	map[200][199].tile = Rendering::Tilemap::Tile::Wall;
+	map[200][200].tile = Rendering::Tilemap::Tile::Wall;
+				 
+	map[209][209].tile = Rendering::Tilemap::Tile::Wall;
+	map[209][210].tile = Rendering::Tilemap::Tile::Wall;
+	map[210][209].tile = Rendering::Tilemap::Tile::Wall;
+	map[210][210].tile = Rendering::Tilemap::Tile::Wall;
 }
 
 bool FirstScene::Update()
@@ -70,17 +73,12 @@ bool FirstScene::Update()
 	int start_i = 188 - curr_cam_i;
 	int start_j = 179 + curr_cam_j;
 
-	/*std::cout << (Tileset.Location != vector<2>(-32 * 21 + static_cast<int>(Camera->Location[0]), 32 * 12 + static_cast<int>(Camera->Location[1]))) << std::endl;*/
-	
-	Tileset.Location = { -32 * 21 + static_cast<int>(Camera->Location[0]), 32 * 12 + static_cast<int>(Camera->Location[1]) };
-	for (int i = start_i; i < start_i + 24; i++)
+	for (int i = start_i; i < start_i + 26; i++)
 	{
-		for (int j = start_j; j < start_j + 42; j++)
+		for (int j = start_j; j < start_j + 44; j++)
 		{
-			Tileset.Location += vector<2>(32, 0);
-			Tileset.Draw(map[i][j]);
+			map[i][j].Draw();
 		}
-		Tileset.Location -= vector<2>(32 * 42, 32);
 	}
 
 	Camera->Set();
