@@ -85,6 +85,7 @@ bool Player::Update()
 	if (length(direction) != 0 && !isRoll) 
 	{
 		character->Location += normalize(direction) * 500 * Time::Get::Delta();
+		//std::cout << "Player Location :" << character->Location[0] << " : " << character->Location[1] << std::endl;
 	}
 
 	if (Input::Get::Key::Down(VK_SHIFT) && length(direction) != 0)

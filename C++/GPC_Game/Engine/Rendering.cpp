@@ -213,7 +213,7 @@ namespace Rendering
 			}
 		}
 
-		void Component::Draw()
+		void Component::Draw(Tile t)
 		{
 			using namespace Pipeline;
 			{
@@ -225,27 +225,30 @@ namespace Rendering
 
 				RECT area = {0,0,0,0};
 
-				for (auto i : tileMap)
+				LONG cat_i = 0;
+				LONG cat_j = 0;
+				switch (t)
 				{
-					for (auto j : i)
-					{
-						switch (j)
-						{
-						case Tile::Ground:
-							area = {
-								image.Frame.cx, image.Frame.cy,
-								image.Frame.cx, image.Frame.cy
-							};
-							break;
-						case Tile::Wall:
-							break;
-						case Tile::Portal:
-							break;
-						case Tile::Door:
-							break;
-						}
-					}
+					case Tile::Empty:
+						break;
+					case Tile::Ground:
+						cat_i = 7;
+						cat_j = 0;
+						break;
+					case Tile::Wall	 :
+						cat_i = 2;
+						cat_j = 0;
+						break;
+					case Tile::Door	 :
+						break;
+					case Tile::Portal:
+						break;
 				}
+
+				area = {
+					image.Frame.cx * (cat_i + 0), image.Frame.cy * (cat_j + 0),
+					image.Frame.cx * (cat_i + 1), image.Frame.cy * (cat_j + 1),
+				};
 
 				Texture::Render(image.handle, area);
 			}

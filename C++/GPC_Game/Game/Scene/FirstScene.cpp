@@ -13,7 +13,7 @@ void FirstScene::Start()
 	Damage.str = "0";
 
 	BG.Content = "background";
-	BG.Length = { 1280 * 3, 720 * 3};
+	BG.Length = { 1280 * 10, 1280 * 10};
 
 	BGmusic.Content = "BGM";
 	BGmusic.volume = 0.1f;
@@ -38,14 +38,54 @@ void FirstScene::Start()
 
 	Camera = new Rendering::Camera();
 	GetCameraManager->Init(BG, GetPlayer->GetCharacter(), Camera);
+
+	
+	for (int i = 0; i < 400; i++)
+	{
+		map.push_back(std::vector<Rendering::Tilemap::Tile>(400, Rendering::Tilemap::Tile::Ground));
+	}
+	Tileset.Content = "Dungeon_Tileset";
+	Tileset.Length = { 16*2, 16*2 };
+	Tileset.Location = { 0, 0 };
+
+	map[199][199] = Rendering::Tilemap::Tile::Wall;
+	map[199][200] = Rendering::Tilemap::Tile::Wall;
+	map[200][199] = Rendering::Tilemap::Tile::Wall;
+	map[200][200] = Rendering::Tilemap::Tile::Wall;
+
+
+	map[209][209] = Rendering::Tilemap::Tile::Wall;
+	map[209][210] = Rendering::Tilemap::Tile::Wall;
+	map[210][209] = Rendering::Tilemap::Tile::Wall;
+	map[210][210] = Rendering::Tilemap::Tile::Wall;
 }
 
 bool FirstScene::Update()
 {
 	BG.Draw();
+
+	int curr_cam_i = static_cast<int>(Camera->Location[1] / 32);
+	int	curr_cam_j = static_cast<int>(Camera->Location[0] / 32);
+
+	int start_i = 188 - curr_cam_i;
+	int start_j = 179 + curr_cam_j;
+
+	/*std::cout << (Tileset.Location != vector<2>(-32 * 21 + static_cast<int>(Camera->Location[0]), 32 * 12 + static_cast<int>(Camera->Location[1]))) << std::endl;*/
+	
+	Tileset.Location = { -32 * 21 + static_cast<int>(Camera->Location[0]), 32 * 12 + static_cast<int>(Camera->Location[1]) };
+	for (int i = start_i; i < start_i + 24; i++)
+	{
+		for (int j = start_j; j < start_j + 42; j++)
+		{
+			Tileset.Location += vector<2>(32, 0);
+			Tileset.Draw(map[i][j]);
+		}
+		Tileset.Location -= vector<2>(32 * 42, 32);
+	}
+
 	Camera->Set();
 	GetPlayer->Update();
-	
+
 	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
 
 	if (Input::Get::Key::Down(VK_LBUTTON) && !GetPlayer->IsRoll())
@@ -119,7 +159,7 @@ bool FirstScene::Update()
 			Camera->Location += normalize(dir) * 1000 * Time::Get::Delta();
 		}
 	}
-
+	
 	GetCameraManager->CameraRange();
 	Damage.Draw();
     return false;

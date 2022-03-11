@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <random>
+#include <math.h>
 
 #include "Engine/Collision.h"
 #include "Engine/Input.h"

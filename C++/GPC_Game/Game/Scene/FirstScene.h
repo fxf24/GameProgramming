@@ -21,5 +21,8 @@ private :
 	Rendering::Camera*				Camera;
 
 	Sound::Sound					BGmusic;
+
+	Rendering::Tilemap::Component Tileset;
+	std::vector< std::vector<Rendering::Tilemap::Tile>> map;
 };
 

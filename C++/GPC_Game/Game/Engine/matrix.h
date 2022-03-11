@@ -77,6 +77,16 @@ public:
         return *this = *this - M;
     }
 
+    auto const operator !=(matrix<m, n> const& M)
+    {
+        matrix<m, n> check = *this;
+        for (size_t i = 0; i < m; ++i)
+            for (size_t j = 0; j < n; ++j)
+                if (check.elements[i][j] != M.elements[i][j])
+                    return true;
+        return false;
+    }
+
     template<size_t l>
     auto const operator *(matrix<n, l> const & M) const
     {
