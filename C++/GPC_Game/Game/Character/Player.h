@@ -10,6 +10,7 @@ private :
 	Rendering::Animation::Component* character;
 	bool isRoll = false;
 	vector<2> roll_direction;
+	vector<2> curr_direction;
 	int hp;
 	Collision::RectAngle Hitbox;
 
@@ -26,6 +27,14 @@ public :
 	Rendering::Animation::Component* GetCharacter()
 	{
 		return character;
+	}
+	vector<2> GetCurrDirection()
+	{
+		return curr_direction;
+	}
+	vector<2> GetRollDirection()
+	{
+		return roll_direction;
 	}
 	bool IsRoll()
 	{

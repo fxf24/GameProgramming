@@ -72,8 +72,12 @@ namespace Rendering
 		{
 			Empty,
 			Ground,
-			Wall,
-			Door,
+			Top_Wall,
+			Left_Wall,
+			Right_Wall,
+			Bottom_Wall,
+			Left_Door,
+			Right_Door,
 			Portal
 		};
 

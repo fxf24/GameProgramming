@@ -232,24 +232,43 @@ namespace Rendering
 					case Tile::Empty:
 						break;
 					case Tile::Ground:
-						cat_i = 7;
-						cat_j = 0;
+						cat_i = 2;
+						cat_j = 2;
 						break;
-					case Tile::Wall	 :
+					case Tile::Top_Wall	 :
 						cat_i = 2;
 						cat_j = 0;
 						break;
-					case Tile::Door	 :
+					case Tile::Left_Wall :
+						break;
+					case Tile::Right_Wall:
+						cat_i = 5;
+						cat_j = 1;
+						break;
+					case Tile::Bottom_Wall:
+						cat_i = 1;
+						cat_j = 4;
+						break;
+					case Tile::Left_Door:
+						cat_i = 6;
+						cat_j = 3;
+						break;
+					case Tile::Right_Door:
+						cat_i = 8;
+						cat_j = 3;
 						break;
 					case Tile::Portal:
 						break;
 				}
 
-				area = {
-					image.Frame.cx * (cat_i + 0), image.Frame.cy * (cat_j + 0),
-					image.Frame.cx * (cat_i + 1), image.Frame.cy * (cat_j + 1),
-				};
-
+				if (tile == Tile::Empty) {}
+				else
+				{
+					area = {
+						image.Frame.cx * (cat_i + 0), image.Frame.cy * (cat_j + 0),
+						image.Frame.cx * (cat_i + 1), image.Frame.cy * (cat_j + 1),
+					};
+				}
 				Texture::Render(image.handle, area);
 			}
 		}

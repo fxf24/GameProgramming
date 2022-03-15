@@ -169,6 +169,7 @@
     <ClInclude Include="Manager\SceneManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\FirstScene.h" />
+    <ClInclude Include="Manager\Tilemanager.h" />
     <ClInclude Include="Util\IObjectPoolable.h" />
     <ClInclude Include="Util\ObjectPool.h" />
   </ItemGroup>
@@ -183,6 +184,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Scene\FirstScene.cpp" />
+    <ClCompile Include="Manager\Tilemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Animation\Bulletman\bulletman_death_front[4].png">

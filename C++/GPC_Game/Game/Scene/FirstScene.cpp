@@ -12,9 +12,6 @@ void FirstScene::Start()
 	Damage.Color = { 255, 255, 255 };
 	Damage.str = "0";
 
-	BG.Content = "background";
-	BG.Length = { 1280 * 10, 1280 * 10};
-
 	BGmusic.Content = "BGM";
 	BGmusic.volume = 0.1f;
 	BGmusic.Play();
@@ -37,8 +34,6 @@ void FirstScene::Start()
 	BulletPooling = new ObjectPool();
 
 	Camera = new Rendering::Camera();
-	GetCameraManager->Init(BG, GetPlayer->GetCharacter(), Camera);
-
 	
 	for (int i = 0; i < 400; i++)
 	{
@@ -47,26 +42,30 @@ void FirstScene::Start()
 			floor.push_back( Rendering::Tilemap::Component("Dungeon_Tileset", 
 				{32, 32}, 
 				{-(1280 * 5)+ (j * 32), (1280 * 5) - (i * 32)},
-				Rendering::Tilemap::Tile::Ground));
+				Rendering::Tilemap::Tile::Empty));
 		}
 		map.push_back(floor);
 	}
 
-	map[199][199].tile = Rendering::Tilemap::Tile::Wall;
-	map[199][200].tile = Rendering::Tilemap::Tile::Wall;
-	map[200][199].tile = Rendering::Tilemap::Tile::Wall;
-	map[200][200].tile = Rendering::Tilemap::Tile::Wall;
-				 
-	map[209][209].tile = Rendering::Tilemap::Tile::Wall;
-	map[209][210].tile = Rendering::Tilemap::Tile::Wall;
-	map[210][209].tile = Rendering::Tilemap::Tile::Wall;
-	map[210][210].tile = Rendering::Tilemap::Tile::Wall;
+	for (int i = 180; i < 223; i++)
+	{
+		map[188][i].tile = Rendering::Tilemap::Tile::Top_Wall;
+		for (int j = 189; j < 214; j++)
+		{
+			map[j][i].tile = Rendering::Tilemap::Tile::Ground;
+		}
+		map[214][i].tile = Rendering::Tilemap::Tile::Bottom_Wall;
+	}
+
+	for (int i = 188; i < 214; i++)
+	{
+		map[i][179].tile = Rendering::Tilemap::Tile::Left_Wall;
+		map[i][223].tile = Rendering::Tilemap::Tile::Right_Wall;
+	}
 }
 
 bool FirstScene::Update()
 {
-	BG.Draw();
-
 	int curr_cam_i = static_cast<int>(Camera->Location[1] / 32);
 	int	curr_cam_j = static_cast<int>(Camera->Location[0] / 32);
 
@@ -77,6 +76,27 @@ bool FirstScene::Update()
 	{
 		for (int j = start_j; j < start_j + 44; j++)
 		{
+			if (map[i][j].tile == Rendering::Tilemap::Tile::Top_Wall 
+				|| map[i][j].tile == Rendering::Tilemap::Tile::Right_Wall
+				|| map[i][j].tile == Rendering::Tilemap::Tile::Left_Wall
+				|| map[i][j].tile == Rendering::Tilemap::Tile::Bottom_Wall)
+			{
+				GetTilemanager->Init(
+					map[i][j],
+					GetPlayer->GetCharacter()
+				);
+
+				Collision::RectAngle wall{
+					map[i][j].Length,
+					0,
+					map[i][j].Location
+				};
+				
+				if (Collision::Collide(GetPlayer->GetCharacterHitbox(), wall))
+				{
+					GetTilemanager->TileRange();
+				}
+			}
 			map[i][j].Draw();
 		}
 	}
@@ -158,7 +178,6 @@ bool FirstScene::Update()
 		}
 	}
 	
-	GetCameraManager->CameraRange();
 	Damage.Draw();
     return false;
 }
@@ -169,6 +188,5 @@ void FirstScene::End()
 	{
 		delete e;
 	}
-	GetCameraManager->DeInit();
 	Sound::EndPlay();
 }

@@ -68,6 +68,7 @@ bool Player::Update()
 		}
 	}
 
+	curr_direction = direction;
 	if (isRoll)
 	{
 		character->Duration = 0.5f;

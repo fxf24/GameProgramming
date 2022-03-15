@@ -14,7 +14,6 @@ class FirstScene : public Scene
 private :
 	ObjectPool* BulletPooling;
 	std::vector<Enemy*> enemies;
-	Rendering::Image::Component		BG;
 
 	Rendering::Text::Component		Damage;
 	
