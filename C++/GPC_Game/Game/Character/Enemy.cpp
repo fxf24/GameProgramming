@@ -118,8 +118,9 @@ void Enemy::End()
 
 Collision::RectAngle Enemy::GetCharacterHitbox()
 {
+	vector<2> hit = { character.Length[0] * 0.8, character.Length[1] * 0.8 };
 	Hitbox = Collision::RectAngle{
-		character.Length,
+		hit,
 		0,
 		character.Location
 	};

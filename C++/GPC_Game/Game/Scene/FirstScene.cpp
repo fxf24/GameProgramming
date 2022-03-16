@@ -12,7 +12,7 @@ void FirstScene::Start()
 	Damage.Color = { 255, 255, 255 };
 	Damage.str = "0";
 
-	BGmusic.Content = "BGM";
+	BGmusic.Content = "LEAD_LORDS_KEEP";
 	BGmusic.volume = 0.1f;
 	BGmusic.Play();
 
@@ -35,33 +35,9 @@ void FirstScene::Start()
 
 	Camera = new Rendering::Camera();
 	
-	for (int i = 0; i < 400; i++)
-	{
-		std::vector< Rendering::Tilemap::Component> floor;
-		for (int j = 0; j < 400; j++) {
-			floor.push_back( Rendering::Tilemap::Component("Dungeon_Tileset", 
-				{32, 32}, 
-				{-(1280 * 5)+ (j * 32), (1280 * 5) - (i * 32)},
-				Rendering::Tilemap::Tile::Empty));
-		}
-		map.push_back(floor);
-	}
+	GetTilemanager->GenerateMap();
 
-	for (int i = 180; i < 223; i++)
-	{
-		map[188][i].tile = Rendering::Tilemap::Tile::Top_Wall;
-		for (int j = 189; j < 214; j++)
-		{
-			map[j][i].tile = Rendering::Tilemap::Tile::Ground;
-		}
-		map[214][i].tile = Rendering::Tilemap::Tile::Bottom_Wall;
-	}
-
-	for (int i = 188; i < 214; i++)
-	{
-		map[i][179].tile = Rendering::Tilemap::Tile::Left_Wall;
-		map[i][223].tile = Rendering::Tilemap::Tile::Right_Wall;
-	}
+	map = GetTilemanager->GetMap();
 }
 
 bool FirstScene::Update()
