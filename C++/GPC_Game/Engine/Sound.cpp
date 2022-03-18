@@ -141,7 +141,7 @@ namespace Sound
         MUST(XAudio2->CreateSourceVoice(&handle->SourceVoice, (WAVEFORMATEX*)&wfx));
 
         {
-            size_t const x = file.find_first_of('/') + sizeof(char);
+            size_t const x = file.find_last_of('/') + sizeof(char);
             size_t const y = file.find_last_of('.');
 
             Storage.try_emplace(file.substr(x, y - x), handle);

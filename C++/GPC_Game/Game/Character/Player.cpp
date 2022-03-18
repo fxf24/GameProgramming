@@ -3,13 +3,6 @@
 #include <iostream>
 using namespace Rendering::Animation;
 
-Player::Player()
-{
-	
-
-	
-}
-
 void Player::Start()
 {
 	character = new Rendering::Animation::Component();
@@ -19,6 +12,9 @@ void Player::Start()
 	character->Repeatable = true;
 	character->Duration = 1.0f;
 	character->view = View::idle;
+
+	player_sound.Content = "boot_stone_01";
+	player_sound.volume = 0.3f;
 }
 
 bool Player::Update()
@@ -86,6 +82,11 @@ bool Player::Update()
 	if (length(direction) != 0 && !isRoll) 
 	{
 		character->Location += normalize(direction) * 500 * Time::Get::Delta();
+		player_sound.Content = "boot_stone_01";
+		if (character->Playback >= 0.01f && character->Playback <= 0.02f 
+			|| character->Playback >= 0.31f && character->Playback <= 0.32f
+			|| character->Playback >= 0.61f && character->Playback <=0.62f)
+			player_sound.Play();
 		//std::cout << "Player Location :" << character->Location[0] << " : " << character->Location[1] << std::endl;
 	}
 
@@ -105,6 +106,10 @@ bool Player::Update()
 			break;
 		}
 		roll_direction = direction;
+
+		player_sound.Content = "dodge_roll_01";
+		player_sound.loop = false;
+		player_sound.Play();
 	}
 
 	character->Draw();

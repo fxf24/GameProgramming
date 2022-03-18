@@ -8,15 +8,17 @@ class Player : public Character, public Singleton<Player>
 {
 private :
 	Rendering::Animation::Component* character;
+	Rendering::Animation::Component gun;
+	std::vector < std::string > inventory;
 	bool isRoll = false;
 	vector<2> roll_direction;
 	vector<2> curr_direction;
-	int hp;
+	int curr_hp = 6;
+	int full_hp = 6;
 	Collision::RectAngle Hitbox;
+	Sound::Sound player_sound;
 
 public :
-	Player();
-
 	virtual void Start() override;
 	virtual bool Update() override;
 	virtual void End() override;

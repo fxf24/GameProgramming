@@ -20,6 +20,7 @@ private :
 	Rendering::Camera*				Camera;
 
 	Sound::Sound					BGmusic;
+	Sound::Sound					bullet_sound;
 
 	std::vector< std::vector< Rendering::Tilemap::Component>> map;
 };

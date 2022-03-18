@@ -13,8 +13,11 @@ void FirstScene::Start()
 	Damage.str = "0";
 
 	BGmusic.Content = "LEAD_LORDS_KEEP";
-	BGmusic.volume = 0.1f;
+	BGmusic.volume = 0.05f;
 	BGmusic.Play();
+
+	bullet_sound.Content = "duelingpistol_shot_01";
+	bullet_sound.volume = 0.1f;
 
 	std::random_device rd;
 
@@ -80,8 +83,6 @@ bool FirstScene::Update()
 	Camera->Set();
 	GetPlayer->Update();
 
-	if (Input::Get::Key::Down(0x31)) BGmusic.Pause();
-
 	if (Input::Get::Key::Down(VK_LBUTTON) && !GetPlayer->IsRoll())
 	{
 		float x = static_cast<float>(Input::Get::Cursor::X());
@@ -98,6 +99,7 @@ bool FirstScene::Update()
 			BulletPooling->GetRecycledObject<Bullet>();
 
 		bullet->Shoot(GetPlayer->GetCharacter()->Location, dir);
+		bullet_sound.Play();
 	}
 
 	for (auto bullet : BulletPooling->PoolObjects)
@@ -146,8 +148,8 @@ bool FirstScene::Update()
 		}
 	}
 	else {
-		if (!(Camera->Location[0] <= GetPlayer->GetCharacter()->Location[0] + 1 && Camera->Location[0] >= GetPlayer->GetCharacter()->Location[0] - 1)
-			|| !(Camera->Location[1] <= GetPlayer->GetCharacter()->Location[1] + 1 && Camera->Location[1] >= GetPlayer->GetCharacter()->Location[1] - 1))
+		if (!(Camera->Location[0] < GetPlayer->GetCharacter()->Location[0] + 1 && Camera->Location[0] > GetPlayer->GetCharacter()->Location[0] - 1)
+			|| !(Camera->Location[1] < GetPlayer->GetCharacter()->Location[1] + 1 && Camera->Location[1] > GetPlayer->GetCharacter()->Location[1] - 1))
 		{
 			vector<2> dir = GetPlayer->GetCharacter()->Location - Camera->Location;
 			Camera->Location += normalize(dir) * 1000 * Time::Get::Delta();

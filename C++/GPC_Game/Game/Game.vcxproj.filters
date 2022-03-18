@@ -160,5 +160,49 @@
     <Image Include="Tileset\Dungeon_Tileset[10][10].png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Animation\Weapon\dueling_pistol_idle[2].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\Weapon\dueling_pistol_reload[3].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\Weapon\dueling_pistol_shoot[3].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\Weapon\shotgun_fire[4].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\Weapon\shotgun_idle[2].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\Weapon\shotgun_reload[3].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Animation\EnemyWeapon\shotgun_enemy_fire[3].png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\players\boot_stairs_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\players\dodge_roll_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\shotgun\shotgun_reload_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\shotgun\shotgun_shot_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\pistol\duelingpistol_reload_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\pistol\duelingpistol_shot_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Sound\players\boot_stone_01.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>
